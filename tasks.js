@@ -1,6 +1,6 @@
 // Ежедневные задания и бонус дня
 function tqE(){var k=dk(new Date());if(!S.tq||S.tq.day!=k)S.tq={day:k,p:{},c:{}}}
-function tq(id,n){tqE();var t=TASKS.filter(function(x){return x.id==id})[0];if(!t)return;S.tq.p[id]=Math.min(t.goal,(S.tq.p[id]||0)+(n||1));save()}
+function tq(id,n){tqE();var t=TASKS.filter(function(x){return x.id==id})[0];if(!t)return;var b=S.tq.p[id]||0;S.tq.p[id]=Math.min(t.goal,b+(n||1));save();if(b<t.goal&&S.tq.p[id]>=t.goal){hap({type:'notification',notification_type:'success'});toast('✅ Задание выполнено: '+t.title)}}
 function allClaimed(){return TASKS.every(function(t){return S.tq.c[t.id]})}
 function claimable(){tqE();var n=0;TASKS.forEach(function(t){if((S.tq.p[t.id]||0)>=t.goal&&!S.tq.c[t.id])n++});if(allClaimed()&&!S.tq.c.chest)n++;return n}
 function chestInfo(){var y=new Date();y.setDate(y.getDate()-1);var n=(S.lastChest==dk(y))?(S.streak||0)+1:1;return{n:n,rew:200+50*(Math.min(n,7)-1)}}

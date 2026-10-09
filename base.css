@@ -35,3 +35,4 @@ html,body{margin:0;min-height:100%;overflow-x:hidden;background:var(--bg);color:
 .sh p{font-size:18px;font-weight:600;text-align:center;margin:0 0 18px;line-height:1.35}
 .nav{height:42px;margin-bottom:10px}
 .sec{color:var(--sub);font-size:13px;text-transform:uppercase;margin:18px 14px 6px}
+.noanim .lotc,.noanim .ccard,.noanim .ab,.noanim .abrow,.noanim .tk{animation:none!important}

@@ -17,4 +17,5 @@ var BOTS=[['crypto_king',4200],['neo_wolf',1800],['dubai_boss',900],['lena_star'
 var RATE=50000;
 var RNG={common:[1,5],norm:[5,20],rare:[20,80],epic:[80,300],legend:[300,1000],mythic:[1000,5000],divine:[5000,20000]};
 var TASKS=[{id:'spin10',title:'Сделай 10 прокруток',goal:10,rew:50},{id:'keep3',title:'Оставь 3 ника в коллекции',goal:3,rew:40},{id:'sell5',title:'Продай 5 ников',goal:5,rew:40},{id:'rare1',title:'Выбей редкий ник или выше',goal:1,rew:150},{id:'bid1',title:'Сделай ставку на аукционе',goal:1,rew:30},{id:'list1',title:'Выставь ник на аукцион',goal:1,rew:30}];
-var COST=10;
+var COST=100;
+var XPT={common:1,norm:2,rare:5,epic:15,legend:40,mythic:100,divine:300};

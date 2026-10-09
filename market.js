@@ -19,7 +19,7 @@ function bid(id){var l=(S.lots||[]).filter(function(x){return x.id==id})[0];if(!
 function auTick(){var now=Date.now(),ch=false;S.lots=S.lots||[];
  S.lots=S.lots.filter(function(l){if(l.endsAt>now)return true;ch=true;var rec={u:l.u,tier:l.tier,base:l.base,odds:oddsOf(tier(l.tier))};
   if(l.mine){if(l.bidder){var g=l.cc=='ton'?r3(l.price*.95):Math.floor(l.price*.95);if(l.cc=='ton')S.ton=r3((S.ton||0)+g);else S.yuz+=g;toast('💰 Лот продан: @'+l.u+' · +'+cash(g,l.cc))}else{S.coll.unshift(rec);toast('@'+l.u+' не продан, вернулся в коллекцию')}}
-  else if(l.bidder=='me'){S.coll.unshift(rec);toast('🏆 Ты выиграл @'+l.u)}
+  else if(l.bidder=='me'){S.coll.unshift(rec);noteBest(rec);toast('🏆 Ты выиграл @'+l.u)}
   return false});
  S.lots.forEach(function(l){
   if(l.mine){if(Math.random()<.07&&l.price<(l.cc=='ton'?worth(l)/RATE*1.3+.001:worth(l)*4+4)){l.price=minBid(l);l.bidder='bot';ch=true}}

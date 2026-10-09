@@ -1,8 +1,9 @@
 // Запуск: обработчики нажатий и инициализация
 if(!S.g1){S.g1=1;S.yuz=(S.yuz||0)+10000;save()}
 if(!S.g2){S.g2=1;S.ton=r3((S.ton||0)+0.5);save()}
+if(!S.g3){S.g3=1;S.xp=Math.round((S.spins||0)*4.6);S.pity=0;save()}
 document.addEventListener('click',function(e){
- var el=e.target.closest('[data-go],[data-act],[data-pick],[data-sell],[data-theme],[data-tg],[data-mt],[data-bid],[data-lp],[data-lpp],[data-ld],[data-cur],[data-tu],[data-am],[data-hf],[data-cf],[data-cs],[data-claim],[data-pt],[data-lc],[data-xch],[data-tt]');if(!el)return;
+ var el=e.target.closest('[data-go],[data-act],[data-pick],[data-sell],[data-theme],[data-tg],[data-mt],[data-bid],[data-lp],[data-lpp],[data-ld],[data-cur],[data-tu],[data-am],[data-hf],[data-cf],[data-cs],[data-claim],[data-pt],[data-lc],[data-xch],[data-tt],[data-pc]');if(!el)return;
  var d=el.dataset;
  if(d.go){go(d.go);}
  else if(d.pick){S.main=d.pick;S.pinned=true;save();toast('Основной: @'+d.pick);hap({type:'selection_change'});draw()}
@@ -19,6 +20,7 @@ document.addEventListener('click',function(e){
  else if(d.ld){LD=+d.ld;draw()}
  else if(d.claim){tqE();var tk=TASKS.filter(function(x){return x.id==d.claim})[0];if(tk&&!S.tq.c[tk.id]&&(S.tq.p[tk.id]||0)>=tk.goal){S.tq.c[tk.id]=1;S.yuz+=tk.rew;save();hap({type:'notification',notification_type:'success'});toast('🎁 +'+money(tk.rew)+' · '+tk.title);draw()}}
  else if(d.pt!==undefined){PT=+d.pt;draw()}
+ else if(d.pc!==undefined){S.cf=+d.pc;save();go('coll')}
  else if(d.cf!==undefined){S.cf=+d.cf;save();draw()}
  else if(d.cs!==undefined){S.cs=d.cs;save();draw()}
  else if(d.hf!==undefined){S.hf=+d.hf;save();draw()}
@@ -45,4 +47,5 @@ document.addEventListener('click',function(e){
   case 'reset':ask('Сбросить весь прогресс?','Сбросить',function(){S={coll:[],hist:[],spins:0,yuz:10000,g1:1,xp:0,luck:0,theme:S.theme};cur=null;save();go('home')});break}
 });
 tgPost('web_app_ready');tgPost('web_app_expand');tgPost('web_app_setup_swipe_behavior',{allow_vertical_swipe:false});
-S.since=S.since||Date.now();S.lots=S.lots||[];S.rare=S.rare||S.hist.filter(function(c){return ti(c.tier)>=2});theme();draw();auTick();setInterval(auTick,1000);
+S.since=S.since||Date.now();S.lots=S.lots||[];S.rare=S.rare||S.hist.filter(function(c){return ti(c.tier)>=2});if(!S.best){var _b=null;(S.coll||[]).concat(S.rare||[],S.hist||[]).forEach(function(c){if(!_b||worth(c)>worth(_b))_b=c});if(_b){noteBest(_b);save()}}
+theme();draw();auTick();setInterval(auTick,1000);
