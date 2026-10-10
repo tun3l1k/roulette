@@ -59,3 +59,5 @@ details.mult .go{border-top:1px solid var(--sep)}
 .shm b{display:block;font-size:16px}
 .shm small{color:var(--sub);font-size:13px}
 .v svg{vertical-align:-3px}
+.inp{width:100%;height:48px;border-radius:14px;border:1px solid var(--sep);background:var(--grp);color:var(--text);padding:0 14px;font-size:17px;outline:none}
+.inp:focus{border-color:var(--blue)}

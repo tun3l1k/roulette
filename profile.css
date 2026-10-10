@@ -41,3 +41,24 @@
 .ptabs{border-radius:22px;padding:3px}
 .ptabs button{padding:8px 4px;font-size:15px;border-radius:19px}
 .pbody .pbtn{height:42px;font-size:15px}
+
+.prembadge{display:inline-block;font-size:12px;font-weight:700;color:#fff;background:linear-gradient(135deg,#a259f7,#ff5d8f);border-radius:10px;padding:2px 8px;vertical-align:middle}
+.rcard{background:var(--grp);border-radius:20px;padding:14px 16px}
+.rtop{display:flex;justify-content:space-between;align-items:center}
+.rtop small{display:block;color:var(--sub);font-size:13px}.rtop b{font-size:20px}
+.rseg{display:flex;height:12px;border-radius:6px;overflow:hidden;gap:2px;margin:12px 0 8px}
+.rseg i{display:block;min-width:4px}
+.rrow{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--sep)}
+.rrow.z{opacity:.45}
+.rdot{width:12px;height:12px;border-radius:50%;flex:none}
+.rn{width:104px;font-size:15px;flex:none}
+.rbar{flex:1;height:6px;background:var(--sep);border-radius:3px;overflow:hidden}
+.rbar i{display:block;height:100%;border-radius:3px}
+.rrow b{width:26px;text-align:right;font-size:15px}.rrow small{width:36px;text-align:right;color:var(--sub);font-size:12px}
+.hlist{display:flex;flex-direction:column;gap:8px}
+.hday{color:var(--sub);font-size:13px;font-weight:600;margin:10px 4px 0;text-transform:uppercase}
+.hc{display:flex;align-items:center;gap:12px;border-radius:18px;padding:10px 12px;border:1px solid var(--sep)}
+.hav{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:18px;flex:none}
+.hm{flex:1;min-width:0}.hm b{display:block;font-size:17px;word-break:break-all}
+.hb{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px}
+.hr{text-align:right;flex:none}.hr b{display:block;font-size:15px}.hr small{color:var(--sub);font-size:12px}

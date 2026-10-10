@@ -27,3 +27,17 @@
 .mbal2 .bnum{display:flex;align-items:center;gap:7px}
 .mbal2 b{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums}
 .mbal2 .bdiv{width:1px;height:44px;background:rgba(255,255,255,.25)}
+
+.mlist{padding:0}
+.mrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px}
+.mrow+.mrow{border-top:1px solid var(--sep)}
+.mleft{display:flex;align-items:center;gap:12px;min-width:0;flex:1}
+.mav{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:21px;flex:none}
+.mmid{min-width:0}.mmid b{display:block;font-size:17px;word-break:break-all}
+.msub{color:var(--sub);font-size:12.5px;margin-top:1px}
+.mtags{display:flex;align-items:center;gap:5px;margin-top:3px;flex-wrap:wrap}
+.mtags .tm{margin-left:0;background:var(--bg);padding:1px 8px;border-radius:10px}
+.mright{text-align:right;flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.mprice{font-weight:800;font-size:16px}.mst{color:var(--sub);font-size:12px}
+.mbt{display:flex;gap:6px}
+.pbtn.gray{background:var(--sep);color:var(--text);border-color:transparent}

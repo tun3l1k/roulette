@@ -36,3 +36,6 @@ html,body{margin:0;min-height:100%;overflow-x:hidden;background:var(--bg);color:
 .nav{height:42px;margin-bottom:10px}
 .sec{color:var(--sub);font-size:13px;text-transform:uppercase;margin:18px 14px 6px}
 .noanim .lotc,.noanim .ccard,.noanim .ab,.noanim .abrow,.noanim .tk{animation:none!important}
+html,body{touch-action:manipulation;-webkit-touch-callout:none}
+body{-webkit-user-select:none;user-select:none}
+input{-webkit-user-select:text;user-select:text}

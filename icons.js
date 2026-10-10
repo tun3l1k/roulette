@@ -10,9 +10,13 @@ gear:sv('<path fill="#fff" stroke="none" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-
 layers:sv('<path d="M12 3 3 8l9 5 9-5-9-5z" fill="#fff"/><path d="M3 12.5l9 5 9-5M3 16.5l9 5 9-5"/>'),
 clock:sv('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>'),
 task:sv('<path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h9"/>'),
+bag:sv('<path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/>'),
+wheel:sv('<circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/>'),
 gift:sv('<rect x="3" y="8" width="18" height="4" rx="1" fill="#fff" stroke="none"/><path d="M5 12v8h14v-8M12 8v12M12 8c-2-4-6-3-5 0 .6 1.6 3.5 1 5 0M12 8c2-4 6-3 5 0-.6 1.6-3.5 1-5 0"/>'),
 auto:sv('<path d="M13 2 4 14h7l-1 8 9-12h-7z" fill="#fff" stroke="none"/>'),
 trophy:sv('<path d="M7 4h10v5a5 5 0 0 1-10 0V4z" fill="#fff"/><path d="M7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3M12 14v4M8 21h8M9 18h6"/>'),
 shop:sv('<path d="M4 4h16l1.2 5a3.2 3.2 0 0 1-6.4 0 3.2 3.2 0 0 1-6.4 0 3.2 3.2 0 0 1-6.4 0L4 4z" fill="#fff" stroke="none"/><path d="M5 12v8h14v-8M10 20v-5h4v5"/>')};
 var PLUSC='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#fff"/><path d="M12 7v10M7 12h10" stroke="#4a7fe6" stroke-width="2.4" stroke-linecap="round"/></svg>',
 TAGC='<svg viewBox="0 0 24 24"><path d="M3 12.5V4.5A1.5 1.5 0 0 1 4.5 3h8L21 11.5 12.5 20z" fill="#fff"/><circle cx="8" cy="8" r="1.7" fill="#4a7fe6"/></svg>';
+var AUTOI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg>';
+var WA4='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>';

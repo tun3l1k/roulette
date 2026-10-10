@@ -1,0 +1,5 @@
+/* Колесо фортуны */
+.wheelwrap{position:relative;width:min(86vw,340px);margin:26px auto 18px}
+.wheel{width:100%;display:block;filter:drop-shadow(0 10px 24px rgba(40,60,180,.45));border-radius:50%}
+.wptr{position:absolute;left:50%;top:-16px;transform:translateX(-50%);z-index:2;filter:drop-shadow(0 3px 4px rgba(0,0,0,.4))}
+.wmeta{margin-top:6px}

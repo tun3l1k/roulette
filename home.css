@@ -41,3 +41,9 @@
 .bal2 .bd{width:1px;height:18px;background:var(--sep)}
 .avawrap.p2{width:96px;height:96px;margin:-38px auto 0}
 .pity{text-align:center;color:var(--sub);font-size:13px;margin-top:14px}
+.spinrow{display:flex;gap:10px;margin-top:18px}
+.spinrow .big{width:auto;flex:1;margin-top:0}
+.autob{width:78px;border-radius:30px;border:1px solid var(--sep);background:var(--grp);color:var(--blue);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:12px;font-weight:700;padding:0 4px}
+.autob svg{width:22px;height:22px}
+.autob.on{background:linear-gradient(180deg,#ff6a5f,#ff3b30);color:#fff;border-color:transparent;animation:autop 1.4s ease-in-out infinite}
+@keyframes autop{0%,100%{box-shadow:0 0 0 0 rgba(255,59,48,.55)}50%{box-shadow:0 0 0 10px rgba(255,59,48,0)}}

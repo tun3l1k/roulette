@@ -12,6 +12,7 @@ function toast(m){TQ_.push(m);if(TQ_.length>4)TQ_.shift();if(!TB_)nextToast()}
 function nextToast(){var m=TQ_.shift();if(m===undefined){TB_=false;return}TB_=true;var t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){if(TQ_.length)nextToast();else{t.classList.remove('show');TB_=false}},TQ_.length?1500:2400)}
 function abbr(n){n=Math.round(n);if(n<1000)return String(n);var U=[[1e12,'трлн'],[1e9,'млрд'],[1e6,'м'],[1e3,'к']];
  for(var i=0;i<U.length;i++){if(n>=U[i][0]){var v=n/U[i][0],s=v<10?Math.floor(v*100+1e-9)/100:v<100?Math.floor(v*10+1e-9)/10:Math.floor(v);return String(s).replace('.',',')+U[i][1]}}return String(n)}
+function applySize(){document.documentElement.setAttribute('data-bs',S.bsize||'m')}
 function theme(){var r=document.documentElement;if(S.theme=='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',S.theme)}
 function esc(t){return String(t).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function fm(m){return String(Math.round(m*10)/10).replace('.',',')}
