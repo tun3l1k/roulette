@@ -28,3 +28,28 @@
 .txi.up{background:rgba(52,199,89,.16);color:#34c759}.txi.dn{background:rgba(255,106,95,.16);color:#ff6a5f}
 .txm{flex:1;min-width:0}.txm b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.txm small{color:var(--sub);font-size:12px}
 .txa{font-weight:700;font-size:15px;white-space:nowrap}
+
+.bbar{display:flex;align-items:center;gap:12px;background:var(--grp);border-radius:22px;padding:10px 12px;border:1px solid var(--sep)}
+.bar2{margin:0}
+.bav{width:48px;height:48px;border-radius:50%;overflow:hidden;position:relative;background:linear-gradient(135deg,#2AABEE,#229ED9);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:20px;border:2px solid #7c5cf0;flex:none}
+.bmid{flex:1;min-width:0}.bmid small{display:block;color:var(--sub);font-size:13px}
+.bnums{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.bn1{display:flex;align-items:center;gap:6px}
+.bn1 b{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.3px}
+.dec{opacity:.5;font-weight:600}
+.bplus{border:0;border-radius:16px;background:linear-gradient(135deg,#8a63f5,#6a4be0);color:#fff;font-weight:700;font-size:15px;padding:12px 15px;display:flex;align-items:center;gap:7px;flex:none}
+.bplus svg{width:20px;height:20px}
+.bplus:active{transform:scale(.96)}
+.bbar+.avawrap{margin-top:16px}
+
+/* компактная панель баланса */
+.bbar{gap:9px;padding:6px 8px 6px 10px;border-radius:18px}
+.bav{width:34px;height:34px;font-size:15px;border-width:2px}
+.bmid small{font-size:11px;line-height:1.1}
+.bnums{gap:10px}
+.bn1{gap:4px}
+.bn1 svg{width:17px;height:17px}
+.bn1 b{font-size:16px;letter-spacing:0}
+.bplus{padding:8px 11px;border-radius:13px;font-size:13px;gap:5px}
+.bplus svg{width:16px;height:16px}
+.bbar+.avawrap{margin-top:14px}

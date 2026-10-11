@@ -16,7 +16,7 @@ function spin(){if(busy)return;
    cur=r;S.pending=r;noteBest(r);S.spins++;S.xp+=XPT[t.id];if(S.luck>0)S.luck--;S.pity=0;if(S.spins%500==0)S.pity=5;else if(S.spins%50==0)S.pity=2;if(S.pity)setTimeout(function(){toast('🍀 Гарант! Следующая прокрутка: удача ×'+S.pity)},1600);
    S.hist.unshift(r);if(S.hist.length>50)S.hist.pop();if(ti(r.tier)>=2){S.rare.unshift(r);if(S.rare.length>100)S.rare.pop()}save();
    if($('huname'))$('huname').style.opacity='1';paintHome(1);busy=false;
-   buzzEnd(r);tq('spin10');if(ti(r.tier)>=2)tq('rare1');if(Math.random()<.002){var tf=r3(.01+Math.random()*.04);S.ton=r3((S.ton||0)+tf);led('Находка TON');setTimeout(function(){toast('💎 Находка! +'+tonF(tf)+' TON');paintHome()},900)}
+   buzzEnd(r);tq('spin10');if(ti(r.tier)>=2)tq('rare1');if(Math.random()<.006){var gg=giveGift(randGiftType());setTimeout(function(){toast('🎁 Находка! Подарок «'+GT(gg.type).n+'»')},1100)}if(Math.random()<.002){var tf=r3(.01+Math.random()*.04);S.ton=r3((S.ton||0)+tf);led('Находка TON');setTimeout(function(){toast('💎 Находка! +'+tonF(tf)+' TON');paintHome()},900)}
    if(willAuto(r)){setTimeout(function(){if(S.pending===r){var g=worth(r);S.yuz+=g;led('Авто-продажа @'+r.u);S.autoLog=S.autoLog||[];S.autoLog.unshift({u:r.u,tier:r.tier,g:g,t:Date.now()});if(S.autoLog.length>20)S.autoLog.pop();S.autoN=(S.autoN||0)+1;S.autoSum=(S.autoSum||0)+g;tq('sell5');S.pending=null;cur=null;save();toast('💰 Авто-продажа @'+r.u+' · +'+money(g));paintHome(1)}},1200)}}else setTimeout(step,D[n])}setTimeout(step,D[0])}
 var TAGS=['короткий','имя','слово','зеркало','красивые цифры','топ-слово'];
 function keepTags(){return S.autoTags||TAGS}

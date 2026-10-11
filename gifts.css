@@ -1,0 +1,36 @@
+/* Подарки (NFT-стиль) */
+.ggrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gcard{border:0;background:var(--grp);color:var(--text);border-radius:20px;padding:10px;display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center}
+.gcard b{font-size:15px}.gcard small{color:var(--sub);font-size:12px}
+.gb{display:inline-block;border-radius:10px;padding:2px 10px;font-size:11px;font-weight:700;margin-top:2px}
+.gart{position:relative;width:100%;aspect-ratio:1;border-radius:16px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.gart.big{width:200px;height:200px;margin:8px auto 0;border-radius:28px;box-shadow:0 14px 34px rgba(0,0,0,.3)}
+.gart .ge{font-size:52px;position:relative;z-index:1;filter:drop-shadow(0 4px 6px rgba(0,0,0,.35))}
+.gart.big .ge{font-size:96px}
+.gsy{position:absolute;font-size:16px;opacity:.32}
+.gart.big .gsy{font-size:24px}
+.gmini{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex:none}
+
+.cgrid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ccase{border:0;background:var(--grp);color:var(--text);border-radius:22px;padding:0;overflow:hidden;text-align:left;display:block}
+.ccase.solo{border-radius:26px}
+.cart{position:relative;aspect-ratio:1/1.05;display:block;overflow:hidden}
+.cart.bigc{aspect-ratio:1/.8}
+.cart span{position:absolute;filter:drop-shadow(0 6px 8px rgba(0,0,0,.45))}
+.ca1{font-size:76px;left:50%;top:50%;transform:translate(-50%,-52%)}
+.ca2{font-size:34px;left:10%;top:14%}.ca3{font-size:34px;right:9%;bottom:16%}
+.cart.bigc .ca1{font-size:110px}.cart.bigc .ca2,.cart.bigc .ca3{font-size:46px}
+.ctag{left:10px;top:10px;font-size:11px;font-weight:800;letter-spacing:1.2px;color:#fff;border-radius:12px;padding:5px 10px;filter:none!important}
+.ctag.new{background:linear-gradient(135deg,#ffb020,#ff7a3a)}
+.ctag.lim{background:linear-gradient(135deg,#8c2a2a,#c4452d)}
+.cinfo{display:flex;justify-content:space-between;align-items:center;padding:12px 12px 14px}
+.cinfo b{font-size:17px}
+.cpr{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#8a63f5,#6a4be0);color:#fff;font-weight:700;font-size:14px;border-radius:14px;padding:6px 11px}
+.cwin{position:relative;overflow:hidden;border-radius:16px;background:var(--bg);margin:6px 0 14px;height:96px}
+.cstrip{display:flex;gap:4px;padding:8px 0 8px 0;will-change:transform}
+.ctile{flex:none;width:80px;height:80px;border-radius:14px;background:linear-gradient(145deg,#3a4a68,#1f2a40);display:flex;align-items:center;justify-content:center;font-size:42px}
+.cptr{position:absolute;left:50%;top:0;bottom:0;width:3px;margin-left:-1.5px;background:#ffb020;z-index:2;box-shadow:0 0 10px #ffb020}
+.cresc{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.cresc .gart{width:72px;height:72px;flex:none;border-radius:16px}
+.cresc .gart .ge{font-size:36px}
+.cresc b{display:block;font-size:17px}.cresc small{color:var(--sub);font-size:13px}

@@ -61,3 +61,4 @@ details.mult .go{border-top:1px solid var(--sep)}
 .v svg{vertical-align:-3px}
 .inp{width:100%;height:48px;border-radius:14px;border:1px solid var(--sep);background:var(--grp);color:var(--text);padding:0 14px;font-size:17px;outline:none}
 .inp:focus{border-color:var(--blue)}
+.cnt.plain{background:none;color:var(--sub);font-weight:600;min-width:0;padding:0;height:auto;font-size:15px}

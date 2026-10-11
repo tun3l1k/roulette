@@ -3,7 +3,7 @@ if(!S.g1){S.g1=1;S.yuz=(S.yuz||0)+10000;save()}
 if(!S.g2){S.g2=1;S.ton=r3((S.ton||0)+0.5);save()}
 if(!S.g3){S.g3=1;S.xp=Math.round((S.spins||0)*4.6);S.pity=0;save()}
 document.addEventListener('click',function(e){
- var el=e.target.closest('[data-go],[data-act],[data-pick],[data-sell],[data-theme],[data-tg],[data-mt],[data-bid],[data-lp],[data-lpp],[data-ld],[data-cur],[data-tu],[data-am],[data-hf],[data-cf],[data-cs],[data-claim],[data-pt],[data-lc],[data-xch],[data-tt],[data-pc],[data-buy],[data-cancel],[data-oacc],[data-orej],[data-lm],[data-bs],[data-bp],[data-mf],[data-ms],[data-ap],[data-ac],[data-at],[data-ar],[data-al]');if(!el)return;
+ var el=e.target.closest('[data-go],[data-act],[data-pick],[data-sell],[data-theme],[data-tg],[data-mt],[data-bid],[data-lp],[data-lpp],[data-ld],[data-cur],[data-tu],[data-am],[data-hf],[data-cf],[data-cs],[data-claim],[data-pt],[data-lc],[data-xch],[data-tt],[data-pc],[data-buy],[data-cancel],[data-oacc],[data-orej],[data-lm],[data-bs],[data-bp],[data-g],[data-adm],[data-mf],[data-ms],[data-ap],[data-ac],[data-at],[data-ar],[data-al]');if(!el)return;
  var d=el.dataset;
  if(d.go){go(d.go);}
  else if(d.pick){S.main=d.pick;S.pinned=true;save();toast('Основной: @'+d.pick);hap({type:'selection_change'});draw()}
@@ -12,6 +12,8 @@ document.addEventListener('click',function(e){
  else if(d.tu){S.yuz+=+d.tu;led('Тестовое пополнение');save();toast('+'+money(+d.tu)+' (тест)');draw()}
  else if(d.bs){S.bsize=d.bs;save();applySize();draw()}
  else if(d.bp){buyPack(d.bp)}
+ else if(d.g){gAct(d.g)}
+ else if(d.adm){admGrant(d.adm)}
  else if(d.mf){var pm=d.mf.split(':');S.mf=S.mf||{};S.mf[pm[0]]=pm[0]=='t'?+pm[1]:pm[1];save();draw()}
  else if(d.ms){var so=(S.mf&&S.mf.s)||'end';S.mf=S.mf||{};S.mf.s=so=='end'?'asc':so=='asc'?'desc':'end';save();draw()}
  else if(d.ap!==undefined){var PR=[{m:1,t:undefined},{m:2,t:undefined},{m:3,t:[]}][+d.ap];S.autoMax=PR.m;S.autoCap=0;S.autoTags=PR.t;S.auto=true;save();draw()}
@@ -46,6 +48,12 @@ document.addEventListener('click',function(e){
   case 'auto':toggleAuto();break;
   case 'wheel':spinWheel();break;
   case 'buyprem':buyPrem();break;
+  case 'gsendgo':sendGiftGo();break;
+  case 'admin':askPass();break;
+  case 'cloudsync':if(!cloudOn())toast('Облако работает внутри Telegram');else{toast('☁️ Синхронизация…');cloudLoad()}break;
+  case 'admgs':admCustom('star');break;
+  case 'admgt':admCustom('ton');break;
+  case 'admout':ADM=false;go('settings');break;
   case 'buywr':buyWheelReset();break;case 'copy':copy();break;case 'share':share();break;
   case 'qr':toast('QR-код — скоро');break;case 'edit':go('coll');break;
   case 'setmain':if(cur){S.main=cur.u;S.pinned=true;save();toast('Основной: @'+cur.u)}else toast('Сначала покрути 🔄');break;
@@ -61,7 +69,7 @@ document.addEventListener('click',function(e){
    S.lots.push({id:Date.now()+''+ri(100,999),u:LU,tier:LT,base:LB,cc:LC,seller:'ты',mine:1,fx:LM=='auc'?0:1,to:LM=='dm'?LTO:null,price:LP,bidder:null,endsAt:Date.now()+LD*1000});
    tq('list1');var wasDm=LM=='dm';LU=null;LTO='';S.mt='mine';save();toast(wasDm?'Предложение отправлено':'Лот выставлен');go('market');break;
   case 'bulk':var bl=bulkList();if(!bl.length)break;var tot=bl.reduce(function(a,c){return a+worth(c)},0);if(S.confirm!==false)ask('Продать '+bl.length+' шт. за '+money(tot)+'?','Продать',sellBulk);else sellBulk();break;
-  case 'chest':tqE();if(!allClaimed()||S.tq.c.chest)break;var cj=chestInfo();S.yuz+=cj.rew;if(cj.n>=7)S.ton=r3((S.ton||0)+.01);S.streak=cj.n;S.lastChest=dk(new Date());S.tq.c.chest=1;led('Бонус дня');save();hap({type:'notification',notification_type:'success'});toast('🎁 Бонус дня +'+money(cj.rew));draw();break;
+  case 'chest':tqE();if(!allClaimed()||S.tq.c.chest)break;var cj=chestInfo();S.yuz+=cj.rew;if(cj.n>=7){S.ton=r3((S.ton||0)+.01);giveGift(randGiftType())}S.streak=cj.n;S.lastChest=dk(new Date());S.tq.c.chest=1;led('Бонус дня');save();hap({type:'notification',notification_type:'success'});toast('🎁 Бонус дня +'+money(cj.rew));draw();break;
   case 'xch':var xe=document.getElementById('xch');if(xe&&xe.scrollIntoView)xe.scrollIntoView({behavior:'smooth',block:'center'});break;
   case 'luck':if(S.yuz>=100){S.yuz-=100;S.luck+=10;led('Удача ×3');save();toast('🍀 Удача на 10 прокруток');draw()}else toast('Не хватает баланса');break;
   case 'reset':ask('Сбросить весь прогресс?','Сбросить',function(){S={coll:[],hist:[],spins:0,yuz:10000,g1:1,xp:0,luck:0,theme:S.theme};cur=null;save();go('home')});break}
@@ -69,7 +77,9 @@ document.addEventListener('click',function(e){
 tgPost('web_app_ready');tgPost('web_app_expand');tgPost('web_app_setup_swipe_behavior',{allow_vertical_swipe:false});
 S.since=S.since||Date.now();S.lots=S.lots||[];S.rare=S.rare||S.hist.filter(function(c){return ti(c.tier)>=2});if(!S.best){var _b=null;(S.coll||[]).concat(S.rare||[],S.hist||[]).forEach(function(c){if(!_b||worth(c)>worth(_b))_b=c});if(_b){noteBest(_b);save()}}
 if(S.autoKeep===false&&!S.autoTags)S.autoTags=[];
+giftMigrate();
 if(!S.bl)S.bl={y:S.yuz,t:S.ton||0};
-theme();applySize();draw();auTick();setInterval(auTick,1000);
-document.addEventListener('input',function(e){if(e.target&&e.target.id=='lto')LTO=e.target.value.replace(/^@/,'').toLowerCase().replace(/[^a-z0-9_]/g,'')});
+theme();applySize();draw();auTick();setInterval(auTick,1000);cloudLoad();
+document.addEventListener('input',function(e){if(e.target&&e.target.id=='gto')GTO=e.target.value.replace(/^@/,'').toLowerCase().replace(/[^a-z0-9_]/g,'');if(e.target&&e.target.id=='lto')LTO=e.target.value.replace(/^@/,'').toLowerCase().replace(/[^a-z0-9_]/g,'')});
 document.addEventListener('gesturestart',function(e){e.preventDefault()});
+document.addEventListener('visibilitychange',function(){if(document.hidden)cloudPush(true)});

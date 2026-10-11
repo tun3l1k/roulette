@@ -21,8 +21,8 @@ var COST=100;
 var WHEEL_MS=5*3600*1000;
 var WHEEL=[
  {id:'s50',lb:'50⭐',c:'#ff9f0a',w:28,t:'star',v:50},
- {id:'s150',lb:'150⭐',c:'#34c759',w:22,t:'star',v:150},
- {id:'s300',lb:'300⭐',c:'#2AABEE',w:14,t:'star',v:300},
+ {id:'s150',lb:'150⭐',c:'#34c759',w:27,t:'star',v:150},
+ {id:'gift',lb:'🎁',c:'#2AABEE',w:9,t:'gift',v:1},
  {id:'luck',lb:'🍀',c:'#a855f7',w:12,t:'luck',v:10},
  {id:'free',lb:'🎟',c:'#ff5d8f',w:12,t:'free',v:1},
  {id:'s1000',lb:'1к⭐',c:'#ffc83d',w:7,t:'star',v:1000},

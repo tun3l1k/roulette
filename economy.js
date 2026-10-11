@@ -2,7 +2,7 @@
 function money(n){return fmt(Math.round(n))+' ⭐'}
 function cash(v,c){return c=='ton'?tonF(v)+' TON':money(v)}
 function fS(n){return abbr(n)}
-function fT(n){return tonF(Math.max(0,r3(n)))}
+function fT(n){var s=tonF(Math.max(0,r3(n))),i=s.indexOf(',');return i<0?s:s.slice(0,i)+'<span class="dec">'+s.slice(i)+'</span>'}
 function balHtml(){return SI(16)+' '+fS(S.yuz)+((S.ton||0)>0?' &nbsp; '+TI(16)+' '+tonF(S.ton):'')}
 function bulkList(){return S.coll.filter(function(c){return ti(c.tier)<=1&&mult(c.u).m<=1&&c.u!=S.main})}
 function sellPending(){var sc=S.pending;if(!sc)return;var g=worth(sc);S.yuz+=g;led('Продажа @'+sc.u);tq('sell5');S.pending=null;cur=null;save();hap({type:'impact',impact_style:'light'});toast('💰 Продано @'+sc.u+' · +'+money(g));paintHome(1)}
