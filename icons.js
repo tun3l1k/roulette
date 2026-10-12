@@ -11,7 +11,26 @@ layers:sv('<path d="M12 3 3 8l9 5 9-5-9-5z" fill="#fff"/><path d="M3 12.5l9 5 9-
 clock:sv('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>'),
 task:sv('<path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h9"/>'),
 bag:sv('<path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/>'),
+luck:sv('<circle cx="9" cy="9" r="3.2" fill="#fff" stroke="none"/><circle cx="15" cy="9" r="3.2" fill="#fff" stroke="none"/><circle cx="9" cy="14.5" r="3.2" fill="#fff" stroke="none"/><circle cx="15" cy="14.5" r="3.2" fill="#fff" stroke="none"/><path d="M12 15l1.2 6"/>'),
+vibe:sv('<rect x="8" y="3" width="8" height="18" rx="2"/><path d="M4 8v8M20 8v8"/>'),
+sparkle:sv('<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" fill="#fff" stroke="none"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z" fill="#fff" stroke="none"/>'),
+shield:sv('<path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2.2 2.2L15 10"/>'),
+cloud:sv('<path d="M7 18a4 4 0 0 1-.6-7.9A5.5 5.5 0 0 1 17 8.6 4.3 4.3 0 0 1 17.5 18z"/>'),
+lock:sv('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'),
+info:sv('<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>'),
+gem:sv('<path d="M6 4h12l4 6-10 11L2 10z"/><path d="M2 10h20M9 4l-2 6 5 11 5-11-2-6"/>'),
+tag:sv('<path d="M3 12.5V4.5A1.5 1.5 0 0 1 4.5 3h8L21 11.5 12.5 20z"/><circle cx="8" cy="8" r="1.3" fill="#fff" stroke="none"/>'),
+plus:sv('<path d="M12 5v14M5 12h14"/>'),
+box:sv('<path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>'),
+hammer:sv('<path d="M14 4l6 6M4 20l7-7M9 9l6 6M12 3l8 8-3 3-8-8z"/>'),
+list:sv('<path d="M4 7h16M4 12h16M4 17h10"/>'),
+repeat:sv('<path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/>'),
+star:sv('<path d="M12 3l2.7 5.7 6.3.8-4.6 4.3 1.2 6.2L12 17l-5.6 3 1.2-6.2L3 9.5l6.3-.8z" fill="#fff" stroke="none"/>'),
+crown:sv('<path d="M3 8l4 4 5-7 5 7 4-4-2 11H5z" fill="#fff" stroke="none"/>'),
+chart:sv('<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>'),
+search:sv('<circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/>'),
 wheel:sv('<circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/>'),
+users:sv('<circle cx="9" cy="8" r="3.5" fill="#fff" stroke="none"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6z" fill="#fff" stroke="none"/><circle cx="17" cy="9" r="2.6" fill="#fff" stroke="none"/><path d="M16 14.2c3 0 5.5 1.9 5.5 5.3H17.6c0-2-.6-3.8-1.6-5.3z" fill="#fff" stroke="none"/>'),
 gift:sv('<rect x="3" y="8" width="18" height="4" rx="1" fill="#fff" stroke="none"/><path d="M5 12v8h14v-8M12 8v12M12 8c-2-4-6-3-5 0 .6 1.6 3.5 1 5 0M12 8c2-4 6-3 5 0-.6 1.6-3.5 1-5 0"/>'),
 auto:sv('<path d="M13 2 4 14h7l-1 8 9-12h-7z" fill="#fff" stroke="none"/>'),
 trophy:sv('<path d="M7 4h10v5a5 5 0 0 1-10 0V4z" fill="#fff"/><path d="M7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3M12 14v4M8 21h8M9 18h6"/>'),
@@ -21,3 +40,6 @@ TAGC='<svg viewBox="0 0 24 24"><path d="M3 12.5V4.5A1.5 1.5 0 0 1 4.5 3h8L21 11.
 var AUTOI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg>';
 var WA4='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>';
 var WA5='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13v4"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-9H5a2 2 0 0 1-2-2z"/><circle cx="16.5" cy="14.5" r="1" fill="currentColor"/></svg>';
+var EMI={'📳':'vibe','✨':'sparkle','🛡️':'shield','💰':'auto','☁️':'cloud','🔐':'lock','🍀':'luck','🎡':'wheel','🏆':'trophy','🎨':'sparkle','🎁':'gift','💎':'gem','ℹ️':'info','📦':'box','⚡':'auto','🏷️':'tag'};
+function ei(x){return EMI[x]?IC[EMI[x]]:x}
+function emp(k,text,pad){return '<div class="empty" style="padding:'+(pad||44)+'px 0"><div class="emi">'+IC[k]+'</div>'+text+'</div>'}

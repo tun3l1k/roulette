@@ -4,8 +4,8 @@ function build(id){switch(id){
  case 'norm':return Math.random()<.5?pron(ri(8,12)):rnd(NAMES)+rnd(WORDS);
  case 'rare':return Math.random()<.7?rnd(NAMES):pron(ri(6,7));
  case 'epic':return Math.random()<.7?rnd(SHORTN):pron(ri(4,5));
- case 'legend':return Math.random()<.7?rnd(WORDS):pron(3);
- case 'mythic':return 'abcdefghijklmnopqrstuvwxyz'.charAt(ri(0,25));
+ case 'legend':return Math.random()<.75?rnd(FRAG_L.concat(WORDS)):pron(3);
+ case 'mythic':return Math.random()<.45?'abcdefghijklmnopqrstuvwxyz'.charAt(ri(0,25)):rnd(FRAG_M);
  default:return rnd(DIVINE)}}
 function spin(){if(busy)return;
  if(S.pending)return toast('Сначала реши: продать или оставить');
@@ -17,10 +17,7 @@ function spin(){if(busy)return;
    S.hist.unshift(r);if(S.hist.length>50)S.hist.pop();if(ti(r.tier)>=2){S.rare.unshift(r);if(S.rare.length>100)S.rare.pop()}save();
    if($('huname'))$('huname').style.opacity='1';paintHome(1);busy=false;
    buzzEnd(r);tq('spin10');if(ti(r.tier)>=2)tq('rare1');if(Math.random()<.006){var gg=giveGift(randGiftType());setTimeout(function(){toast('🎁 Находка! Подарок «'+GT(gg.type).n+'»')},1100)}if(Math.random()<.002){var tf=r3(.01+Math.random()*.04);S.ton=r3((S.ton||0)+tf);led('Находка TON');setTimeout(function(){toast('💎 Находка! +'+tonF(tf)+' TON');paintHome()},900)}
-   if(willAuto(r)){setTimeout(function(){if(S.pending===r){var g=worth(r);S.yuz+=g;led('Авто-продажа @'+r.u);S.autoLog=S.autoLog||[];S.autoLog.unshift({u:r.u,tier:r.tier,g:g,t:Date.now()});if(S.autoLog.length>20)S.autoLog.pop();S.autoN=(S.autoN||0)+1;S.autoSum=(S.autoSum||0)+g;tq('sell5');S.pending=null;cur=null;save();toast('💰 Авто-продажа @'+r.u+' · +'+money(g));paintHome(1)}},1200)}}else setTimeout(step,D[n])}setTimeout(step,D[0])}
-var TAGS=['короткий','имя','слово','зеркало','красивые цифры','топ-слово'];
-function keepTags(){return S.autoTags||TAGS}
-function willAuto(r){if(!S.auto||ti(r.tier)>(S.autoMax||0))return false;if(S.autoCap&&worth(r)>=S.autoCap)return false;var tg=mult(r.u).tags,kt=keepTags();for(var i=0;i<tg.length;i++)if(kt.indexOf(tg[i])>=0)return false;return true}
+   autoHandle(r);}else setTimeout(step,D[n])}setTimeout(step,D[0])}
 var AS=false,ASN=0,ASt=null;
 function autoLoop(){if(!AS)return;
  if(busy){ASt=setTimeout(autoLoop,300);return}

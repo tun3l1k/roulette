@@ -3,3 +3,11 @@
 .wheel{width:100%;display:block;filter:drop-shadow(0 10px 24px rgba(40,60,180,.45));border-radius:50%}
 .wptr{position:absolute;left:50%;top:-16px;transform:translateX(-50%);z-index:2;filter:drop-shadow(0 3px 4px rgba(0,0,0,.4))}
 .wmeta{margin-top:6px}
+
+/* минималистичное колесо */
+.wheelwrap{width:min(78vw,300px);margin:14px auto 14px}
+.wheel{filter:none;border-radius:50%;box-shadow:0 0 0 6px var(--grp),0 0 0 7px var(--sep)}
+.wptr{top:-20px;filter:none}
+.wtop2{display:flex;align-items:center;justify-content:space-between;background:var(--grp);border-radius:20px;padding:12px 16px}
+.wpips{display:flex;gap:6px}.wpips i{width:14px;height:14px;border-radius:50%;background:var(--sep)}.wpips i.on{background:#34c759}
+.wcnt{text-align:right}.wcnt b{font-size:24px}.wcnt small{display:block;color:var(--sub);font-size:12px;max-width:190px}

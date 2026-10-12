@@ -9,7 +9,7 @@ function oddsOf(t){var w=TIERS.map(function(x,i){return x.w*(i>=2?lf():1)}),sum=
 function baseFor(id){var g=RNG[id];return Math.round(g[0]+Math.pow(Math.random(),1.4)*(g[1]-g[0]))}
 function mult(u){var m=1,tg=[],pr=[],n=u.length;
  function add(x,lb){m*=x;tg.push(lb);pr.push([lb,x])}
- if(DIVINE.indexOf(u)>=0)add(5,'топ-слово');else if(WORDS.indexOf(u)>=0)add(2,'слово');else if(NAMES.indexOf(u)>=0||SHORTN.indexOf(u)>=0)add(1.5,'имя');
+ if(DIVINE.indexOf(u)>=0)add(5,'топ-слово');else if(WORDS.indexOf(u)>=0||FRAG_L.indexOf(u)>=0)add(2,'слово');else if(NAMES.indexOf(u)>=0||SHORTN.indexOf(u)>=0)add(1.5,'имя');
  if(n<=3)add(3,'короткий');else if(n==4)add(2,'короткий');
  if(n>=3&&u===u.split('').reverse().join(''))add(2,'зеркало');
  if(/(777|888|999|000|007|123|321)/.test(u))add(2,'красивые цифры');

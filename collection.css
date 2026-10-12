@@ -10,3 +10,14 @@
 .cbt button{flex:1;border:0;border-radius:12px;padding:9px 2px;font-size:13px;font-weight:700;background:var(--bg);color:var(--blue)}
 .cbt button.s{background:linear-gradient(135deg,#ffb020,#ff5e3a);color:#fff}
 .cbt button.on{background:var(--blue);color:#fff}
+
+.cstat{display:flex;gap:8px}
+.cstat div{flex:1;background:var(--grp);border-radius:16px;padding:8px 6px;text-align:center}
+.cstat b{display:block;font-size:17px}.cstat small{color:var(--sub);font-size:11px}
+.nc{border:1px solid var(--sep);border-top:3px solid var(--c);background:var(--grp);border-radius:20px;padding:12px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;color:var(--text);text-align:left;animation:rise .35s both;min-width:0}
+.nc:active{transform:scale(.97)}
+.ncav{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:17px;flex:none}
+.nc b{font-size:16px;word-break:break-all;line-height:1.15}
+.ncm{display:flex;gap:4px;flex-wrap:wrap}
+.ncp{font-weight:800;font-size:15px;margin-top:2px}
+.plainbtn{display:block;margin:16px auto 0;border:0;background:none;color:var(--sub);font-size:14px;padding:8px}

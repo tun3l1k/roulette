@@ -6,3 +6,9 @@
 .premp{margin:14px 0 14px;padding:0 0 0 18px;font-size:15px;line-height:1.55}
 .premb{width:100%;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.22);color:#fff;border-radius:24px;height:48px;font-size:16px;font-weight:800}
 .premb:active{transform:scale(.97)}
+
+.refc{border-radius:24px;padding:18px;color:#fff;background:radial-gradient(120% 100% at 100% 0%,rgba(90,200,250,.4),transparent 55%),linear-gradient(135deg,#2a5bd7,#6a3fe0);box-shadow:0 12px 28px rgba(60,80,220,.35)}
+.refh{font-size:22px;font-weight:800}.refp{margin-top:6px;font-size:15px;line-height:1.45;opacity:.95}
+.reflink{margin-top:12px;background:var(--grp);border:1px solid var(--sep);border-radius:14px;padding:12px 14px;font-size:14px;word-break:break-all;color:var(--blue);user-select:text;-webkit-user-select:text}
+
+.premi svg{width:26px;height:26px}.premi svg path{fill:#fff}

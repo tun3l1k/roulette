@@ -1,0 +1,22 @@
+/* Рейтинг */
+.rme{display:flex;align-items:baseline;gap:10px;background:linear-gradient(135deg,rgba(42,171,238,.18),rgba(162,89,247,.14)),var(--grp);border:1px solid var(--sep);border-radius:22px;padding:14px 18px;flex-wrap:wrap}
+.rme small{color:var(--sub);width:100%}.rme b{font-size:34px}.rme span{color:var(--sub);font-size:14px}
+.podium{display:flex;align-items:flex-end;justify-content:center;gap:10px;margin:18px 0 10px}
+.pod{flex:1;text-align:center;background:var(--grp);border-radius:20px 20px 12px 12px;padding:14px 6px 12px;min-width:0}
+.pod.p1{padding-top:26px;padding-bottom:18px;background:linear-gradient(180deg,rgba(255,200,61,.28),var(--grp))}
+.pod.p2{background:linear-gradient(180deg,rgba(176,190,200,.25),var(--grp))}
+.pod.p3{background:linear-gradient(180deg,rgba(205,127,50,.25),var(--grp))}
+.pod.me{outline:2px solid var(--blue)}
+.pav{position:relative;display:inline-block}
+.pcr{position:absolute;top:-24px;left:50%;transform:translateX(-50%)}
+.pcr svg{width:26px;height:26px}.pcr svg path{fill:#ffc83d}
+.pn{position:absolute;bottom:-4px;right:-4px;width:22px;height:22px;border-radius:50%;background:var(--bg);border:2px solid var(--grp);font-style:normal;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pod b{display:block;font-size:13px;margin-top:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pod small{color:var(--sub);font-size:12px}
+.rav{border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;flex:none}
+.rrw{display:flex;align-items:center;gap:12px;padding:10px 14px}
+.rrw+.rrw{border-top:1px solid var(--sep)}
+.rrw.me{background:rgba(42,171,238,.14)}
+.rrw b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px}
+.rrw small{color:var(--sub);font-size:13px;font-weight:600}
+.rk{width:22px;text-align:center;color:var(--sub);font-weight:700}

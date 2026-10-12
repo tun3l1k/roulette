@@ -62,3 +62,22 @@ details.mult .go{border-top:1px solid var(--sep)}
 .inp{width:100%;height:48px;border-radius:14px;border:1px solid var(--sep);background:var(--grp);color:var(--text);padding:0 14px;font-size:17px;outline:none}
 .inp:focus{border-color:var(--blue)}
 .cnt.plain{background:none;color:var(--sub);font-weight:600;min-width:0;padding:0;height:auto;font-size:15px}
+
+.msearch{display:flex;align-items:center;gap:8px;background:var(--grp);border:1px solid var(--sep);border-radius:14px;padding:0 12px;margin-top:12px;height:42px;color:var(--sub)}
+.msearch svg{width:18px;height:18px;flex:none}
+.msearch input{flex:1;border:0;background:none;outline:none;color:var(--text);font-size:16px;height:100%;min-width:0}
+.rdt{display:inline-block;width:10px;height:10px;border-radius:50%;flex:none}
+.fc.rc{display:inline-flex;align-items:center;gap:6px}
+.msum{color:var(--sub);font-size:13px;margin:12px 4px 6px}
+.devb{background:rgba(255,159,10,.14);color:#ff9f0a;border-radius:14px;padding:9px 12px;font-size:13px;margin-top:10px;text-align:center}
+.rule{display:flex;align-items:center;gap:10px;padding:10px 14px}
+.grp .rule+.rule{border-top:1px solid var(--sep)}
+.rule b{font-size:14px;flex:none}
+.seg3{display:flex;background:var(--bg);border-radius:10px;padding:2px;margin-left:auto}
+.seg3 button{border:0;background:none;color:var(--sub);padding:6px 9px;border-radius:8px;font-size:12px;font-weight:600}
+.seg3 .on{background:var(--blue);color:#fff}
+.cnt.plain{background:none;color:var(--sub);font-weight:600;min-width:0;padding:0;height:auto;font-size:15px}
+
+.emi{width:72px;height:72px;border-radius:50%;background:#8e8e93;margin:0 auto 12px;display:flex;align-items:center;justify-content:center}
+.emi svg{width:34px;height:34px}
+.seg button svg,.fc svg{width:16px;height:16px;vertical-align:-3px}

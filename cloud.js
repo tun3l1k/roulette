@@ -18,7 +18,7 @@ function cloudLoad(force){if(!cloudOn()||CL.loading)return;CL.loading=true;
  cpost('/api/load',{initData:cInit()}).then(function(r){
   CL.loading=false;
   if(!r.ok){CL.ok=false;CL.msg=cerr(r.err);cdone();return}
-  CL.loaded=true;var st=r.state,fr=FRESH;FRESH=false;
+  CL.loaded=true;var st=r.state,fr=FRESH;FRESH=false;setTimeout(refsLoad,700);
   if(st&&(force||fr||(st.sv||0)>(S.sv||0))){S=st;S.coll=S.coll||[];S.hist=S.hist||[];S.rare=S.rare||[];S.lots=S.lots||[];S.gifts=S.gifts||[];
    try{localStorage.setItem('ur3',JSON.stringify(S))}catch(e){}
    CL.at=Date.now();CL.ok=true;CL.msg='';theme();applySize();giftMigrate();draw();toast('☁️ Прогресс загружен с сервера')}

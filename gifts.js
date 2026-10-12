@@ -22,11 +22,11 @@ function upgradeGift(id){var g=findGift(id);if(!g||g.up)return;var t=GT(g.type),
  if(!pay('star',cost,'Улучшение подарка'))return toast('Не хватает звёзд');
  mkNft(g,0);
  glog('Улучшен до NFT: '+gname(g));save();hap({type:'notification',notification_type:'success'});toast('✨ NFT создан: '+gname(g));draw()}
-function sellGift(id){var g=findGift(id);if(!g)return;var p=Math.round(giftWorth(g)*.7);S.gifts=S.gifts.filter(function(x){return x!==g});gain('star',p,'Продажа подарка');glog('Продан «'+gname(g)+'» за '+abbr(p)+' ⭐');save();toast('💰 Продано «'+gname(g)+'» · +'+money(p));go('gifts')}
-function sendGiftGo(){var g=findGift(GV);if(!g){go('gifts');return}
+function sellGift(id){var g=findGift(id);if(!g)return;var p=Math.round(giftWorth(g)*.7);S.gifts=S.gifts.filter(function(x){return x!==g});gain('star',p,'Продажа подарка');glog('Продан «'+gname(g)+'» за '+abbr(p)+' ⭐');save();toast('💰 Продано «'+gname(g)+'» · +'+money(p));back()}
+function sendGiftGo(){var g=findGift(GV);if(!g){back();return}
  if(!/^[a-z0-9_]{5,32}$/.test(GTO)){toast('Введи username: от 5 символов, буквы, цифры, _');return}
  if(TG&&TG.username&&TG.username.toLowerCase()==GTO){toast('Нельзя отправить самому себе');return}
- S.gifts=S.gifts.filter(function(x){return x!==g});glog('Отправлен «'+gname(g)+'» → @'+GTO);save();hap({type:'notification',notification_type:'success'});toast('🎁 Подарок отправлен @'+GTO);GTO='';go('gifts')}
+ S.gifts=S.gifts.filter(function(x){return x!==g});glog('Отправлен «'+gname(g)+'» → @'+GTO);save();hap({type:'notification',notification_type:'success'});toast('🎁 Подарок отправлен @'+GTO);GTO='';back()}
 function giftTick(){if(!S.gifts)S.gifts=[];if(S.gifts.length<60&&Math.random()<.002){giveGift(randGiftType(),rnd(BOTN))}}
 function gAct(s){var i=s.indexOf(':'),v=s.slice(0,i),a=s.slice(i+1);
  if(v=='case'){CV=a;go('case')}else if(v=='copen')openCase(a);else if(v=='open'){GV=a;go('gift')}else if(v=='tab'){S.gt=a;save();draw()}else if(v=='buy')buyGift(a);else if(v=='up')upgradeGift(a);
@@ -38,12 +38,11 @@ function giftArt(g,big){var t=GT(g.type),c1='#3a4a68',c2='#1f2a40',pat='';
 function giftCard(g){var r=giftRar(g);return '<button class="gcard" data-g="open:'+g.id+'">'+giftArt(g)+'<b>'+GT(g.type).n+'</b><small>'+(g.up?'#'+g.ser+' · '+g.md[0]:'Обычный подарок')+'</small><span class="gb" style="background:'+(g.up?GRC[r]:'var(--sep)')+';color:'+(g.up?'#fff':'var(--sub)')+'">'+(g.up?GRN[r]:'можно улучшить')+'</span></button>'}
 function giftsMini(){var L=(S.gifts||[]).slice(0,6);
  return (L.length?'<div class="ggrid">'+L.map(giftCard).join('')+'</div>':'<div class="empty">Подарков пока нет<br>Их можно получить в колесе фортуны или купить</div>')+'<button class="pbtn" style="width:100%;margin-top:12px" data-go="gifts">Все подарки</button>'}
-function giftsHtml(){var tb=S.gt||'cases',n=(S.gifts||[]).length,body='';
- if(tb=='cases')body=casesHtml();
- else if(tb=='mine')body=n?'<div class="ggrid">'+S.gifts.map(giftCard).join('')+'</div>':'<div class="empty" style="padding:40px 0"><div style="font-size:54px">🎁</div>Подарков пока нет<br>Открой кейс, получи в колесе фортуны или купи в каталоге</div>';
+function giftsHtml(){var tb=S.gt||'mine',n=(S.gifts||[]).length,body='';if(tb=='cases')tb='mine';
+ if(tb=='mine')body=n?'<div class="ggrid">'+S.gifts.map(giftCard).join('')+'</div>':emp('gift','Подарков пока нет<br>Получай их в колесе фортуны или покупай в каталоге',40);
  else if(tb=='shop')body='<div class="grp">'+GT_.map(function(t){return '<button class="go" data-g="buy:'+t.id+'"><span class="gmini" style="background:linear-gradient(145deg,#3a4a68,#1f2a40)">'+t.e+'</span><div>'+t.n+'<br><small style="margin:0">тираж '+(t.estS?'≈ ':'')+fmt(t.sup)+'</small></div><small style="margin-left:auto;color:var(--blue)">'+(t.estP?'≈ ':'')+money(t.base)+'</small></button>'}).join('')+'</div><div class="foot">Подарок можно улучшить до NFT: у него появятся уникальные модель, фон, символ и номер. Значок «≈» значит, что цена или тираж пока приблизительные. Картинки пока заменены эмодзи.</div>';
  else body=(S.glog||[]).length?'<div class="grp">'+S.glog.slice(0,25).map(function(e){return '<div class="tx"><div class="txm"><b>'+esc(e.x)+'</b><small>'+dt(e.t)+'</small></div></div>'}).join('')+'</div>':'<div class="empty">Событий пока нет</div>';
- return balBar(1,'gst','gtn')+'<div class="seg" style="margin-top:12px">'+[['cases','Кейсы'],['mine','Мои · '+n],['shop','Каталог'],['log','История']].map(function(x){return '<button class="'+(tb==x[0]?'on':'')+'" data-g="tab:'+x[0]+'">'+x[1]+'</button>'}).join('')+'</div><div style="margin-top:12px">'+body+'</div>'}
+ return balBar(1,'gst','gtn')+'<div class="devb">Раздел в разработке: возможны изменения</div><div class="seg" style="margin-top:12px">'+[['mine','Мои · '+n],['shop','Каталог'],['log','История']].map(function(x){return '<button class="'+(tb==x[0]?'on':'')+'" data-g="tab:'+x[0]+'">'+x[1]+'</button>'}).join('')+'</div><div style="margin-top:12px">'+body+'</div>'}
 function giftDetail(){var g=findGift(GV);if(!g)return '<div class="empty">Подарок не найден</div>';var t=GT(g.type),r=giftRar(g),w=giftWorth(g);
  return '<div style="text-align:center">'+giftArt(g,1)+'<div style="font-size:22px;font-weight:800;margin-top:12px">'+gname(g)+'</div>'+(g.up?'<span class="gb" style="background:'+GRC[r]+';color:#fff;font-size:13px">'+GRN[r]+'</span>':'<div class="ls" style="margin-top:4px">Обычный подарок</div>')+'</div>'+
   (g.up?'<div class="grp" style="margin-top:16px">'+[['Модель',g.md[0],g.md[1]],['Фон',g.bd[0],g.bd[3]],['Символ',g.sy[0],g.sy[1]]].map(function(a){return '<div class="go"><span>'+a[0]+'</span><small style="color:'+GRC[a[2]]+'">'+a[1]+' · '+GRN[a[2]]+'</small></div>'}).join('')+'<div class="go"><span>Номер</span><small>#'+g.ser+' из '+fmt(t.sup)+'</small></div></div>':'')+

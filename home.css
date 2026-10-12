@@ -47,3 +47,25 @@
 .autob svg{width:22px;height:22px}
 .autob.on{background:linear-gradient(180deg,#ff6a5f,#ff3b30);color:#fff;border-color:transparent;animation:autop 1.4s ease-in-out infinite}
 @keyframes autop{0%,100%{box-shadow:0 0 0 0 rgba(255,59,48,.55)}50%{box-shadow:0 0 0 10px rgba(255,59,48,0)}}
+
+/* главный экран: карточка игрока и кнопка прокрутки */
+.hero{background:linear-gradient(160deg,rgba(42,171,238,.14),rgba(162,89,247,.1) 60%,transparent),var(--grp);border:1px solid var(--sep);border-radius:28px;padding:18px 14px 16px;margin-top:12px;text-align:center}
+.avawrap.hv{width:112px;height:112px;margin:0 auto;position:relative}
+.avawrap.hv .ava{position:absolute;left:9px;top:9px;width:94px;height:94px;border:0;font-size:36px}
+.ring{position:absolute;left:0;top:0;width:100%;height:100%}
+.hero .uname{font-size:26px;margin:12px 0 8px}
+.lvl{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+.lvchip{display:inline-flex;align-items:center;gap:5px;background:var(--bg);border-radius:12px;padding:4px 11px;font-size:13px;font-weight:700;color:var(--sub)}
+.lvchip.g{background:rgba(52,199,89,.16);color:#34c759}
+.lvchip svg{width:14px;height:14px}
+.hero .rar{margin-top:12px;color:var(--sub);font-size:11px;letter-spacing:.8px;text-transform:uppercase}
+.hero .rar b{display:block;font-size:20px;letter-spacing:0;text-transform:none;margin-top:3px}
+.big{height:66px;padding:0 14px 0 20px;border-radius:33px;justify-content:space-between;background:linear-gradient(135deg,#2AABEE,#6a5af0 55%,#a259f7);border:0;color:#fff;font-size:20px;box-shadow:0 12px 28px rgba(106,90,240,.45),inset 0 1px 0 rgba(255,255,255,.35);position:relative;overflow:hidden;gap:10px}
+.big b{font-weight:800;flex:1;text-align:center;padding-left:56px;font-size:20px}
+.big::after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:shn 3.2s ease-in-out infinite;pointer-events:none}
+@keyframes shn{0%,55%{left:-60%}100%{left:130%}}
+.cst{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.22);border-radius:18px;padding:8px 13px;font-size:15px;font-weight:700;white-space:nowrap}
+.autob{width:70px;height:66px;border-radius:33px}
+
+/* без фона у карточки игрока */
+.hero{background:none;border:0;border-radius:0;padding:6px 0 0;margin-top:8px}

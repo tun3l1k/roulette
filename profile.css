@@ -62,3 +62,19 @@
 .hm{flex:1;min-width:0}.hm b{display:block;font-size:17px;word-break:break-all}
 .hb{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px}
 .hr{text-align:right;flex:none}.hr b{display:block;font-size:15px}.hr small{color:var(--sub);font-size:12px}
+
+/* история: лента */
+.hstats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.hstats div{background:var(--grp);border-radius:16px;padding:10px 4px;text-align:center}
+.hstats b{display:block;font-size:16px}.hstats small{color:var(--sub);font-size:11px}
+.hbar{background:var(--grp);border-radius:18px;padding:12px 14px;margin-top:10px}
+.hbar .rseg{margin:0}
+.hleg{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;font-size:12px;color:var(--sub)}
+.hleg span{display:flex;align-items:center;gap:4px}.hleg i{width:8px;height:8px;border-radius:50%;display:block}
+.hlist{position:relative;padding-left:20px;margin-top:6px;display:flex;flex-direction:column;gap:8px}
+.hlist::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:var(--sep);border-radius:1px}
+.hc{background:var(--grp);border-radius:18px;padding:10px 12px;border:1px solid var(--sep);display:flex;align-items:center;gap:12px;position:relative}
+.hc::before{content:'';position:absolute;left:-19px;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px var(--bg)}
+
+.prembadge svg{width:12px;height:12px;vertical-align:-1px;margin-right:3px}
+.prembadge svg path{fill:#fff}

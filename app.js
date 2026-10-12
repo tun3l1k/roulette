@@ -3,7 +3,7 @@ if(!S.g1){S.g1=1;S.yuz=(S.yuz||0)+10000;save()}
 if(!S.g2){S.g2=1;S.ton=r3((S.ton||0)+0.5);save()}
 if(!S.g3){S.g3=1;S.xp=Math.round((S.spins||0)*4.6);S.pity=0;save()}
 document.addEventListener('click',function(e){
- var el=e.target.closest('[data-go],[data-act],[data-pick],[data-sell],[data-theme],[data-tg],[data-mt],[data-bid],[data-lp],[data-lpp],[data-ld],[data-cur],[data-tu],[data-am],[data-hf],[data-cf],[data-cs],[data-claim],[data-pt],[data-lc],[data-xch],[data-tt],[data-pc],[data-buy],[data-cancel],[data-oacc],[data-orej],[data-lm],[data-bs],[data-bp],[data-g],[data-adm],[data-mf],[data-ms],[data-ap],[data-ac],[data-at],[data-ar],[data-al]');if(!el)return;
+ var el=e.target.closest('[data-go],[data-act],[data-pick],[data-sell],[data-theme],[data-tg],[data-mt],[data-bid],[data-lp],[data-lpp],[data-ld],[data-cur],[data-tu],[data-am],[data-hf],[data-cf],[data-cs],[data-claim],[data-tk],[data-pt],[data-lc],[data-xch],[data-tt],[data-pc],[data-buy],[data-cancel],[data-oacc],[data-orej],[data-lm],[data-bs],[data-bp],[data-g],[data-nick],[data-rc],[data-ta],[data-ca],[data-ru-0],[data-ru-1],[data-ru-2],[data-ru-3],[data-ru-4],[data-ru-5],[data-ru-6],[data-adm],[data-mf],[data-ms],[data-ap],[data-ac],[data-at],[data-ar],[data-al]');if(!el)return;
  var d=el.dataset;
  if(d.go){go(d.go);}
  else if(d.pick){S.main=d.pick;S.pinned=true;save();toast('Основной: @'+d.pick);hap({type:'selection_change'});draw()}
@@ -13,10 +13,14 @@ document.addEventListener('click',function(e){
  else if(d.bs){S.bsize=d.bs;save();applySize();draw()}
  else if(d.bp){buyPack(d.bp)}
  else if(d.g){gAct(d.g)}
+ else if(d.nick){nickSheet(d.nick)}
+ else if(d.rc){S.rc=d.rc;save();draw()}
  else if(d.adm){admGrant(d.adm)}
- else if(d.mf){var pm=d.mf.split(':');S.mf=S.mf||{};S.mf[pm[0]]=pm[0]=='t'?+pm[1]:pm[1];save();draw()}
+ else if(d.mf){var pm=d.mf.split(':');if(pm[0]=='reset'){S.mf={};S.mq=''}else{S.mf=S.mf||{};S.mf[pm[0]]=pm[0]=='t'?+pm[1]:pm[1]}save();draw()}
  else if(d.ms){var so=(S.mf&&S.mf.s)||'end';S.mf=S.mf||{};S.mf.s=so=='end'?'asc':so=='asc'?'desc':'end';save();draw()}
- else if(d.ap!==undefined){var PR=[{m:1,t:undefined},{m:2,t:undefined},{m:3,t:[]}][+d.ap];S.autoMax=PR.m;S.autoCap=0;S.autoTags=PR.t;S.auto=true;save();draw()}
+ else if(d.ap!==undefined){applyPreset(+d.ap);draw()}
+ else if(d.ta){S.autoTagAct=d.ta;save();draw()}
+ else if(d.ca){S.autoCapAct=d.ca;save();draw()}
  else if(d.ac!==undefined){S.autoCap=+d.ac;save();draw()}
  else if(d.at!==undefined){var kk=keepTags().slice(),ik=kk.indexOf(d.at);if(ik>=0)kk.splice(ik,1);else kk.push(d.at);S.autoTags=kk;save();draw()}
  else if(d.ar!==undefined){S.asMin=+d.ar;save();draw()}
@@ -34,14 +38,16 @@ document.addEventListener('click',function(e){
  else if(d.xch){var tq1=+d.xch,cst=Math.ceil(tq1*RATE*1.1);if(S.yuz<cst){toast('Не хватает звёзд');return}S.yuz-=cst;S.ton=r3((S.ton||0)+tq1);led('Обмен ⭐ → TON');save();hap({type:'notification',notification_type:'success'});toast('💎 +'+tonF(tq1)+' TON');draw()}
  else if(d.tt){S.ton=r3((S.ton||0)+(+d.tt));led('Тестовое пополнение');save();toast('+'+tonF(+d.tt)+' TON (тест)');draw()}
  else if(d.ld){LD=+d.ld;draw()}
- else if(d.claim){tqE();var tk=TASKS.filter(function(x){return x.id==d.claim})[0];if(tk&&!S.tq.c[tk.id]&&(S.tq.p[tk.id]||0)>=tk.goal){S.tq.c[tk.id]=1;S.yuz+=tk.rew;led('Награда: '+tk.title);save();hap({type:'notification',notification_type:'success'});toast('🎁 +'+money(tk.rew)+' · '+tk.title);draw()}}
+ else if(d.claim){claimTask(d.claim)}
+ else if(d.tk){S.tt=d.tk;save();draw()}
  else if(d.pt!==undefined){PT=+d.pt;draw()}
+ else if(el.getAttribute('data-ru-0')!==null||(function(){for(var i=0;i<7;i++)if(el.hasAttribute('data-ru-'+i))return true;return false})()){for(var ri2=0;ri2<7;ri2++){if(el.hasAttribute('data-ru-'+ri2)){var rr2=autoRules().slice();rr2[ri2]=el.getAttribute('data-ru-'+ri2);S.arules=rr2;save();draw()}}}
  else if(d.pc!==undefined){S.cf=+d.pc;save();go('coll')}
  else if(d.cf!==undefined){S.cf=+d.cf;save();draw()}
  else if(d.cs!==undefined){S.cs=d.cs;save();draw()}
  else if(d.hf!==undefined){S.hf=+d.hf;save();draw()}
  else if(d.am!==undefined){S.autoMax=+d.am;save();draw()}
- else if(d.tg){if(d.tg=='auto')S.auto=!S.auto;else S[d.tg]=(S[d.tg]===false);save();if(d.tg=='haptic')hap({type:'impact',impact_style:'medium'});draw()}
+ else if(d.tg){if(d.tg=='auto'||d.tg=='autoNotify')S[d.tg]=!S[d.tg];else S[d.tg]=(S[d.tg]===false);save();if(d.tg=='haptic')hap({type:'impact',impact_style:'medium'});draw()}
  else if(d.theme){S.theme=d.theme;save();theme();draw()}
  else switch(d.act){
   case 'spin':if(AS)break;spin();break;
@@ -50,6 +56,8 @@ document.addEventListener('click',function(e){
   case 'buyprem':buyPrem();break;
   case 'gsendgo':sendGiftGo();break;
   case 'admin':askPass();break;
+  case 'refcopy':refCopy();break;
+  case 'refshare':refShare();break;
   case 'cloudsync':if(!cloudOn())toast('Облако работает внутри Telegram');else{toast('☁️ Синхронизация…');cloudLoad()}break;
   case 'admgs':admCustom('star');break;
   case 'admgt':admCustom('ton');break;
@@ -58,10 +66,7 @@ document.addEventListener('click',function(e){
   case 'qr':toast('QR-код — скоро');break;case 'edit':go('coll');break;
   case 'setmain':if(cur){S.main=cur.u;S.pinned=true;save();toast('Основной: @'+cur.u)}else toast('Сначала покрути 🔄');break;
   case 'sellcur':if(!S.pending){toast('Сначала покрути 🔄');break}if(ti(S.pending.tier)>=3&&S.confirm!==false)ask('Продать @'+S.pending.u+' за '+money(worth(S.pending))+'?','Продать',sellPending);else sellPending();break;
-  case 'keep':var pk=S.pending;if(!pk){toast('Сначала покрути 🔄');break}
-   if(!S.coll.some(function(x){return x.u==pk.u}))S.coll.unshift(pk);
-   
-   tq('keep3');S.pending=null;cur=null;save();toast('📚 В коллекции');paintHome(1);break;
+  case 'keep':if(!S.pending){toast('Сначала покрути');break}keepPending();toast('В коллекции');break;
   case 'haptic':S.haptic=(S.haptic===false);save();hap({type:'impact',impact_style:'medium'});draw();break;
   case 'listgo':if(!LU)break;
    if(LM=='dm'){if(!/^[a-z0-9_]{5,32}$/.test(LTO)){toast('Введи username: от 5 символов, буквы, цифры, _');break}if(TG&&TG.username&&TG.username.toLowerCase()==LTO){toast('Нельзя продать самому себе');break}}
@@ -83,3 +88,6 @@ theme();applySize();draw();auTick();setInterval(auTick,1000);cloudLoad();
 document.addEventListener('input',function(e){if(e.target&&e.target.id=='gto')GTO=e.target.value.replace(/^@/,'').toLowerCase().replace(/[^a-z0-9_]/g,'');if(e.target&&e.target.id=='lto')LTO=e.target.value.replace(/^@/,'').toLowerCase().replace(/[^a-z0-9_]/g,'')});
 document.addEventListener('gesturestart',function(e){e.preventDefault()});
 document.addEventListener('visibilitychange',function(){if(document.hidden)cloudPush(true)});
+document.addEventListener('input',function(e){var id=e.target&&e.target.id;
+ if(id=='msq'){S.mq=e.target.value.toLowerCase().replace(/[^a-z0-9_]/g,'');var ml=document.getElementById('mlist');if(ml)ml.innerHTML=lotsHtml(S.mt||'auc')}
+ else if(id=='csq'){S.cq=e.target.value.toLowerCase().replace(/[^a-z0-9_]/g,'');var cl=document.getElementById('clist');if(cl)cl.innerHTML=collList()}});
