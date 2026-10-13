@@ -69,3 +69,6 @@
 
 /* без фона у карточки игрока */
 .hero{background:none;border:0;border-radius:0;padding:6px 0 0;margin-top:8px}
+
+.avawrap.hv{width:104px;height:104px}
+.avawrap.hv .ava{left:0;top:0;width:104px;height:104px;border:3px solid var(--sep);font-size:40px}

@@ -1,7 +1,7 @@
 // Задания: ежедневные и недельные, бонус дня
 function wkKey(){var d=new Date(),x=new Date(d);x.setDate(d.getDate()-((d.getDay()+6)%7));return dk(x)}
 function tqE(){var k=dk(new Date());if(!S.tq||S.tq.day!=k)S.tq={day:k,p:{},c:{}};var w=wkKey();if(!S.tw||S.tw.wk!=w)S.tw={wk:w,p:{},c:{}}}
-function tdone(t){hap({type:'notification',notification_type:'success'});toast('Задание выполнено: '+t.title)}
+function tdone(t){hap({type:'notification',notification_type:'success'});if(scr!='coll')toast('Задание выполнено: '+t.title)}
 function tq(id,n){tqE();var t=TASKS.filter(function(x){return x.id==id})[0];
  if(t){var b=S.tq.p[id]||0;S.tq.p[id]=Math.min(t.goal,b+(n||1));if(b<t.goal&&S.tq.p[id]>=t.goal)tdone(t)}
  WTASKS.forEach(function(w){if(w.ev==id){var b=S.tw.p[w.id]||0;S.tw.p[w.id]=Math.min(w.goal,b+(n||1));if(b<w.goal&&S.tw.p[w.id]>=w.goal)tdone(w)}});save()}

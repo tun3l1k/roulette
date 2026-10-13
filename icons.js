@@ -29,6 +29,11 @@ star:sv('<path d="M12 3l2.7 5.7 6.3.8-4.6 4.3 1.2 6.2L12 17l-5.6 3 1.2-6.2L3 9.5
 crown:sv('<path d="M3 8l4 4 5-7 5 7 4-4-2 11H5z" fill="#fff" stroke="none"/>'),
 chart:sv('<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>'),
 search:sv('<circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/>'),
+tools:sv('<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/>'),
+medal:sv('<circle cx="12" cy="9" r="5"/><path d="M8.5 13.5L7 21l5-3 5 3-1.5-7.5"/>'),
+frame:sv('<rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="12" cy="12" r="4"/>'),
+news:sv('<path d="M3 11v3a1 1 0 0 0 1 1h3l6 4V6L7 10H4a1 1 0 0 0-1 1z"/><path d="M17 8a5 5 0 0 1 0 8"/>'),
+chat:sv('<path d="M4 5h16v11H9l-5 4z"/>'),
 wheel:sv('<circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/>'),
 users:sv('<circle cx="9" cy="8" r="3.5" fill="#fff" stroke="none"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6z" fill="#fff" stroke="none"/><circle cx="17" cy="9" r="2.6" fill="#fff" stroke="none"/><path d="M16 14.2c3 0 5.5 1.9 5.5 5.3H17.6c0-2-.6-3.8-1.6-5.3z" fill="#fff" stroke="none"/>'),
 gift:sv('<rect x="3" y="8" width="18" height="4" rx="1" fill="#fff" stroke="none"/><path d="M5 12v8h14v-8M12 8v12M12 8c-2-4-6-3-5 0 .6 1.6 3.5 1 5 0M12 8c2-4 6-3 5 0-.6 1.6-3.5 1-5 0"/>'),
@@ -43,3 +48,4 @@ var WA5='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width
 var EMI={'📳':'vibe','✨':'sparkle','🛡️':'shield','💰':'auto','☁️':'cloud','🔐':'lock','🍀':'luck','🎡':'wheel','🏆':'trophy','🎨':'sparkle','🎁':'gift','💎':'gem','ℹ️':'info','📦':'box','⚡':'auto','🏷️':'tag'};
 function ei(x){return EMI[x]?IC[EMI[x]]:x}
 function emp(k,text,pad){return '<div class="empty" style="padding:'+(pad||44)+'px 0"><div class="emi">'+IC[k]+'</div>'+text+'</div>'}
+function openTg(u){var w=window.Telegram&&window.Telegram.WebApp;try{if(w&&w.openTelegramLink&&/^https:\/\/t\.me\//.test(u))w.openTelegramLink(u);else window.open(u,'_blank')}catch(e){window.open(u,'_blank')}}
