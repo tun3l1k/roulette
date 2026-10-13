@@ -3,16 +3,17 @@ if(!S.g1){S.g1=1;S.yuz=(S.yuz||0)+10000;save()}
 if(!S.g2){S.g2=1;S.ton=r3((S.ton||0)+0.5);save()}
 if(!S.g3){S.g3=1;S.xp=Math.round((S.spins||0)*4.6);S.pity=0;save()}
 document.addEventListener('click',function(e){
- var el=e.target.closest('[data-go],[data-act],[data-pick],[data-sell],[data-theme],[data-tg],[data-mt],[data-bid],[data-lp],[data-lpp],[data-ld],[data-cur],[data-tu],[data-am],[data-hf],[data-cf],[data-cs],[data-claim],[data-tk],[data-pt],[data-lc],[data-xch],[data-tt],[data-pc],[data-buy],[data-cancel],[data-oacc],[data-orej],[data-lm],[data-bs],[data-bp],[data-g],[data-soon],[data-nick],[data-rc],[data-ta],[data-ca],[data-ru-0],[data-ru-1],[data-ru-2],[data-ru-3],[data-ru-4],[data-ru-5],[data-ru-6],[data-adm],[data-mf],[data-ms],[data-ap],[data-ac],[data-at],[data-ar],[data-al]');if(!el)return;
+ var el=e.target.closest('[data-go],[data-act],[data-pick],[data-sell],[data-theme],[data-tg],[data-mt],[data-bid],[data-lp],[data-lpp],[data-ld],[data-cur],[data-tu],[data-am],[data-hf],[data-cf],[data-cs],[data-claim],[data-tk],[data-pt],[data-lc],[data-xch],[data-tt],[data-pc],[data-buy],[data-cancel],[data-oacc],[data-orej],[data-lm],[data-bs],[data-bp],[data-g],[data-fgk],[data-fgi],[data-soon],[data-nick],[data-rc],[data-ta],[data-ca],[data-ru-0],[data-ru-1],[data-ru-2],[data-ru-3],[data-ru-4],[data-ru-5],[data-ru-6],[data-adm],[data-mf],[data-ms],[data-ap],[data-ac],[data-at],[data-ar],[data-al]');if(!el)return;
  var d=el.dataset;
  if(d.go){go(d.go);}
  else if(d.pick){S.main=d.pick;S.pinned=true;save();toast('Основной: @'+d.pick);hap({type:'selection_change'});draw()}
  else if(d.sell){var c=S.coll.filter(function(x){return x.u==d.sell})[0];if(c){if(ti(c.tier)>=3&&S.confirm!==false)ask('Продать @'+c.u+' за '+money(worth(c))+'?','Продать',function(){sellOne(c.u)});else sellOne(c.u)}}
  else if(d.cur){S.cur=d.cur;save();draw()}
- else if(d.tu){S.yuz+=+d.tu;led('Тестовое пополнение');save();toast('+'+money(+d.tu)+' (тест)');draw()}
- else if(d.bs){S.bsize=d.bs;save();applySize();draw()}
+  else if(d.bs){S.bsize=d.bs;save();applySize();draw()}
  else if(d.bp){buyPack(d.bp)}
  else if(d.g){gAct(d.g)}
+ else if(d.fgk){FG.k=d.fgk;FG.id=null;draw()}
+ else if(d.fgi){FG.id=d.fgi;draw()}
  else if(d.soon){SOONT=d.soon;go('soon')}
  else if(d.nick){nickSheet(d.nick)}
  else if(d.rc){S.rc=d.rc;save();draw()}
@@ -36,9 +37,8 @@ document.addEventListener('click',function(e){
  else if(d.lp){var cc=S.coll.filter(function(x){return x.u==d.lp})[0];if(cc){LU=cc.u;LT=cc.tier;LB=cc.base;LC='star';LM='auc';LP=defPrice();LD=300;draw()}}
  else if(d.lpp){LP=LC=='ton'?r3(Math.max(.001,LP+(+d.lpp)*Math.max(.001,r3(LP*.2)))):Math.max(1,LP+(+d.lpp)*Math.max(1,Math.round(LP*.2)));draw()}
  else if(d.lc){if(d.lc=='ton'&&ti(LT)<3){toast('В TON можно продавать эпические и выше');return}LC=d.lc;LP=defPrice();draw()}
- else if(d.xch){var tq1=+d.xch,cst=Math.ceil(tq1*RATE*1.1);if(S.yuz<cst){toast('Не хватает звёзд');return}S.yuz-=cst;S.ton=r3((S.ton||0)+tq1);led('Обмен ⭐ → TON');save();hap({type:'notification',notification_type:'success'});toast('💎 +'+tonF(tq1)+' TON');draw()}
- else if(d.tt){S.ton=r3((S.ton||0)+(+d.tt));led('Тестовое пополнение');save();toast('+'+tonF(+d.tt)+' TON (тест)');draw()}
- else if(d.ld){LD=+d.ld;draw()}
+ else if(d.xch){exchangeTon(d.xch)}
+  else if(d.ld){LD=+d.ld;draw()}
  else if(d.claim){claimTask(d.claim)}
  else if(d.tk){S.tt=d.tk;save();draw()}
  else if(d.pt!==undefined){PT=+d.pt;draw()}
@@ -57,6 +57,9 @@ document.addEventListener('click',function(e){
   case 'buyprem':buyPrem();break;
   case 'gsendgo':sendGiftGo();break;
   case 'admin':askPass();break;
+  case 'fgsend':giftFriend();break;
+  case 'sharecur':shareNick(S.pending);break;
+  case 'sharebest':shareNick(S.best);break;
   case 'news':openTg(NEWS_URL);break;
   case 'support':openTg(SUPPORT_URL);break;
   case 'pmult':S.pm=!S.pm;save();draw();break;
@@ -74,24 +77,20 @@ document.addEventListener('click',function(e){
   case 'sellcur':if(!S.pending){toast('Сначала покрути 🔄');break}if(ti(S.pending.tier)>=3&&S.confirm!==false)ask('Продать @'+S.pending.u+' за '+money(worth(S.pending))+'?','Продать',sellPending);else sellPending();break;
   case 'keep':if(!S.pending){toast('Сначала покрути');break}keepPending();break;
   case 'haptic':S.haptic=(S.haptic===false);save();hap({type:'impact',impact_style:'medium'});draw();break;
-  case 'listgo':if(!LU)break;
-   if(LM=='dm'){if(!/^[a-z0-9_]{5,32}$/.test(LTO)){toast('Введи username: от 5 символов, буквы, цифры, _');break}if(TG&&TG.username&&TG.username.toLowerCase()==LTO){toast('Нельзя продать самому себе');break}}
-   S.coll=S.coll.filter(function(x){return x.u!=LU});
-   S.lots.push({id:Date.now()+''+ri(100,999),u:LU,tier:LT,base:LB,cc:LC,seller:'ты',mine:1,fx:LM=='auc'?0:1,to:LM=='dm'?LTO:null,price:LP,bidder:null,endsAt:Date.now()+LD*1000});
-   tq('list1');var wasDm=LM=='dm';LU=null;LTO='';S.mt='mine';save();toast(wasDm?'Предложение отправлено':'Лот выставлен');go('market');break;
+  case 'listgo':if(!LU)break;Promise.resolve(listLot({u:LU,cc:LC,price:LP,fx:LM!='auc',dur:LD})).then(function(){LU=null;S.mt='mine';save();go('market')});break;
   case 'bulk':var bl=bulkList();if(!bl.length)break;var tot=bl.reduce(function(a,c){return a+worth(c)},0);if(S.confirm!==false)ask('Продать '+bl.length+' шт. за '+money(tot)+'?','Продать',sellBulk);else sellBulk();break;
-  case 'chest':tqE();if(!allClaimed()||S.tq.c.chest)break;var cj=chestInfo();S.yuz+=cj.rew;if(cj.n>=7){S.ton=r3((S.ton||0)+.01);giveGift(randGiftType())}S.streak=cj.n;S.lastChest=dk(new Date());S.tq.c.chest=1;led('Бонус дня');save();hap({type:'notification',notification_type:'success'});toast('🎁 Бонус дня +'+money(cj.rew));draw();break;
+  case 'chest':claimChest();break;
   case 'xch':var xe=document.getElementById('xch');if(xe&&xe.scrollIntoView)xe.scrollIntoView({behavior:'smooth',block:'center'});break;
-  case 'luck':if(S.yuz>=100){S.yuz-=100;S.luck+=10;led('Удача ×3');save();toast('🍀 Удача на 10 прокруток');draw()}else toast('Не хватает баланса');break;
-  case 'reset':ask('Сбросить весь прогресс?','Сбросить',function(){S={coll:[],hist:[],spins:0,yuz:1500,g1:1,g2:1,g3:1,xp:0,luck:0,theme:S.theme};cur=null;save();go('home')});break}
+  case 'luck':buyLuck();break;
+  case 'reset':ask('Сбросить весь прогресс?','Сбросить',function(){Promise.resolve(resetAll()).then(function(){go('home')})});break}
 });
 tgPost('web_app_ready');tgPost('web_app_expand');tgPost('web_app_setup_swipe_behavior',{allow_vertical_swipe:false});
 S.since=S.since||Date.now();S.lots=S.lots||[];S.rare=S.rare||S.hist.filter(function(c){return ti(c.tier)>=2});if(!S.best){var _b=null;(S.coll||[]).concat(S.rare||[],S.hist||[]).forEach(function(c){if(!_b||worth(c)>worth(_b))_b=c});if(_b){noteBest(_b);save()}}
 if(S.autoKeep===false&&!S.autoTags)S.autoTags=[];
 giftMigrate();
 if(!S.bl)S.bl={y:S.yuz,t:S.ton||0};
-theme();applySize();draw();auTick();setInterval(auTick,1000);cloudLoad();maintCheck();setInterval(maintCheck,60000);
-document.addEventListener('input',function(e){if(e.target&&e.target.id=='gto')GTO=e.target.value.replace(/^@/,'').toLowerCase().replace(/[^a-z0-9_]/g,'');if(e.target&&e.target.id=='lto')LTO=e.target.value.replace(/^@/,'').toLowerCase().replace(/[^a-z0-9_]/g,'')});
+wrapActions();theme();applySize();draw();auTick();setInterval(function(){if(SRV())tickTimers();else auTick()},1000);var n8=0;setInterval(function(){if(!SRV())return;n8++;if(scr=='market'||n8%8==0)srvRun('tickNow',[])},8000);cloudLoad();maintCheck();setInterval(maintCheck,60000);
+document.addEventListener('input',function(e){if(e.target&&e.target.id=='fgto')FGTO=e.target.value.replace(/^@/,'').toLowerCase().replace(/[^a-z0-9_]/g,'');if(e.target&&e.target.id=='gto')GTO=e.target.value.replace(/^@/,'').toLowerCase().replace(/[^a-z0-9_]/g,'');if(e.target&&e.target.id=='lto')LTO=e.target.value.replace(/^@/,'').toLowerCase().replace(/[^a-z0-9_]/g,'')});
 document.addEventListener('gesturestart',function(e){e.preventDefault()});
 document.addEventListener('visibilitychange',function(){if(document.hidden)cloudPush(true)});
 document.addEventListener('input',function(e){var id=e.target&&e.target.id;

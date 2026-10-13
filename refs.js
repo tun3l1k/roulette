@@ -6,7 +6,7 @@ function titleChip(){var T=S.titles||[];if(!T.length)return '';var k=T.indexOf('
 function refLink(){return RBOT&&TG&&TG.id?'https://t.me/'+RBOT+'?start=ref_'+TG.id:''}
 function refsInfo(){if(RBOT||!cloudOn())return;cpost('/api/info',{}).then(function(r){if(r&&r.ok&&r.bot){RBOT=r.bot;if(scr=='friends')draw()}}).catch(function(){})}
 function refsLoad(){if(!cloudOn()||!CL.loaded)return;refsInfo();
- cpost('/api/refs',{initData:cInit()}).then(function(r){if(!r||!r.ok)return;RF=r;refsApply(r);if(scr=='friends')draw()}).catch(function(){})}
+ cpost('/api/refs',{initData:cInit()}).then(function(r){if(!r||!r.ok)return;RF=r;if(r.patch){srvApply(r);(r.msgs||[]).forEach(function(m){toast(m)});if(scr=='home')paintHome()}else refsApply(r);if(scr=='friends')draw()}).catch(function(){})}
 function refsApply(r){var act=r.act||0,paid=S.refPaid||0,ch=false,msgs=[];
  if(r.inviter&&!S.refWelcome){S.refWelcome=1;S.yuz+=REF_WELCOME;ch=true;msgs.push('Бонус приглашённого: +'+money(REF_WELCOME))}
  if(act>paid){REFM.forEach(function(m){if(paid<m.n&&act>=m.n){ch=true;if(m.star)S.yuz+=m.star;if(m.ton)S.ton=r3((S.ton||0)+m.ton);

@@ -2,8 +2,8 @@
 function led(r){S.ledger=S.ledger||[];var b=S.bl||{y:S.yuz,t:S.ton||0},now=Date.now(),dy=S.yuz-b.y,dt2=r3((S.ton||0)-b.t);
  if(dy)S.ledger.unshift({t:now,d:dy,c:'star',r:r});
  if(dt2)S.ledger.unshift({t:now,d:dt2,c:'ton',r:r});
- if(S.ledger.length>200)S.ledger.length=200;
- if(dy){S.bh=S.bh||[];S.bh.push({t:now,y:S.yuz});if(S.bh.length>60)S.bh.shift()}
+ if(S.ledger.length>80)S.ledger.length=80;
+ if(dy){S.bh=S.bh||[];S.bh.push({t:now,y:S.yuz});if(S.bh.length>40)S.bh.shift()}
  S.bl={y:S.yuz,t:S.ton||0}}
 function spark(){var a=(S.bh||[]).slice(-30);
  if(a.length<2)return '<div class="empty" style="padding:22px 0">График появится после первых операций</div>';

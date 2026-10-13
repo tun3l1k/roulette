@@ -30,7 +30,7 @@ function sendGiftGo(){var g=findGift(GV);if(!g){back();return}
 function giftTick(){if(!S.gifts)S.gifts=[];if(S.gifts.length<60&&Math.random()<.002){giveGift(randGiftType(),rnd(BOTN))}}
 function gAct(s){var i=s.indexOf(':'),v=s.slice(0,i),a=s.slice(i+1);
  if(v=='case'){CV=a;go('case')}else if(v=='copen')openCase(a);else if(v=='open'){GV=a;go('gift')}else if(v=='tab'){S.gt=a;save();draw()}else if(v=='buy')buyGift(a);else if(v=='up')upgradeGift(a);
- else if(v=='send'){GV=a;GTO='';go('gsend')}
+ else if(v=='send'){FG={k:'gift',id:a};go('fgift')}
  else if(v=='sell'){var g=findGift(a);if(g)ask('Продать «'+gname(g)+'» за '+money(Math.round(giftWorth(g)*.7))+'?','Продать',function(){sellGift(a)})}}
 function giftArt(g,big){var t=GT(g.type),c1='#3a4a68',c2='#1f2a40',pat='';
  if(g.up){c1=g.bd[1];c2=g.bd[2];pat=GPOS.map(function(p){return '<span class="gsy" style="left:'+p[0]+'%;top:'+p[1]+'%">'+g.sy[0]+'</span>'}).join('')}
@@ -47,7 +47,7 @@ function giftDetail(){var g=findGift(GV);if(!g)return '<div class="empty">Под
  return '<div style="text-align:center">'+giftArt(g,1)+'<div style="font-size:22px;font-weight:800;margin-top:12px">'+gname(g)+'</div>'+(g.up?'<span class="gb" style="background:'+GRC[r]+';color:#fff;font-size:13px">'+GRN[r]+'</span>':'<div class="ls" style="margin-top:4px">Обычный подарок</div>')+'</div>'+
   (g.up?'<div class="grp" style="margin-top:16px">'+[['Модель',g.md[0],g.md[1]],['Фон',g.bd[0],g.bd[3]],['Символ',g.sy[0],g.sy[1]]].map(function(a){return '<div class="go"><span>'+a[0]+'</span><small style="color:'+GRC[a[2]]+'">'+a[1]+' · '+GRN[a[2]]+'</small></div>'}).join('')+'<div class="go"><span>Номер</span><small>#'+g.ser+' из '+fmt(t.sup)+'</small></div></div>':'')+
   '<div class="grp" style="margin-top:12px"><div class="go"><span>Оценка</span><small>'+money(w)+'</small></div>'+(g.from?'<div class="go"><span>От кого</span><small>@'+esc(g.from)+'</small></div>':'')+'</div>'+
-  '<div class="row2" style="margin-top:16px">'+(g.up?'':'<button class="pbtn" style="flex:1" data-g="up:'+g.id+'">Улучшить · '+money(Math.round(t.base*.4))+'</button>')+'<button class="pbtn" style="flex:1" data-g="send:'+g.id+'">Отправить</button></div>'+
+  '<div class="row2" style="margin-top:16px">'+(g.up?'':'<button class="pbtn" style="flex:1" data-g="up:'+g.id+'">Улучшить · '+money(Math.round(t.base*.4))+'</button>')+'<button class="pbtn" style="flex:1" data-g="send:'+g.id+'">Подарить другу</button></div>'+
   '<button class="pbtn gray" style="width:100%;margin-top:10px" data-g="sell:'+g.id+'">Продать · '+money(Math.round(w*.7))+'</button>'}
 function giftSendHtml(){var g=findGift(GV);if(!g)return '<div class="empty">Подарок не найден</div>';
  return '<div style="text-align:center">'+giftArt(g,1)+'<div style="font-size:20px;font-weight:800;margin-top:12px">'+gname(g)+'</div></div><div class="sec">Кому (username в Telegram)</div><input id="gto" class="inp" placeholder="@username" value="'+esc(GTO)+'" maxlength="33" autocapitalize="off" autocomplete="off" spellcheck="false"><button class="act m" style="width:100%;margin-top:18px" data-act="gsendgo">Отправить подарок</button><div class="foot">Демо: настоящая отправка другому игроку появится вместе с сервером.</div>'}

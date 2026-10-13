@@ -64,7 +64,9 @@ function auTick(){var now=Date.now(),ch=false;S.lots=S.lots||[];S.offers=S.offer
  var no=S.offers.length;S.offers=S.offers.filter(function(o){return o.endsAt>now});if(S.offers.length!=no)ch=true;
  if(S.offers.length<2&&Math.random()<.015){var o=offerNew();S.offers.push(o);ch=true}
  var nA=S.lots.filter(function(x){return !x.mine&&!x.fx}).length,nF=S.lots.filter(function(x){return !x.mine&&x.fx}).length;
- if(scr=='wheel'&&!WBUSY){var rdy=wheelReady()+':'+S.wt;if(WA_!==rdy){WA_=rdy;draw()}else{var wt=document.getElementById('wtimer');if(wt)wt.textContent=wheelLeft()}}
  while(nA<4){S.lots.push(newLot(0));nA++;ch=true}while(nF<4){S.lots.push(newLot(1));nF++;ch=true}
  if(ch){save();if(scr=='market')draw();else if(scr=='home'&&!busy)paintHome()}
- else if(scr=='market'){var q=document.querySelectorAll('[data-end]');for(var i=0;i<q.length;i++){var lf=q[i].getAttribute('data-end')-now;q[i].textContent=tleft(lf);q[i].classList.toggle('hot',lf<30000)}}}
+ tickTimers()}
+function tickTimers(){var now=Date.now();
+ if(scr=='wheel'&&!WBUSY){var rdy=wheelReady()+':'+S.wt;if(WA_!==rdy){WA_=rdy;draw()}else{var wt=document.getElementById('wtimer');if(wt)wt.textContent=wheelLeft()}}
+ if(scr=='market'){var q=document.querySelectorAll('[data-end]');for(var i=0;i<q.length;i++){var lf=q[i].getAttribute('data-end')-now;q[i].textContent=tleft(lf);q[i].classList.toggle('hot',lf<30000)}}}

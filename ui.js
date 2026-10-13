@@ -37,7 +37,7 @@ function spinLabel(){return '<b>Прокрутить</b>'+(S.free>0?'<span class
 function paintHome(anim){var sh=shown();if(!$('huname'))return;var t=sh?tier(sh.tier):null,i=sh?ti(sh.tier):0,a=$('hava'),u=$('huname');
 u.innerHTML=sh?'@'+sh.u:ownHandle();$('hl').innerHTML=ownInitial();
 $('hrar').textContent=t?t.name:'—';$('hrar').style.color=t?t.color:'var(--sub)';
-var pe=!!S.pending;$('hrow').style.display=pe?'flex':'none';$('hbtn').style.opacity=pe?.45:1;$('hbtn').innerHTML=spinLabel();var ab=$('hauto');if(ab){ab.classList.toggle('on',AS);ab.innerHTML=AS?AUTOI+'<span>Стоп · '+ASN+'</span>':AUTOI+'<span>Авто</span>'}countTo('hbs',S.yuz,fS);countTo('hbt',S.ton||0,fT);$('hprice').textContent=priceText(sh);$('hmult').textContent=sh?multText(sh):'';var hp=$('hpity');if(hp){if(S.pity>0)hp.textContent='Гарант ×'+S.pity+' удачи на следующую прокрутку';else hp.textContent='До гаранта: ×2 через '+(50-S.spins%50)+' · ×5 через '+(500-S.spins%500)+' прокруток'}
+var pe=!!S.pending;$('hrow').style.display=pe?'flex':'none';$('hbtn').style.opacity=pe?.45:1;$('hbtn').innerHTML=spinLabel();var hsh=$('hshare');if(hsh)hsh.style.display=pe?'flex':'none';var ab=$('hauto');if(ab){ab.classList.toggle('on',AS);ab.innerHTML=AS?AUTOI+'<span>Стоп · '+ASN+'</span>':AUTOI+'<span>Авто</span>'}countTo('hbs',S.yuz,fS);countTo('hbt',S.ton||0,fT);$('hprice').textContent=priceText(sh);$('hmult').textContent=sh?multText(sh):'';var hp=$('hpity');if(hp){if(S.pity>0)hp.textContent='Гарант ×'+S.pity+' удачи на следующую прокрутку';else hp.textContent='До гаранта: ×2 через '+(50-S.spins%50)+' · ×5 через '+(500-S.spins%500)+' прокруток'}
 $('hlvl').innerHTML=lvlHtml();var hr=$('hring');if(hr)hr.setAttribute('stroke-dashoffset',(345.6*(1-lvlPct()/100)).toFixed(1));
 a.style.boxShadow=i>=1?'0 0 '+(8+i*7)+'px '+t.color+(i>=4?'':'aa'):'none';a.style.borderColor=i>=1?t.color:'';
 if(anim){u.classList.remove('pop');void u.offsetWidth;u.classList.add('pop')}}
@@ -55,13 +55,13 @@ function row(ic,col,label,to,sm){return '<button class="go" data-go="'+to+'"><sp
 function draw(){var h='',a=$('app'),_y=window.scrollY,_k=(scr===LS);
  if(scr=='home'){var sh=shown(),mt=sh?tier(sh.tier):null,u=sh?sh.u:null;
   h=balBar(0,'hbs','hbt')+
-  '<div class="hero"><div class="avawrap hv"><div class="ava" id="hava"><span id="hl">'+ownInitial()+'</span>'+photoTag()+'</div></div>'+
+  '<div class="hero"><button class="shbtn" id="hshare" data-act="sharecur" style="display:none">'+SHI+'</button><div class="avawrap hv"><div class="ava" id="hava"><span id="hl">'+ownInitial()+'</span>'+photoTag()+'</div></div>'+
   '<div class="uname" id="huname">'+(u?'@'+u:ownHandle())+'</div>'+
   '<div class="lvl" id="hlvl">'+lvlHtml()+'</div>'+
   '<div class="rar">Редкость<b id="hrar" style="color:'+(mt?mt.color:'var(--sub)')+'">'+(mt?mt.name:'—')+'</b><span id="hmult" style="font-size:13px;display:block;color:var(--blue);margin-top:2px"></span></div></div>'+
   '<div class="spinrow"><button class="go big" id="hbtn" data-act="spin">'+spinLabel()+'</button><button class="autob" id="hauto" data-act="auto">'+AUTOI+'<span>Авто</span></button></div><div class="abrow" id="hrow"><button class="ab sell" data-act="sellcur">'+TAGC+'<span class="bt"><b>Продать</b><i id="hprice">'+priceText(sh)+'</i></span></button><button class="ab keep" data-act="keep">'+PLUSC+'<span class="bt"><b>Оставить</b><i>в коллекцию</i></span></button></div><div class="pity" id="hpity"></div>'+
   '<div class="grp">'+row(IC.user,'#ef5a5a','Мой профиль','profile')+row(IC.gear,'#5ccf6c','Настройки','settings')+'</div>'+
-  '<div class="grp">'+row(IC.users,'#5ac8fa','Пригласить друзей','friends','')+srow(IC.medal,'#ff9f0a','Battle Pass')+srow(IC.frame,'#a259f7','Рамки профиля')+row(IC.task,'#30b0c7','Задания','tasks',claimable()?''+claimable():'')+row(IC.auto,'#a259f7','Авто-продажа','auto',S.auto?'Вкл':'')+row(IC.bag,'#34c759','Магазин','shop','')+row(IC.wheel,'#ff9f0a','Колесо фортуны','wheel',wheelReady()?'готово':'')+row(IC.gift,'#ff5d8f','Подарки','gifts','в разработке')+'</div>'+
+  '<div class="grp">'+row(IC.users,'#5ac8fa','Пригласить друзей','friends','')+row(IC.gift,'#34c759','Подарок другу','fgift','')+srow(IC.medal,'#ff9f0a','Battle Pass')+srow(IC.frame,'#a259f7','Рамки профиля')+row(IC.task,'#30b0c7','Задания','tasks',claimable()?''+claimable():'')+row(IC.auto,'#a259f7','Авто-продажа','auto',S.auto?'Вкл':'')+row(IC.bag,'#34c759','Магазин','shop','')+row(IC.wheel,'#ff9f0a','Колесо фортуны','wheel',wheelReady()?'готово':'')+row(IC.gift,'#ff5d8f','Подарки','gifts','в разработке')+'</div>'+
   '<div class="grp">'+row(IC.layers,'#3d7df2','Коллекция','coll',S.coll.length)+row(IC.clock,'#5ccf6c','История прокруток','hist')+row(IC.trophy,'#f2b244','Рейтинг','rating')+row(IC.shop,'#5db4f7','Маркет','market')+'</div>'+
   '<div class="foot">Собирай редкие ники, повышай уровень,<br>стань легендой!</div>'}
  else if(scr=='spin'){h=nav('Прокрутка')+'<div id="card"></div><div class="row2"><button class="act m" data-act="spin">🔄 Ещё</button></div><div class="row2"><button class="act" data-act="copy">📋 Копировать</button><button class="act" data-act="share">📤 Поделиться</button></div><div class="row2"><button class="act" data-act="setmain">⭐ Сделать основным</button></div>'}
@@ -84,6 +84,7 @@ function draw(){var h='',a=$('app'),_y=window.scrollY,_k=(scr===LS);
  else if(scr=='admin'){h=nav('Админ-меню','settings')+adminHtml()}
  else if(scr=='friends'){h=nav('Друзья')+friendsHtml()}
  else if(scr=='soon'){h=nav(SOONT||'Скоро')+emp('sparkle','Раздел скоро появится<br>Мы над ним работаем',70)}
+ else if(scr=='fgift'){h=nav('Подарок другу')+fgiftHtml()}
  else if(scr=='gifts'){h=nav('Подарки')+giftsHtml()}
  else if(scr=='case'){h=nav('Кейс','gifts')+caseDetail()}
  else if(scr=='gift'){h=nav('Подарок','gifts')+giftDetail()}
@@ -95,7 +96,7 @@ function draw(){var h='',a=$('app'),_y=window.scrollY,_k=(scr===LS);
  else if(scr=='list'){
   if(!LU){h=nav('Выставить ник','market')+(S.coll.length?'<div class="grp">'+S.coll.map(function(c){var t=tier(c.tier);return '<button class="go it" style="border-color:'+t.color+'" data-lp="'+c.u+'"><b>@'+c.u+'</b><small>'+t.icon+' '+t.name+mx(c.u)+'</small></button>'}).join('')+'</div>':'<div class="empty">В коллекции пусто</div>')}
   else{var lt=tier(LT);h=nav('Выставить ник','market')+'<div class="grp"><div class="go it" style="border-color:'+lt.color+'"><b style="font-size:22px">@'+LU+'</b><small>'+lt.icon+' '+lt.name+'</small></div></div>'+
-   '<div class="sec">Тип продажи</div><div class="seg">'+[['auc','Аукцион'],['fix','Продажа'],['dm','Пользователю']].map(function(x){return '<button class="'+(LM==x[0]?'on':'')+'" data-lm="'+x[0]+'">'+x[1]+'</button>'}).join('')+'</div>'+
+   '<div class="sec">Тип продажи</div><div class="seg">'+[['auc','Аукцион'],['fix','Продажа']].map(function(x){return '<button class="'+(LM==x[0]?'on':'')+'" data-lm="'+x[0]+'">'+x[1]+'</button>'}).join('')+'</div>'+
    (LM=='dm'?'<div class="sec">Кому (username в Telegram)</div><input id="lto" class="inp" placeholder="@username" value="'+esc(LTO)+'" maxlength="33" autocapitalize="off" autocomplete="off" spellcheck="false">':'')+
    '<div class="sec">Валюта</div><div class="seg"><button class="'+(LC=='star'?'on':'')+'" data-lc="star">'+SI(16)+' Звёзды</button><button class="'+(LC=='ton'?'on':'')+'" data-lc="ton">'+TI(16)+' TON</button></div>'+
    '<div class="sec">'+(LM=='auc'?'Стартовая цена':'Цена')+'</div><div class="row2"><button class="act" data-lpp="-1">−</button><div class="act" style="color:var(--text)">'+cash(LP,LC)+'</div><button class="act" data-lpp="1">+</button></div>'+
@@ -115,7 +116,7 @@ function draw(){var h='',a=$('app'),_y=window.scrollY,_k=(scr===LS);
   body='';
   if(PT==0){body='<div class="lvcard"><div class="lvtop"><b>Уровень '+L+'</b><small>'+fmt(S.xp)+' / '+fmt(hi)+' оч.</small></div><div class="bar"><i style="width:'+pc+'%"></i></div></div>'+
    '<div class="stats3">'+stat(fmt(S.spins),'прокруток')+stat(S.coll.length,'в коллекции')+stat(rr,'редких')+'</div>'+
-   (bestR?'<div class="sec">Лучший ник за всё время</div><div class="showc" style="border-color:'+cc+';box-shadow:0 0 22px '+cc+'55"><div class="sn">@'+bestR.u+'</div><div><span class="badge" style="background:'+cc+'">'+bt.icon+' '+bt.name+'</span>'+(mult(bestR.u).m>1?' <span class="badge" style="background:#2AABEE">×'+fm(mult(bestR.u).m)+'</span>':'')+'</div><div class="ls" style="margin-top:8px">'+multText(bestR)+'</div></div>':'')+
+   (bestR?'<div class="sec">Лучший ник за всё время</div><div class="showc" style="border-color:'+cc+';box-shadow:0 0 22px '+cc+'55"><div class="sn">@'+bestR.u+'</div><div><span class="badge" style="background:'+cc+'">'+bt.icon+' '+bt.name+'</span>'+(mult(bestR.u).m>1?' <span class="badge" style="background:#2AABEE">×'+fm(mult(bestR.u).m)+'</span>':'')+'</div><div class="ls" style="margin-top:8px">'+multText(bestR)+'</div><button class="pbtn sm" style="margin-top:12px" data-act="sharebest">Поделиться картинкой</button></div>':'')+
    '<div class="sec">Коллекция</div>'+rarityHtml(cnt)+
    '<div class="grp mult" style="margin-top:18px"><button class="go" data-act="pmult"><span>Множители цены</span><small>'+(S.pm?'скрыть':'показать')+'</small></button>'+(S.pm?[['Короткий ник, до 3 символов','×3'],['Короткий ник, 4 символа','×2'],['Топ-слово (город, бренд)','×5'],['Слово','×2'],['Имя','×1,5'],['Зеркало (anna, lol)','×2'],['Красивые цифры (777, 007)','×2']].map(function(x){return '<div class="go"><span>'+x[0]+'</span><small>'+x[1]+'</small></div>'}).join(''):'')+'</div>'}
   else if(PT==1){body=giftsMini()}

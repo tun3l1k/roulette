@@ -9,9 +9,7 @@ function willAuto(r){return autoAction(r)!='ask'}
 function autoToast(m){if(S.autoNotify)toast(m)}
 function logAuto(r,g,a){S.autoLog=S.autoLog||[];S.autoLog.unshift({u:r.u,tier:r.tier,g:g,a:a,t:Date.now()});if(S.autoLog.length>30)S.autoLog.pop()}
 function autoHandle(r){var a=autoAction(r);if(a=='ask')return;
- setTimeout(function(){if(S.pending!==r)return;
-  if(a=='sell'){var g=worth(r);S.yuz+=g;led('Авто-продажа @'+r.u);logAuto(r,g,'sell');S.autoN=(S.autoN||0)+1;S.autoSum=(S.autoSum||0)+g;tq('sell5');S.pending=null;cur=null;save();autoToast('Авто-продажа @'+r.u+' · +'+money(g));paintHome(1)}
-  else{logAuto(r,0,'keep');S.autoKept=(S.autoKept||0)+1;keepPending();autoToast('Авто-сохранение @'+r.u)}},1200)}
+ setTimeout(function(){var p=S.pending;if(!p||p.u!=r.u||p.ts!=r.ts)return;autoResolve()},1200)}
 function applyPreset(i){var P=[{r:['sell','ask','ask','ask','ask','ask','ask'],tag:'ask'},{r:['sell','sell','ask','ask','ask','ask','ask'],tag:'ask'},{r:['sell','sell','keep','keep','keep','keep','keep'],tag:'keep'},{r:['sell','sell','sell','sell','ask','ask','ask'],tag:'sell'}][i];
  S.arules=P.r;S.autoTagAct=P.tag;S.autoCap=0;S.autoTags=undefined;S.auto=true;save()}
 var RACTL={sell:'Продать',keep:'Оставить',ask:'Спросить'};

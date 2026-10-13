@@ -49,3 +49,4 @@ var EMI={'📳':'vibe','✨':'sparkle','🛡️':'shield','💰':'auto','☁️'
 function ei(x){return EMI[x]?IC[EMI[x]]:x}
 function emp(k,text,pad){return '<div class="empty" style="padding:'+(pad||44)+'px 0"><div class="emi">'+IC[k]+'</div>'+text+'</div>'}
 function openTg(u){var w=window.Telegram&&window.Telegram.WebApp;try{if(w&&w.openTelegramLink&&/^https:\/\/t\.me\//.test(u))w.openTelegramLink(u);else window.open(u,'_blank')}catch(e){window.open(u,'_blank')}}
+var SHI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>';

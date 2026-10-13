@@ -18,8 +18,10 @@ function collHtml(){if(!S.coll.length)return emp('box','В коллекции п
 function nickSheet(u){var c=S.coll.filter(function(x){return x.u==u})[0];if(!c)return;var t=tier(c.tier),m=mult(u),w=worth(c),b=c.base!=null?c.base:t.pts,o=document.createElement('div');o.className='ov';
  o.innerHTML='<div class="sh" style="text-align:left"><div style="display:flex;align-items:center;gap:12px"><div class="ncav" style="background:'+t.color+';width:52px;height:52px;font-size:22px;flex:none">'+esc(u.charAt(0).toUpperCase())+'</div><div style="min-width:0"><div style="font-size:22px;font-weight:800;word-break:break-all">@'+u+'</div><span class="cb" style="background:'+t.color+'">'+t.name+'</span></div></div>'+
   '<div class="grp" style="margin-top:14px"><div class="go"><span>Базовая цена</span><small>'+money(b)+'</small></div>'+m.parts.map(function(p){return '<div class="go"><span>'+p[0]+'</span><small>× '+fm(p[1])+'</small></div>'}).join('')+'<div class="go"><span><b>Итого</b></span><small style="color:var(--text);font-weight:700">'+money(w)+'</small></div></div>'+
-  '<div class="row2" style="margin-top:14px"><button class="act" data-nx="close">Закрыть</button><button class="pbtn" style="flex:1" data-nx="list">Выставить</button></div><button class="pbtn gray" style="width:100%;margin-top:8px" data-nx="sell">Продать · '+money(w)+'</button></div>';
+  '<div class="row2" style="margin-top:14px"><button class="act" data-nx="close">Закрыть</button><button class="pbtn" style="flex:1" data-nx="list">Выставить</button></div><button class="pbtn gray" style="width:100%;margin-top:8px" data-nx="sell">Продать · '+money(w)+'</button><button class="plainbtn" data-nx="friend">Подарить другу</button><button class="plainbtn" style="margin-top:0" data-nx="share">Поделиться картинкой</button></div>';
  o.addEventListener('click',function(e){var b2=e.target.closest('[data-nx]');if(b2||e.target===o){var v=b2?b2.getAttribute('data-nx'):'close';o.remove();
   if(v=='sell'){if(ti(c.tier)>=3&&S.confirm!==false)ask('Продать @'+u+' за '+money(w)+'?','Продать',function(){sellOne(u)});else sellOne(u)}
+  else if(v=='share'){shareNick(c)}
+  else if(v=='friend'){FG={k:'nick',id:c.u};go('fgift')}
   else if(v=='list'){go('list');LU=c.u;LT=c.tier;LB=c.base;LC='star';LM='auc';LP=defPrice();LD=300;draw()}}});
  document.body.appendChild(o)}

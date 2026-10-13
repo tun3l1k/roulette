@@ -23,13 +23,9 @@ function wheelHtml(){wheelSync();var n=S.wt,cap=wcap(),rd=n>0,tot=Math.max(cap,n
  return '<div class="wtop2"><div class="wpips">'+pips+'</div><div class="wcnt"><b>'+n+'</b><small>'+(n<cap?'попыток · +1 через <span id="wtimer">'+wheelLeft()+'</span>':'попыток · максимум '+cap+' (купленные сверх лимита не сгорают)')+'</small></div></div>'+wheelSvg()+
   '<button class="pbtn" style="width:100%;margin-top:4px;'+(rd?'':'opacity:.5')+'" '+(rd?'data-act="wheel"':'disabled')+'>Крутить</button>'+
   '<div class="sec">Призы</div><div class="grp">'+WHEEL.map(function(p){return '<div class="go"><span style="width:12px;height:12px;border-radius:50%;background:'+p.c+';flex:none"></span><span>'+prizeText(p)+'</span><small>'+prizeChance(p)+'</small></div>'}).join('')+'</div><div class="foot">Одна попытка копится раз в '+(isPrem()?'3 часа (Premium)':'5 часов'+'')+'. Лимит накопления: '+cap+'.</div>'}
-function spinWheel(){wheelSync();if(S.wt<=0||WBUSY)return;var tot=WHEEL.reduce(function(a,b){return a+b.w},0),r=Math.random()*tot,k=0;
- for(var i=0;i<WHEEL.length;i++){r-=WHEEL[i].w;if(r<=0){k=i;break}}
- if(S.wt>=wcap())S.wl=Date.now();S.wt--;
- var pr=WHEEL[k],st=360/WHEEL.length,prev=S.wrot||0;S.wheelAt=Date.now();
- if(pr.t=='star')S.yuz+=pr.v;else if(pr.t=='luck')S.luck=(S.luck||0)+pr.v;else if(pr.t=='free')S.free=(S.free||0)+pr.v;else if(pr.t=='ton')S.ton=r3((S.ton||0)+pr.v);
- if(pr.t=='gift')giveGift(randGiftType());led('Колесо фортуны');tq('wheel');
- var delta=(((-k*st-prev)%360)+360)%360+360*5,tgt=prev+delta+(Math.random()*st*.6-st*.3);S.wrot=((tgt%360)+360)%360;save();WBUSY=true;
- var w=document.getElementById('wheelsvg');if(w){w.style.transition='transform 4.6s cubic-bezier(.12,.7,.1,1)';w.style.transform='rotate('+tgt+'deg)'}
- var tk=setInterval(function(){hap({type:'selection_change'})},260);
- setTimeout(function(){clearInterval(tk);WBUSY=false;hap({type:'notification',notification_type:'success'});toast('Выигрыш: '+prizeText(pr));if(scr=='wheel')draw()},4700)}
+function spinWheel(){if(WBUSY||!wheelReady())return;WBUSY=true;
+ var p=SRV()?srvRun('wheelRoll',[],{raw:true}):Promise.resolve({res:wheelRoll(),msgs:[]});
+ p.then(function(o){var r=o&&o.res;if(!r||r.err){WBUSY=false;if(o&&o.err)toast('Нет связи с сервером');draw();return}
+  var w=document.getElementById('wheelsvg');if(w){w.style.transition='transform 4.6s cubic-bezier(.12,.7,.1,1)';w.style.transform='rotate('+r.tgt+'deg)'}
+  var tk=setInterval(function(){hap({type:'selection_change'})},260);
+  setTimeout(function(){clearInterval(tk);WBUSY=false;hap({type:'notification',notification_type:'success'});toast('Выигрыш: '+r.prize);(o.msgs||[]).forEach(function(m){toast(m)});if(scr=='wheel')draw()},4700)})}

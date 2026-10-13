@@ -81,3 +81,4 @@ details.mult .go{border-top:1px solid var(--sep)}
 .emi{width:72px;height:72px;border-radius:50%;background:#8e8e93;margin:0 auto 12px;display:flex;align-items:center;justify-content:center}
 .emi svg{width:34px;height:34px}
 .seg button svg,.fc svg{width:16px;height:16px;vertical-align:-3px}
+.go.sel{background:rgba(42,171,238,.16)}

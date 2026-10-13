@@ -10,14 +10,15 @@ function build(id){switch(id){
 function spin(){if(busy)return;
  if(S.pending)return toast('Сначала реши: продать или оставить');
  var fr=S.free>0;if(!fr&&S.yuz<COST)return toast('Не хватает звёзд: прокрутка стоит '+money(COST));
- busy=true;if(fr)S.free--;else{S.yuz-=COST;led('Прокрутка')}paintHome();
- var D=S.anim===false?[70]:[55,60,68,80,96,116,140,170,205,245],n=0;function step(){hap({type:'selection_change'});var he=$('huname');if(he){he.textContent='@'+pron(ri(5,9));he.style.opacity='.45';$('hrar').textContent='…';$('hrar').style.color='var(--sub)'}
-  if(++n>=D.length){var t=pickTier(),r={u:build(t.id),tier:t.id,base:baseFor(t.id),odds:oddsOf(t),ts:Date.now()};
-   cur=r;S.pending=r;noteBest(r);S.spins++;S.xp+=XPT[t.id];if(S.luck>0)S.luck--;S.pity=0;if(S.spins%500==0)S.pity=5;else if(S.spins%50==0)S.pity=2;if(S.pity)setTimeout(function(){toast('🍀 Гарант! Следующая прокрутка: удача ×'+S.pity)},1600);
-   S.hist.unshift(r);if(S.hist.length>50)S.hist.pop();if(ti(r.tier)>=2){S.rare.unshift(r);if(S.rare.length>100)S.rare.pop()}save();
-   if($('huname'))$('huname').style.opacity='1';paintHome(1);busy=false;
-   buzzEnd(r);tq('spin10');if(ti(r.tier)>=2)tq('rare1');if(Math.random()<.006){var gg=giveGift(randGiftType());setTimeout(function(){toast('🎁 Находка! Подарок «'+GT(gg.type).n+'»')},1100)}if(Math.random()<.002){var tf=r3(.01+Math.random()*.04);S.ton=r3((S.ton||0)+tf);led('Находка TON');setTimeout(function(){toast('💎 Находка! +'+tonF(tf)+' TON');paintHome()},900)}
-   autoHandle(r);}else setTimeout(step,D[n])}setTimeout(step,D[0])}
+ busy=true;var P=SRV()?srvRun('spinRoll',[],{raw:true}):null;
+ var D=S.anim===false?[70]:[55,60,68,80,96,116,140,170,205,245],n=0;
+ function done(o){var rr=o&&o.res;busy=false;var he=$('huname');if(he)he.style.opacity='1';
+  if(!rr||rr.err||!rr.r){paintHome();if(o&&o.err)toast('Нет связи с сервером');return}
+  var r=rr.r;cur=r;paintHome(1);buzzEnd(r);(o.msgs||[]).forEach(function(m){toast(m)});autoHandle(r)}
+ function finish(){if(P)P.then(done);else done({res:spinRoll(),msgs:[]})}
+ function step(){hap({type:'selection_change'});var he=$('huname');if(he){he.textContent='@'+pron(ri(5,9));he.style.opacity='.45';$('hrar').textContent='…';$('hrar').style.color='var(--sub)'}
+  if(++n>=D.length)finish();else setTimeout(step,D[n])}
+ setTimeout(step,D[0])}
 var AS=false,ASN=0,ASt=null;
 function autoLoop(){if(!AS)return;
  if(busy){ASt=setTimeout(autoLoop,300);return}

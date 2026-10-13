@@ -9,7 +9,8 @@ function cpost(path,body,keep){var b=JSON.stringify(body);return fetch(API+path,
 function cdone(){if(scr=='settings'||scr=='admin')draw()}
 function cerr(e){return e=='no_db'?'сервер не настроен':e=='auth'?'нет подписи Telegram':e||'ошибка'}
 function cloudSoon(){if(!cloudOn())return;if(!CL.loaded){if(!CL.loading)cloudLoad();return}clearTimeout(CL.t);CL.t=setTimeout(function(){cloudPush()},Math.max(4000,15000-(Date.now()-CL.at)))}
-function cloudPush(keep){if(!cloudOn()||!CL.loaded||(CL.busy&&!keep))return;clearTimeout(CL.t);CL.busy=true;
+function cloudPush(keep){if(!cloudOn()||!CL.loaded||(CL.busy&&!keep))return;
+ if(MT.eng){cpost('/api/prefs',{initData:cInit(),prefs:prefsOut()}).then(function(r){CL.ok=!!(r&&r.ok);CL.msg=r&&r.ok?'':cerr(r&&r.err);if(r&&r.ok)CL.at=Date.now();cdone()}).catch(function(){CL.ok=false;CL.msg='нет сети';cdone()});return}clearTimeout(CL.t);CL.busy=true;
  cpost('/api/save',{initData:cInit(),state:S},keep).then(function(r){CL.busy=false;
   if(r.ok){CL.at=Date.now();CL.ok=true;CL.msg=''}
   else if(r.err=='newer'){CL.ok=false;CL.msg='на сервере новее';cloudLoad(true)}
@@ -18,6 +19,7 @@ function cloudLoad(force){if(!cloudOn()||CL.loading)return;CL.loading=true;
  cpost('/api/load',{initData:cInit()}).then(function(r){
   CL.loading=false;
   if(!r.ok){CL.ok=false;CL.msg=cerr(r.err);cdone();return}
+  if(r.eng){MT.eng=true;S=r.state;try{localStorage.setItem('ur3',JSON.stringify(S))}catch(e){}CL.loaded=true;CL.ok=true;CL.msg='';CL.at=Date.now();FRESH=false;theme();applySize();draw();setTimeout(refsLoad,700);cdone();return}
   CL.loaded=true;var st=r.state,fr=FRESH;FRESH=false;setTimeout(refsLoad,700);
   if(st&&(force||fr||(st.sv||0)>(S.sv||0))){S=st;S.coll=S.coll||[];S.hist=S.hist||[];S.rare=S.rare||[];S.lots=S.lots||[];S.gifts=S.gifts||[];
    try{localStorage.setItem('ur3',JSON.stringify(S))}catch(e){}
