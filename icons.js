@@ -45,6 +45,15 @@ TAGC='<svg viewBox="0 0 24 24"><path d="M3 12.5V4.5A1.5 1.5 0 0 1 4.5 3h8L21 11.
 var AUTOI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg>';
 var WA4='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>';
 var WA5='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13v4"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-9H5a2 2 0 0 1-2-2z"/><circle cx="16.5" cy="14.5" r="1" fill="currentColor"/></svg>';
+// Иконки нижней панели: контурные, красятся через currentColor
+function tabIc(x){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+x+'</svg>'}
+var TABS=[
+ ['home','Рулетка',tabIc('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.2"/><path d="M12 3v4.8M12 16.2V21M3 12h4.8M16.2 12H21"/>')],
+ ['coll','Коллекция',tabIc('<path d="M12 3 3 8l9 5 9-5-9-5z"/><path d="M3 12.5l9 5 9-5M3 16.5l9 5 9-5"/>')],
+ ['market','Маркет',tabIc('<path d="M4 4h16l1.2 5a3.2 3.2 0 0 1-6.4 0 3.2 3.2 0 0 1-6.4 0 3.2 3.2 0 0 1-6.4 0L4 4zM5 12v8h14v-8"/><path d="M10 20v-5h4v5"/>')],
+ ['rating','Рейтинг',tabIc('<path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3M12 14v4M8 21h8M9 18h6"/>')],
+ ['profile','Профиль',tabIc('<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>')]];
+function isTab(n){for(var i=0;i<TABS.length;i++)if(TABS[i][0]==n)return true;return false}
 var EMI={'📳':'vibe','✨':'sparkle','🛡️':'shield','💰':'auto','☁️':'cloud','🔐':'lock','🍀':'luck','🎡':'wheel','🏆':'trophy','🎨':'sparkle','🎁':'gift','💎':'gem','ℹ️':'info','📦':'box','⚡':'auto','🏷️':'tag'};
 function ei(x){return EMI[x]?IC[EMI[x]]:x}
 function emp(k,text,pad){return '<div class="empty" style="padding:'+(pad||44)+'px 0"><div class="emi">'+IC[k]+'</div>'+text+'</div>'}

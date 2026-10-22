@@ -1,0 +1,188 @@
+/* Оформление в стиле Telegram: цвета из темы Telegram, плоские списки и кнопки, нижняя панель вкладок.
+   Подключается последним и переопределяет остальные стили. */
+
+/* ---------- цвета: берём тему Telegram, если открыты внутри него ---------- */
+:root{--btn:#2AABEE;--btnt:#fff;--r:12px;--rc:14px}
+:root:not([data-theme]){
+ --bg:var(--tg-theme-secondary-bg-color,#f2f2f7);
+ --grp:var(--tg-theme-section-bg-color,var(--tg-theme-bg-color,#fff));
+ --text:var(--tg-theme-text-color,#000);
+ --sub:var(--tg-theme-subtitle-text-color,var(--tg-theme-hint-color,#8e8e93));
+ --sep:var(--tg-theme-section-separator-color,#e5e5ea);
+ --blue:var(--tg-theme-link-color,#2AABEE);
+ --btn:var(--tg-theme-button-color,#2AABEE);
+ --btnt:var(--tg-theme-button-text-color,#fff)}
+@media (prefers-color-scheme:dark){
+ :root:not([data-theme]){
+  --bg:var(--tg-theme-secondary-bg-color,#000);
+  --grp:var(--tg-theme-section-bg-color,var(--tg-theme-bg-color,#1c1c1e));
+  --text:var(--tg-theme-text-color,#fff);
+  --sep:var(--tg-theme-section-separator-color,#38383a)}}
+body{-webkit-font-smoothing:antialiased;font-size:16px}
+#app{padding-top:10px}
+.hastabs #app{padding-bottom:calc(92px + env(safe-area-inset-bottom,0px))}
+.hastabs .toast{bottom:calc(90px + env(safe-area-inset-bottom,0px))}
+.toast{background:rgba(28,28,30,.94);border-radius:12px;font-size:14px;padding:10px 16px}
+
+/* ---------- нижняя панель вкладок ---------- */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;display:none;max-width:480px;margin:0 auto;background:var(--grp);border-top:.5px solid var(--sep);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+.hastabs .tabs{display:flex}
+.tabs button{flex:1;min-width:0;border:0;background:none;color:var(--sub);display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0 2px;font:inherit;font-size:10.5px;font-weight:500;letter-spacing:.1px;transition:color .15s}
+.tabs button svg{width:26px;height:26px;display:block;transition:transform .15s}
+.tabs button.on{color:var(--blue)}
+.tabs button.on svg{transform:translateY(-1px) scale(1.06)}
+.tabs button:active svg{transform:scale(.9)}
+
+/* ---------- навигация ---------- */
+.nav{height:44px;margin-bottom:6px}
+.nav h2{font-size:17px;font-weight:600}
+.nav .rbtn,.ptop .rbtn{background:none;border:0;color:var(--blue);width:40px;height:40px;margin-left:-8px}
+.nav .rbtn svg,.ptop .rbtn svg{width:24px;height:24px}
+.ptop .ibtn{background:none;border:0;color:var(--blue);padding:0 4px;font-weight:500;font-size:16px}
+.ptop .ibtn svg{display:none}
+.hastabs .nav .rbtn,.hastabs .ptop .rbtn,.tgback .nav .rbtn{visibility:hidden}
+
+/* ---------- списки: как настройки Telegram ---------- */
+.grp{border-radius:var(--r);margin-top:20px}
+.sec{font-size:13px;margin:22px 16px 7px;letter-spacing:.2px}
+.go{position:relative;min-height:50px;padding:9px 16px 9px 14px;gap:12px;font-size:16px}
+.go .ic{width:30px;height:30px;border-radius:7px;font-size:16px}
+.go .ic svg{width:18px;height:18px}
+.go .ar{font-size:21px;opacity:.55;margin-left:auto}
+.go small{font-size:15px}
+.grp .go+.go{border-top:0}
+.grp .go+.go::before{content:'';position:absolute;left:16px;right:0;top:0;height:.5px;background:var(--sep)}
+.grp .go:has(>.ic)+.go::before{left:56px}
+.go:active{background:rgba(127,127,127,.12)}
+.cnt{background:var(--btn);border-radius:12px;min-width:24px;height:24px;font-size:13px}
+.cnt.plain{background:none}
+.sw{width:51px;height:31px}
+.sw.on{background:#34c759}
+
+/* ---------- кнопки: плоские, с цветом кнопки Telegram ---------- */
+.pbtn,.act.m{background:var(--btn);color:var(--btnt);border:0;border-radius:var(--r);height:50px;font-size:16px;font-weight:600;box-shadow:none}
+.pbtn.sm{height:36px;border-radius:10px;font-size:14px}
+.pbtn.gray{background:var(--sep);color:var(--text)}
+.act{border-radius:var(--r);background:var(--grp);color:var(--blue);font-weight:600;padding:13px}
+.act.m{padding:0;height:50px}
+.pill{border-radius:10px;background:var(--btn);color:var(--btnt)}
+html[data-bs] .pbtn,html[data-bs] .act{border-radius:var(--r)}
+html[data-bs="s"] .pbtn{height:42px}
+html[data-bs="l"] .pbtn{height:56px}
+
+/* ---------- сегменты и фильтры ---------- */
+.seg,.ptabs{background:rgba(118,118,128,.14);border:0;border-radius:10px;padding:2px;gap:0}
+.seg button,.ptabs button{color:var(--text);border-radius:8px;font-weight:500;font-size:14px;padding:7px 4px}
+.seg .on,.ptabs button.on{background:var(--grp);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.14),0 0 0 .5px rgba(0,0,0,.04);font-weight:600}
+.seg3{background:rgba(118,118,128,.14);border-radius:8px}
+.seg3 .on{background:var(--grp);color:var(--text);box-shadow:0 1px 2px rgba(0,0,0,.14)}
+.fc{border-radius:16px;font-size:14px;padding:7px 13px}
+.fc.on{background:var(--btn);color:var(--btnt)}
+.inp,.msearch{border:0;background:var(--grp);border-radius:10px}
+.msearch{height:40px}
+.inp:focus{box-shadow:0 0 0 1.5px var(--blue)}
+
+/* ---------- карточки ---------- */
+.lvcard,.rcard,.chest,.wchart,.shop,.wtop2,.hbar,.stat,.cstat div,.hstats div,.wa,.tile,.pod,.tcard,.tk,.hc,.thero,.rme{border-radius:var(--rc);border:0}
+.hc{border:0}
+.thero,.rme{background:var(--grp)}
+.ccard,.nc,.lotc,.showc,.gcard,.ccase{border-radius:var(--rc)}
+.stat b,.hstats b,.cstat b{font-variant-numeric:tabular-nums}
+.pod.p1,.pod.p2,.pod.p3{background:var(--grp)}
+.bar{height:5px}
+.bar i{background:var(--btn)}
+.cdots i.on{background:var(--btn)}
+.rbar i,.rseg i{border-radius:3px}
+.devb{border-radius:12px}
+
+/* ---------- баланс ---------- */
+.bbar{background:var(--grp);border:0;border-radius:var(--r);padding:7px 8px 7px 12px}
+.bplus{background:var(--btn);color:var(--btnt);border-radius:10px;padding:8px 12px}
+.bn1 b{font-size:17px}
+.bal2{background:var(--grp);border:0}
+.wcard,.mbal2{background:linear-gradient(135deg,#2AABEE,#229ED9 55%,#1a7fd1);border-radius:16px;box-shadow:none}
+.wcard::after{display:none}
+.wacts{gap:8px}
+.wa{color:var(--blue);font-weight:500}
+.premc{border-radius:16px;box-shadow:none}
+.refc{border-radius:16px;box-shadow:none;background:linear-gradient(135deg,#2AABEE,#6a7df0)}
+.premb{border-radius:var(--r)}
+.cpr{background:var(--btn);border-radius:10px}
+.cbt button{border-radius:10px;background:rgba(127,127,127,.12);font-weight:600}
+.cbt button.s{background:rgba(255,149,0,.16);color:#ff9500}
+.cbt button.on{background:var(--btn);color:var(--btnt)}
+
+/* ---------- главный экран ---------- */
+.hero{padding-top:2px}
+.avawrap.hv,.avawrap.hv .ava{width:96px;height:96px}
+.ava{border-width:3px}
+.hero .uname{font-size:28px;font-weight:700;letter-spacing:-.3px;margin:12px 0 8px}
+.lvchip{border-radius:10px;background:rgba(127,127,127,.14);font-weight:600}
+.lvchip.g{background:rgba(52,199,89,.16)}
+.hero .rar{font-size:0;text-transform:none;letter-spacing:0;margin-top:14px}
+.hero .rar b{display:inline-block;font-size:15px;font-weight:600;padding:5px 14px;border-radius:14px;margin:0;background:rgba(127,127,127,.14);background:color-mix(in srgb,currentColor 14%,transparent)}
+.hero #hmult{display:block;font-size:13px;margin-top:8px;color:var(--sub)!important}
+
+.spinrow{gap:10px;margin-top:16px}
+.go.big{min-height:0;height:56px;padding:0 10px 0 16px;border-radius:var(--r);background:var(--btn);color:var(--btnt);box-shadow:none;border:0;justify-content:center;gap:10px;font-size:17px}
+.go.big::after{display:none}
+.go.big b{flex:none;padding-left:0;font-size:17px;font-weight:600}
+.cst{background:rgba(255,255,255,.22);border-radius:9px;padding:6px 10px;font-size:14px;font-weight:600}
+.go.big:active{opacity:.85;transform:scale(.99)}
+html[data-bs] .go.big{border-radius:var(--r);padding:0 10px 0 16px}
+.autob{width:56px;height:56px;border-radius:var(--r);border:0;background:var(--grp);color:var(--blue);gap:1px;font-size:10.5px;font-weight:600}
+.autob svg{width:21px;height:21px}
+.autob.on{background:#ff3b30;color:#fff;animation:none}
+html[data-bs] .autob{width:56px}
+.pity{font-size:12.5px;margin-top:12px}
+.abrow{gap:10px;margin-top:12px}
+.ab,.ab.sell,.ab.keep{height:52px;border-radius:var(--r);background:var(--btn);color:var(--btnt);border:0;box-shadow:none;gap:8px;padding:0 10px}
+.ab.sell{background:rgba(42,171,238,.14);background:color-mix(in srgb,var(--btn) 14%,transparent);color:var(--blue)}
+.ab .bt b{font-size:16px;font-weight:600}
+.ab .bt i{font-size:12px;opacity:.8}
+.ab svg{width:22px;height:22px}
+html[data-bs] .ab{border-radius:var(--r);height:52px}
+.shbtn{background:var(--grp);border:0}
+
+/* ---------- маркет, коллекция, профиль ---------- */
+.mrow{padding:11px 14px}
+.mprice{font-variant-numeric:tabular-nums}
+.pinfo{margin-top:18px}
+.inf2 .v{font-size:17px}
+.pf .ava{border-color:var(--bg)}
+.hlist::before{background:var(--sep)}
+.hc{background:var(--grp)}
+.prembadge,.ttl{border-radius:8px}
+.wheel{box-shadow:0 0 0 5px var(--grp)}
+
+/* ---------- доработки: выравнивание, карточки, вкладки ---------- */
+/* заголовок строго по центру: слева кнопка 32px, справа такой же пустой блок */
+.nav>span:last-child{width:32px!important}
+/* стрелка всегда у правого края, но после значения держится рядом с ним (inline-стили в разметке перебиваем) */
+.go .ar{margin-left:auto!important}
+.go small+.ar,.go .cnt+.ar{margin-left:8px!important}
+.go small{text-align:right;flex:none;max-width:55%}
+/* до первой прокрутки плашка редкости пустая: не показываем её */
+.hero .rar b:empty{display:none}
+.hero .rar{margin-top:6px}
+/* карточки ников: без цветной «скобки» сверху, редкость видна по цвету аватара и значка */
+.nc{border:0;box-shadow:none}
+.ccard{border-width:1px}
+.ncav{box-shadow:none}
+/* активная вкладка слегка залита, как в Telegram */
+.tabs button.on svg{fill:currentColor;fill-opacity:.16}
+.tabs button span{white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.tabs button,.tabs button svg{transition:none}}
+
+/* выбранный сегмент в тёмной теме: чуть светлее фона, иначе сливается с дорожкой */
+:root{--segon:var(--grp)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--segon:#3a3a3c;--segon:color-mix(in srgb,var(--grp) 78%,#fff)}}
+:root[data-theme="dark"]{--segon:#3a3a3c;--segon:color-mix(in srgb,var(--grp) 78%,#fff)}
+:root.tgdark:not([data-theme="light"]){--segon:#3a3a3c;--segon:color-mix(in srgb,var(--grp) 78%,#fff)}
+.seg .on,.ptabs button.on,.seg3 .on{background:var(--segon)}
+
+/* авто-продажа: длинные подписи не обрезаются */
+.rule{gap:8px;padding:10px 12px}
+.seg3 button{padding:6px 7px}
+.seg button{white-space:nowrap}
+.seg:has(button:nth-child(4)) button{font-size:12px;letter-spacing:-.2px;padding:7px 1px}
