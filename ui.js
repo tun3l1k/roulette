@@ -9,10 +9,17 @@ function countTo(id,v,f){var el=document.getElementById(id);if(!el)return;var fr
 // ----- screens -----
 var NA=true,LS=null;
 var STK=['home'];
+// Нижняя панель вкладок: перерисовывается только когда меняется активная вкладка
+var TK_=null;
+function paintTabs(){var on=isTab(scr),tb=$('tabs');document.body.classList.toggle('hastabs',on);if(!tb)return;
+ var k=on?scr:'';if(k===TK_)return;TK_=k;
+ tb.innerHTML=on?TABS.map(function(t){return '<button data-go="'+t[0]+'"'+(t[0]==scr?' class="on" aria-current="page"':'')+'>'+t[2]+'<span>'+t[1]+'</span></button>'}).join(''):''}
 function go(n){if(n==scr){draw();return}
- var dir=1;if(STK.length>1&&STK[STK.length-2]==n){STK.pop();dir=-1}else if(n=='home'){STK=['home'];dir=-1}else STK.push(n);
+ var dir=1,tsw=isTab(n)&&isTab(scr);
+ if(STK.length>1&&STK[STK.length-2]==n){STK.pop();dir=-1}else if(n=='home'){STK=['home'];dir=-1}else if(isTab(n))STK=[n];else STK.push(n);
  if(n=='list'&&dir>0)LU=null;if(n=='profile'&&dir>0)PT=0;if(n=='friends')refsLoad();
- var a=$('app'),sy=window.scrollY||0,old=null,rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(tsw)hap({type:'selection_change'});
+ var a=$('app'),sy=window.scrollY||0,old=null,rm=tsw||(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
  if(!rm&&a.animate){old=document.createElement('div');old.className='ghost';old.innerHTML='<div style="transform:translateY(-'+sy+'px)">'+a.innerHTML+'</div>';document.body.appendChild(old)}
  if(AS&&n!='home')stopAuto('⏹ Автопрокрутка остановлена');NA=true;scr=n;draw();window.scrollTo(0,0);
  if(old){var o={duration:340,easing:'cubic-bezier(.32,.72,0,1)'},sh='0 0 28px rgba(0,0,0,.35)';
@@ -36,7 +43,7 @@ function lvlHtml(){return '<span class="lvchip">Уровень '+level()+'</span
 function spinLabel(){return '<b>Прокрутить</b>'+(S.free>0?'<span class="cst">бесплатно ×'+S.free+'</span>':'<span class="cst">'+SI(16)+fmt(COST)+'</span>')}
 function paintHome(anim){var sh=shown();if(!$('huname'))return;var t=sh?tier(sh.tier):null,i=sh?ti(sh.tier):0,a=$('hava'),u=$('huname');
 u.innerHTML=sh?'@'+sh.u:ownHandle();$('hl').innerHTML=ownInitial();
-$('hrar').textContent=t?t.name:'—';$('hrar').style.color=t?t.color:'var(--sub)';
+$('hrar').textContent=t?t.name:'';$('hrar').style.color=t?t.color:'var(--sub)';
 var pe=!!S.pending;$('hrow').style.display=pe?'flex':'none';$('hbtn').style.opacity=pe?.45:1;$('hbtn').innerHTML=spinLabel();var hsh=$('hshare');if(hsh)hsh.style.display=pe?'flex':'none';var ab=$('hauto');if(ab){ab.classList.toggle('on',AS);ab.innerHTML=AS?AUTOI+'<span>Стоп · '+ASN+'</span>':AUTOI+'<span>Авто</span>'}countTo('hbs',S.yuz,fS);countTo('hbt',S.ton||0,fT);$('hprice').textContent=priceText(sh);$('hmult').textContent=sh?multText(sh):'';var hp=$('hpity');if(hp){if(S.pity>0)hp.textContent='Гарант ×'+S.pity+' удачи на следующую прокрутку';else hp.textContent='До гаранта: ×2 через '+(50-S.spins%50)+' · ×5 через '+(500-S.spins%500)+' прокруток'}
 $('hlvl').innerHTML=lvlHtml();var hr=$('hring');if(hr)hr.setAttribute('stroke-dashoffset',(345.6*(1-lvlPct()/100)).toFixed(1));
 a.style.boxShadow=i>=1?'0 0 '+(8+i*7)+'px '+t.color+(i>=4?'':'aa'):'none';a.style.borderColor=i>=1?t.color:'';
@@ -58,11 +65,10 @@ function draw(){var h='',a=$('app'),_y=window.scrollY,_k=(scr===LS);
   '<div class="hero"><button class="shbtn" id="hshare" data-act="sharecur" style="display:none">'+SHI+'</button><div class="avawrap hv"><div class="ava" id="hava"><span id="hl">'+ownInitial()+'</span>'+photoTag()+'</div></div>'+
   '<div class="uname" id="huname">'+(u?'@'+u:ownHandle())+'</div>'+
   '<div class="lvl" id="hlvl">'+lvlHtml()+'</div>'+
-  '<div class="rar">Редкость<b id="hrar" style="color:'+(mt?mt.color:'var(--sub)')+'">'+(mt?mt.name:'—')+'</b><span id="hmult" style="font-size:13px;display:block;color:var(--blue);margin-top:2px"></span></div></div>'+
+  '<div class="rar">Редкость<b id="hrar" style="color:'+(mt?mt.color:'var(--sub)')+'">'+(mt?mt.name:'')+'</b><span id="hmult" style="font-size:13px;display:block;color:var(--blue);margin-top:2px"></span></div></div>'+
   '<div class="spinrow"><button class="go big" id="hbtn" data-act="spin">'+spinLabel()+'</button><button class="autob" id="hauto" data-act="auto">'+AUTOI+'<span>Авто</span></button></div><div class="abrow" id="hrow"><button class="ab sell" data-act="sellcur">'+TAGC+'<span class="bt"><b>Продать</b><i id="hprice">'+priceText(sh)+'</i></span></button><button class="ab keep" data-act="keep">'+PLUSC+'<span class="bt"><b>Оставить</b><i>в коллекцию</i></span></button></div><div class="pity" id="hpity"></div>'+
-  '<div class="grp">'+row(IC.user,'#ef5a5a','Мой профиль','profile')+row(IC.gear,'#5ccf6c','Настройки','settings')+'</div>'+
   '<div class="grp">'+row(IC.users,'#5ac8fa','Пригласить друзей','friends','')+row(IC.gift,'#34c759','Подарок другу','fgift','')+srow(IC.medal,'#ff9f0a','Battle Pass')+srow(IC.frame,'#a259f7','Рамки профиля')+row(IC.task,'#30b0c7','Задания','tasks',claimable()?''+claimable():'')+row(IC.auto,'#a259f7','Авто-продажа','auto',S.auto?'Вкл':'')+row(IC.bag,'#34c759','Магазин','shop','')+row(IC.wheel,'#ff9f0a','Колесо фортуны','wheel',wheelReady()?'готово':'')+row(IC.gift,'#ff5d8f','Подарки','gifts','в разработке')+'</div>'+
-  '<div class="grp">'+row(IC.layers,'#3d7df2','Коллекция','coll',S.coll.length)+row(IC.clock,'#5ccf6c','История прокруток','hist')+row(IC.trophy,'#f2b244','Рейтинг','rating')+row(IC.shop,'#5db4f7','Маркет','market')+'</div>'+
+  '<div class="grp">'+row(IC.clock,'#5ccf6c','История прокруток','hist')+row(IC.gear,'#8e8e93','Настройки','settings')+'</div>'+
   '<div class="foot">Собирай редкие ники, повышай уровень,<br>стань легендой!</div>'}
  else if(scr=='spin'){h=nav('Прокрутка')+'<div id="card"></div><div class="row2"><button class="act m" data-act="spin">🔄 Ещё</button></div><div class="row2"><button class="act" data-act="copy">📋 Копировать</button><button class="act" data-act="share">📤 Поделиться</button></div><div class="row2"><button class="act" data-act="setmain">⭐ Сделать основным</button></div>'}
  else if(scr=='coll'){h=nav('Коллекция')+collHtml()}
@@ -129,7 +135,7 @@ function draw(){var h='',a=$('app'),_y=window.scrollY,_k=(scr===LS);
   '<div class="grp pinfo">'+inf2('имя пользователя','<span style="color:var(--blue)">'+un+'</span>',QRI)+inf2('баланс',balHtml())+inf2('в игре с',sd.getDate()+' '+MN[sd.getMonth()])+'</div>'+
   '<div class="ptabs">'+['Статистика','Подарки','История'].map(function(x,i){return '<button class="'+(i==PT?'on':'')+'" data-pt="'+i+'">'+x+'</button>'}).join('')+'</div><div class="pbody">'+body+'</div>'}
  else if(scr=='settings'){h=nav('Настройки')+'<div class="sec">Тема</div><div class="grp">'+[['auto','Как в телефоне'],['light','Светлая'],['dark','Тёмная']].map(function(x){return '<button class="go" data-theme="'+x[0]+'">'+x[1]+(S.theme==x[0]?'<small style="color:var(--blue)">✓</small>':'')+'</button>'}).join('')+'</div><div class="sec">Размер кнопок</div><div class="seg">'+[['s','Маленький'],['m','Средний'],['l','Большой']].map(function(x){return '<button class="'+((S.bsize||'m')==x[0]?'on':'')+'" data-bs="'+x[0]+'">'+x[1]+'</button>'}).join('')+'</div><div class="sec">Параметры</div><div class="grp">'+tgRow('📳','#ff9500','Вибрация','haptic')+tgRow('✨','#af52de','Анимация прокрутки','anim')+'</div><div class="grp" style="margin-top:18px"><button class="go" data-go="auto"><span class="ic" style="background:#ff9500">'+ei('💰')+'</span>Авто-продажа<small>'+(S.auto?'Вкл':'Выкл')+'</small><span class="ar" style="margin-left:8px">›</span></button></div><div class="grp" style="margin-top:18px">'+tgRow('🛡️','#34c759','Подтверждать продажу','confirm')+'</div><div class="grp" style="margin-top:18px"><button class="go" data-act="cloudsync"><span class="ic" style="background:#4f9bff">'+ei('☁️')+'</span>Облачное сохранение<small>'+cloudStatus()+'</small></button></div><div class="grp" style="margin-top:18px"><button class="go" data-act="news"><span class="ic" style="background:#5ac8fa">'+IC.news+'</span>Новости игры<span class="ar" style="margin-left:8px">›</span></button><button class="go" data-act="support"><span class="ic" style="background:#34c759">'+IC.chat+'</span>Техподдержка<span class="ar" style="margin-left:8px">›</span></button></div>'+((MT.admin||!MT.cfg||!cloudOn())?'<div class="grp" style="margin-top:18px"><button class="go" data-act="admin"><span class="ic" style="background:#5856d6">'+ei('🔐')+'</span>Админ-меню<span class="ar">›</span></button></div>':'')+'<div class="grp" style="margin-top:18px"><div class="go"><span class="ic" style="background:#8e8e93">'+IC.info+'</span>Версия игры<small>v'+APP_VER+'</small></div></div><div class="grp" style="margin-top:18px"><button class="go" data-act="reset" style="color:#ff3b30">Сбросить прогресс</button></div>'}
- a.innerHTML=h;a.className=NA?'':'noanim';NA=false;if(_k)window.scrollTo(0,_y);LS=scr;if(scr=='spin')card(cur);if(scr=='home')paintHome();if(scr=='wallet'){countTo('wst',S.yuz,fS);countTo('wtn',S.ton||0,fT)}if(scr=='gifts'){countTo('gst',S.yuz,fS);countTo('gtn',S.ton||0,fT)}if(scr=='market'){countTo('mst',S.yuz,fS);countTo('mtn',S.ton||0,fT)}}
+ a.innerHTML=h;a.className=NA?'':'noanim';NA=false;if(_k)window.scrollTo(0,_y);LS=scr;paintTabs();tgSync();if(scr=='spin')card(cur);if(scr=='home')paintHome();if(scr=='wallet'){countTo('wst',S.yuz,fS);countTo('wtn',S.ton||0,fT)}if(scr=='gifts'){countTo('gst',S.yuz,fS);countTo('gtn',S.ton||0,fT)}if(scr=='market'){countTo('mst',S.yuz,fS);countTo('mtn',S.ton||0,fT)}}
 function card(r){var el=$('card');if(!el)return;
  if(!r){el.innerHTML='<div class="msg"><div class="mava">?</div><div class="bubble"><div class="bn">Username Bot</div><div class="bu">Жми «Ещё»</div></div></div>';return}
  var t=tier(r.tier),i=ti(r.tier);
