@@ -60,7 +60,7 @@ function auTick(){var now=Date.now(),ch=false;S.lots=S.lots||[];S.offers=S.offer
   if(l.mine){if(Math.random()<.07&&l.price<(l.cc=='ton'?worth(l)/RATE*1.3+.001:worth(l)*4+4)){l.price=minBid(l);l.bidder='bot';ch=true}}
   else if(Math.random()<.03){var mb=minBid(l);if(l.bidder=='me'){gain(l.cc,l.price,'Возврат ставки @'+l.u);toast('Тебя перебили: @'+l.u)}l.price=mb;l.bidder='bot';ch=true}});
  S.lots=S.lots.filter(function(l){return !l.sold});
- led('Операция');giftTick();if(isPrem()&&S.freeDay!==dk(new Date())){S.freeDay=dk(new Date());S.free=(S.free||0)+1;toast('✨ Premium: бесплатная прокрутка дня');ch=true}
+ led('Операция');if(isPrem()&&S.freeDay!==dk(new Date())){S.freeDay=dk(new Date());S.free=(S.free||0)+1;toast('✨ Premium: бесплатная прокрутка дня');ch=true}
  var no=S.offers.length;S.offers=S.offers.filter(function(o){return o.endsAt>now});if(S.offers.length!=no)ch=true;
  if(S.offers.length<2&&Math.random()<.015){var o=offerNew();S.offers.push(o);ch=true}
  var nA=S.lots.filter(function(x){return !x.mine&&!x.fx}).length,nF=S.lots.filter(function(x){return !x.mine&&x.fx}).length;

@@ -3,7 +3,7 @@ if(!S.g1){S.g1=1;S.yuz=(S.yuz||0)+10000;save()}
 if(!S.g2){S.g2=1;S.ton=r3((S.ton||0)+0.5);save()}
 if(!S.g3){S.g3=1;S.xp=Math.round((S.spins||0)*4.6);S.pity=0;save()}
 document.addEventListener('click',function(e){
- var el=e.target.closest('[data-go],[data-act],[data-pick],[data-sell],[data-theme],[data-tg],[data-mt],[data-bid],[data-lp],[data-lpp],[data-ld],[data-cur],[data-tu],[data-am],[data-hf],[data-cf],[data-cs],[data-claim],[data-tk],[data-pt],[data-lc],[data-xch],[data-tt],[data-pc],[data-buy],[data-cancel],[data-oacc],[data-orej],[data-lm],[data-bs],[data-bp],[data-g],[data-fgk],[data-fgi],[data-soon],[data-nick],[data-rc],[data-ta],[data-ca],[data-ru-0],[data-ru-1],[data-ru-2],[data-ru-3],[data-ru-4],[data-ru-5],[data-ru-6],[data-adm],[data-mf],[data-ms],[data-ap],[data-ac],[data-at],[data-ar],[data-al]');if(!el)return;
+ var el=e.target.closest('[data-go],[data-act],[data-pick],[data-sell],[data-theme],[data-tg],[data-mt],[data-bid],[data-lp],[data-lpp],[data-ld],[data-cur],[data-tu],[data-am],[data-hf],[data-cf],[data-cs],[data-claim],[data-tk],[data-pt],[data-lc],[data-xch],[data-tt],[data-pc],[data-buy],[data-cancel],[data-oacc],[data-orej],[data-lm],[data-bs],[data-bp],[data-fgi],[data-soon],[data-nick],[data-rc],[data-ta],[data-ca],[data-ru-0],[data-ru-1],[data-ru-2],[data-ru-3],[data-ru-4],[data-ru-5],[data-ru-6],[data-adm],[data-mf],[data-ms],[data-ap],[data-ac],[data-at],[data-ar],[data-al]');if(!el)return;
  var d=el.dataset;
  if(d.go){go(d.go);}
  else if(d.pick){S.main=d.pick;S.pinned=true;save();toast('Основной: @'+d.pick);hap({type:'selection_change'});draw()}
@@ -11,8 +11,6 @@ document.addEventListener('click',function(e){
  else if(d.cur){S.cur=d.cur;save();draw()}
   else if(d.bs){S.bsize=d.bs;save();applySize();draw()}
  else if(d.bp){buyPack(d.bp)}
- else if(d.g){gAct(d.g)}
- else if(d.fgk){FG.k=d.fgk;FG.id=null;draw()}
  else if(d.fgi){FG.id=d.fgi;draw()}
  else if(d.soon){SOONT=d.soon;go('soon')}
  else if(d.nick){nickSheet(d.nick)}
@@ -55,7 +53,6 @@ document.addEventListener('click',function(e){
   case 'auto':toggleAuto();break;
   case 'wheel':spinWheel();break;
   case 'buyprem':buyPrem();break;
-  case 'gsendgo':sendGiftGo();break;
   case 'admin':askPass();break;
   case 'fgsend':giftFriend();break;
   case 'sharecur':shareNick(S.pending);break;
@@ -82,15 +79,14 @@ document.addEventListener('click',function(e){
   case 'chest':claimChest();break;
   case 'xch':var xe=document.getElementById('xch');if(xe&&xe.scrollIntoView)xe.scrollIntoView({behavior:'smooth',block:'center'});break;
   case 'luck':buyLuck();break;
-  case 'reset':ask('Сбросить весь прогресс?','Сбросить',function(){Promise.resolve(resetAll()).then(function(){go('home')})});break}
+  case 'reset':ask('Сбросить весь прогресс?','Сбросить',function(){Promise.resolve(resetAll()).then(function(r){var e=r&&(r.err||(r.res&&r.res.err));if(e)toast('Сброс доступен только администратору');else go('home')})});break}
 });
 tgPost('web_app_ready');tgPost('web_app_expand');tgPost('web_app_setup_swipe_behavior',{allow_vertical_swipe:false});
 S.since=S.since||Date.now();S.lots=S.lots||[];S.rare=S.rare||S.hist.filter(function(c){return ti(c.tier)>=2});if(!S.best){var _b=null;(S.coll||[]).concat(S.rare||[],S.hist||[]).forEach(function(c){if(!_b||worth(c)>worth(_b))_b=c});if(_b){noteBest(_b);save()}}
 if(S.autoKeep===false&&!S.autoTags)S.autoTags=[];
-giftMigrate();
 if(!S.bl)S.bl={y:S.yuz,t:S.ton||0};
 wrapActions();theme();applySize();draw();auTick();setInterval(function(){if(SRV())tickTimers();else auTick()},1000);var n8=0;setInterval(function(){if(!SRV())return;n8++;if(scr=='market'||n8%8==0)srvRun('tickNow',[])},8000);cloudLoad();maintCheck();setInterval(maintCheck,60000);
-document.addEventListener('input',function(e){if(e.target&&e.target.id=='fgto')FGTO=e.target.value.replace(/^@/,'').toLowerCase().replace(/[^a-z0-9_]/g,'');if(e.target&&e.target.id=='gto')GTO=e.target.value.replace(/^@/,'').toLowerCase().replace(/[^a-z0-9_]/g,'');if(e.target&&e.target.id=='lto')LTO=e.target.value.replace(/^@/,'').toLowerCase().replace(/[^a-z0-9_]/g,'')});
+document.addEventListener('input',function(e){if(e.target&&e.target.id=='fgto')FGTO=e.target.value.replace(/^@/,'').toLowerCase().replace(/[^a-z0-9_]/g,'');if(e.target&&e.target.id=='lto')LTO=e.target.value.replace(/^@/,'').toLowerCase().replace(/[^a-z0-9_]/g,'')});
 document.addEventListener('gesturestart',function(e){e.preventDefault()});
 document.addEventListener('visibilitychange',function(){if(document.hidden)cloudPush(true)});
 document.addEventListener('input',function(e){var id=e.target&&e.target.id;

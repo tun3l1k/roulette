@@ -3,13 +3,13 @@ var APP_VER='2.0.0';
 var NEWS_URL='https://t.me/UsernameRouletteNews',SUPPORT_URL='https://t.me/TUN3L';
 var PAY_LIVE=false; // true, когда подключена настоящая оплата Telegram Stars
 var TIERS=[
- {id:'common',name:'обычный',icon:'⚪',color:'#9e9e9e',w:55,pts:1},
- {id:'norm',name:'необычный',icon:'🟢',color:'#34c759',w:25,pts:3},
- {id:'rare',name:'редкий',icon:'🔵',color:'#3b82f6',w:12,pts:10},
- {id:'epic',name:'эпический',icon:'🟣',color:'#a855f7',w:5,pts:30},
- {id:'legend',name:'легендарный',icon:'🟠',color:'#ff9500',w:2,pts:100},
- {id:'mythic',name:'мифический',icon:'🔴',color:'#ff3b30',w:0.8,pts:500},
- {id:'divine',name:'божественный',icon:'🌟',color:'#ffd700',w:0.2,pts:2000}
+ {id:'common',name:'обычный',icon:'⚪',color:'#9e9e9e',bd:['#8794a8','#3b4658'],w:55,pts:1},
+ {id:'norm',name:'необычный',icon:'🟢',color:'#34c759',bd:['#46c27d','#17673f'],w:25,pts:3},
+ {id:'rare',name:'редкий',icon:'🔵',color:'#3b82f6',bd:['#5a9bff','#1d3f99'],w:12,pts:10},
+ {id:'epic',name:'эпический',icon:'🟣',color:'#a855f7',bd:['#b57bff','#4f2196'],w:5,pts:30},
+ {id:'legend',name:'легендарный',icon:'🟠',color:'#ff9500',bd:['#ffb04a','#b24a0c'],w:2,pts:100},
+ {id:'mythic',name:'мифический',icon:'🔴',color:'#ff3b30',bd:['#ff6a5c','#8f1515'],w:0.8,pts:500},
+ {id:'divine',name:'божественный',icon:'🌟',color:'#ffd700',bd:['#ffd75a','#b8560a'],w:0.2,pts:2000}
 ];
 var NAMES=['alexander','dmitry','sergey','andrew','michael','nikolay','vladimir','natalia','svetlana','victoria','daniel','kirill','eugene','maxim','artem','olivia','sophia','natasha'];
 var SURN=['ivanov','petrov','smirnov','volkov','kuznetsov','popov','sokolov','morozov'];
@@ -30,7 +30,6 @@ var WHEEL_MS=5*3600*1000;
 var WHEEL=[
  {id:'s50',c:'#5ac8fa',w:28,t:'star',v:50},
  {id:'s150',c:'#34c759',w:27,t:'star',v:150},
- {id:'gift',c:'#4f9bff',w:9,t:'gift',v:1},
  {id:'luck',c:'#a259f7',w:12,t:'luck',v:10},
  {id:'free',c:'#ff5d8f',w:12,t:'free',v:1},
  {id:'s1000',c:'#ffb020',w:7,t:'star',v:1000},
