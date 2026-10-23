@@ -72,6 +72,7 @@ function draw(){var h='',a=$('app'),_y=window.scrollY,_k=(scr===LS);
   '<div class="foot">Собирай редкие ники, повышай уровень,<br>стань легендой!</div>'}
  else if(scr=='spin'){h=nav('Прокрутка')+'<div id="card"></div><div class="row2"><button class="act m" data-act="spin">🔄 Ещё</button></div><div class="row2"><button class="act" data-act="copy">📋 Копировать</button><button class="act" data-act="share">📤 Поделиться</button></div><div class="row2"><button class="act" data-act="setmain">⭐ Сделать основным</button></div>'}
  else if(scr=='coll'){h=nav('Коллекция')+collHtml()}
+ else if(scr=='craft'){h=nav('Крафт')+craftHtml()}
  else if(scr=='hist'){h=nav('История прокруток')+histHtml()}
  else if(scr=='rating'){h=nav('Рейтинг')+ratingHtml()}
  else if(scr=='market'){var md=S.mt||'auc',MLs=S.lots||[],nA=MLs.filter(function(x){return !x.mine&&!x.fx}).length,nF=MLs.filter(function(x){return !x.mine&&x.fx}).length,nM=MLs.filter(function(x){return x.mine}).length,nO=(S.offers||[]).length;

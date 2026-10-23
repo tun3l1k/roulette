@@ -44,3 +44,14 @@
 .hrw .hr{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex:none}
 .hrw .hr b{font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .hrw .hr small{margin:0;max-width:none;font-size:12px}
+
+/* Крафт */
+.crinfo{display:flex;align-items:center;justify-content:space-between;background:var(--grp);border-radius:18px;padding:14px 16px;margin-top:12px}
+.crt{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px}
+.crt i{font-style:normal;color:var(--sub)}
+.crp{text-align:right}.crp b{display:block;font-size:22px}.crp small{color:var(--sub);font-size:12px}
+.crnote{color:var(--sub);font-size:13px;margin:10px 4px}
+.crbar{position:sticky;bottom:calc(76px + env(safe-area-inset-bottom));padding:12px 0 0}
+.crbar .pbtn[disabled]{opacity:.45}
+.crres{text-align:center;font-size:22px;font-weight:800;margin-bottom:12px}
+.crres.win{color:#34c759}.crres.lose{color:var(--sub)}
