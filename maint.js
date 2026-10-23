@@ -5,7 +5,7 @@ function maintShow(){var el=document.getElementById('maint');
   el.innerHTML='<div class="mti">'+IC.tools+'</div><h2>Технический перерыв</h2><p>'+esc(MT.msg||'Мы готовим обновление. Скоро вернёмся!')+'</p><button class="pbtn" data-act="maintretry">Проверить снова</button><button class="pbtn gray" style="margin-top:10px" data-act="news">'+IC.news+' Новости в группе</button>'}
  else if(el)el.remove()}
 function maintCheck(){if(!cloudOn())return;
- cpost('/api/status',{initData:cInit()}).then(function(r){if(!r||!r.ok)return;MT.ok=true;MT.admin=!!r.admin;MT.cfg=!!r.cfg;MT.eng=!!r.eng;MT.on=!!r.maint;MT.msg=r.msg||'';maintShow();if(scr=='admin'||scr=='settings')draw()}).catch(function(){})}
+ cpost('/api/status',{initData:cInit()}).then(function(r){if(!r||!r.ok)return;MT.ok=true;MT.admin=!!r.admin;MT.cfg=!!r.cfg;MT.eng=!!r.eng;MT.on=!!r.maint;MT.msg=r.msg||'';if(r.gc){try{applyGameCfg(r.gc);if(scr=='home')paintHome();else if(!typing())draw()}catch(e){}}maintShow();if(scr=='admin'||scr=='settings')draw()}).catch(function(){})}
 function maintSet(on,msg){cpost('/api/maint',{initData:cInit(),on:on,msg:msg||''}).then(function(r){
  if(r&&r.ok){MT.on=!!r.maint;MT.msg=r.msg||'';toast(on?'Игра закрыта на технический перерыв':'Игра снова открыта');draw()}
  else toast(r&&r.err=='forbidden'?'Нет прав: добавь свой ID в ADMIN_IDS воркера':'Не удалось, попробуй ещё раз')}).catch(function(){toast('Нет связи с сервером')})}

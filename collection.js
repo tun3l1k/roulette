@@ -1,10 +1,12 @@
 // Коллекция: поиск, фильтры, карточки ников и окно с подробностями
 // Общие кирпичики оформления: коллекционный фон по редкости, «герой» ника, разбор цены
-function bdVars(t){return '--c1:'+t.bd[0]+';--c2:'+t.bd[1]}
+function bdVars(t){return '--tc:'+t.color}
 function bdCls(t){return 'bd'+(ti(t.id)>=4?' hi':'')}
-function nickSize(u,big){var n=u.length+1;return big?(n<=9?44:n<=13?36:n<=18?28:22):(n<=9?22:n<=13?18:n<=18?15:13)}
+// Ник набран моноширинным шрифтом: ширина символа ≈ 0.6 em, поэтому размер считается точно по длине
+function nickSize(u,big){var n=u.length+1,w=big?300:136,mx=big?40:26,mn=big?20:12;return Math.max(mn,Math.min(mx,Math.floor(w/(.6*n))))}
+function nk(u,big){return '<span class="nk" style="font-size:'+nickSize(u,big)+'px"><i>@</i>'+esc(u)+'</span>'}
 function nickHero(c,sm){var t=tier(c.tier),m=mult(c.u);
- return '<div class="bh '+bdCls(t)+(sm?' sm':'')+'" style="'+bdVars(t)+'"><span class="bhr">'+t.name+'</span>'+(m.m>1?'<span class="bhm">×'+fm(m.m)+'</span>':'')+'<div class="bhn" style="font-size:'+nickSize(c.u,1)+'px">@'+esc(c.u)+'</div><div class="bhp">'+money(worth(c))+'</div></div>'}
+ return '<div class="bh '+bdCls(t)+(sm?' sm':'')+'" style="'+bdVars(t)+'"><div class="bht"><span class="bhr">'+t.name+'</span>'+(m.m>1?'<span class="bhm">×'+fm(m.m)+'</span>':'')+'</div>'+nk(c.u,1)+'<div class="bhp">'+money(worth(c))+'</div></div>'}
 function priceRows(c){var t=tier(c.tier),m=mult(c.u),b=c.base!=null?c.base:t.pts;
  return '<div class="grp"><div class="go"><span>Базовая цена</span><small>'+money(b)+'</small></div>'+m.parts.map(function(p){return '<div class="go"><span>'+p[0]+'</span><small>× '+fm(p[1])+'</small></div>'}).join('')+'<div class="go"><span><b>Итого</b></span><small style="color:var(--text);font-weight:700">'+money(worth(c))+'</small></div></div>'}
 function collAll(){var cf=(S.cf===undefined?-1:S.cf),cs=S.cs||'r',q=(S.cq||'').toLowerCase(),c2={};S.coll.forEach(function(c){var k=ti(c.tier);c2[k]=(c2[k]||0)+1});
@@ -15,7 +17,7 @@ function collAll(){var cf=(S.cf===undefined?-1:S.cf),cs=S.cs||'r',q=(S.cq||'').t
 function collList(){var L=collAll().L;
  if(!L.length)return '<div class="empty">'+(S.coll.length?'Ничего не найдено':'В коллекции пока пусто<br>Крути и оставляй лучшие ники')+'</div>';
  return '<div class="cgrid">'+L.map(function(c){var t=tier(c.tier),m=mult(c.u);
-  return '<button class="gt" data-nick="'+c.u+'"><div class="gtb '+bdCls(t)+'" style="'+bdVars(t)+'">'+(m.m>1?'<span class="gtm">×'+fm(m.m)+'</span>':'')+'<span class="gtn" style="font-size:'+nickSize(c.u)+'px">@'+esc(c.u)+'</span></div><div class="gtf"><b>'+money(worth(c))+'</b><span class="gtr"><i style="background:'+t.color+'"></i>'+t.name+'</span></div></button>'}).join('')+'</div>'}
+  return '<button class="gt '+bdCls(t)+'" style="'+bdVars(t)+'" data-nick="'+c.u+'"><div class="gtt"><span class="gtr">'+t.name+'</span>'+(m.m>1?'<span class="gtm">×'+fm(m.m)+'</span>':'')+'</div>'+nk(c.u)+'<div class="gtf">'+money(worth(c))+'</div></button>'}).join('')+'</div>'}
 function crReady(){var c=craftTiers(),n=0;Object.keys(c).forEach(function(k){if(c[k]>=3&&craftChance(+k)>0)n++});return n?'можно: '+n:''}
 function collHtml(){if(!S.coll.length)return emp('box','В коллекции пока пусто<br>Крути и оставляй лучшие ники',50);
  var a=collAll(),tot=0,rr=0;S.coll.forEach(function(c){tot+=worth(c);if(ti(c.tier)>=2)rr++});var bl=bulkList();
