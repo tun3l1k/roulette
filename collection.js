@@ -16,9 +16,11 @@ function collList(){var L=collAll().L;
  if(!L.length)return '<div class="empty">'+(S.coll.length?'Ничего не найдено':'В коллекции пока пусто<br>Крути и оставляй лучшие ники')+'</div>';
  return '<div class="cgrid">'+L.map(function(c){var t=tier(c.tier),m=mult(c.u);
   return '<button class="gt" data-nick="'+c.u+'"><div class="gtb '+bdCls(t)+'" style="'+bdVars(t)+'">'+(m.m>1?'<span class="gtm">×'+fm(m.m)+'</span>':'')+'<span class="gtn" style="font-size:'+nickSize(c.u)+'px">@'+esc(c.u)+'</span></div><div class="gtf"><b>'+money(worth(c))+'</b><span class="gtr"><i style="background:'+t.color+'"></i>'+t.name+'</span></div></button>'}).join('')+'</div>'}
+function crReady(){var c=craftTiers(),n=0;Object.keys(c).forEach(function(k){if(c[k]>=3&&craftChance(+k)>0)n++});return n?'можно: '+n:''}
 function collHtml(){if(!S.coll.length)return emp('box','В коллекции пока пусто<br>Крути и оставляй лучшие ники',50);
  var a=collAll(),tot=0,rr=0;S.coll.forEach(function(c){tot+=worth(c);if(ti(c.tier)>=2)rr++});var bl=bulkList();
  return '<div class="cstat"><div><b>'+S.coll.length+'</b><small>ников</small></div><div><b>'+abbr(tot)+'</b><small>оценка ⭐</small></div><div><b>'+rr+'</b><small>редких</small></div></div>'+
+  '<div class="grp" style="margin-top:12px"><button class="go" data-go="craft"><span class="ic" style="background:#a855f7">'+IC.sparkle+'</span>Крафт ников<span class="cnt plain">'+crReady()+'</span><span class="ar" style="margin-left:8px">›</span></button></div>'+
   '<div class="msearch">'+SRCI+'<input id="csq" placeholder="Поиск ника" value="'+esc(S.cq||'')+'" autocomplete="off" autocapitalize="off" spellcheck="false"></div>'+
   '<div class="fchips"><button class="fc'+(a.cf<0?' on':'')+'" data-cf="-1">Все '+S.coll.length+'</button>'+TIERS.map(function(t,i){return a.c2[i]?'<button class="fc rc'+(a.cf==i?' on':'')+'" data-cf="'+i+'"><i class="rdt" style="background:'+t.color+'"></i>'+a.c2[i]+'</button>':''}).join('')+
   [['r','По редкости'],['p','По цене'],['n','Новые']].map(function(x){return '<button class="fc'+(a.cs==x[0]?' on':'')+'" data-cs="'+x[0]+'" style="'+(a.cs==x[0]?'':'opacity:.8')+'">'+(a.cs==x[0]?'⇅ ':'')+x[1]+'</button>'}).join('')+'</div>'+
