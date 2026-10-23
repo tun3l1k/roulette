@@ -1,6 +1,6 @@
 /* Ники как «шильдики»: моноширинный шрифт, @ цвета редкости, поверхность с лёгким оттенком редкости.
    Цвет редкости приходит в разметку через --tc (TIERS[].color в config.js). */
-:root{--mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+:root{--mono:ui-monospace,SFMono-Regular,'SF Mono',Menlo,'Roboto Mono',Consolas,'DejaVu Sans Mono',monospace}
 .mono{font-family:var(--mono);font-weight:600;letter-spacing:-.3px}
 .nk{display:block;font-family:var(--mono);font-weight:800;letter-spacing:-.04em;line-height:1.15;word-break:break-all;color:var(--text)}
 .nk i{font-style:normal;color:var(--tc);margin-right:.04em}
