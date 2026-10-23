@@ -26,7 +26,7 @@ function autoResolve(){var r=S.pending;if(!r)return{err:'none'};var a=autoAction
  return{ok:1,a:a}}
 function claimChest(){tqE();if(!allClaimed()||S.tq.c.chest)return{err:'no'};var cj=chestInfo();S.yuz+=cj.rew;if(cj.n>=7){S.ton=r3((S.ton||0)+.01)}
  S.streak=cj.n;S.lastChest=dk(new Date());S.tq.c.chest=1;led('Бонус дня');save();hap({type:'notification',notification_type:'success'});toast('Бонус дня +'+money(cj.rew));draw();return{ok:1}}
-function buyLuck(){if(S.yuz<100){toast('Не хватает баланса');return{err:'poor'}}S.yuz-=100;S.luck=(S.luck||0)+10;led('Удача ×3');save();toast('Удача на 10 прокруток');draw();return{ok:1}}
+function buyLuck(){if(S.yuz<LUCK_COST){toast('Не хватает баланса');return{err:'poor'}}S.yuz-=LUCK_COST;S.luck=(S.luck||0)+10;led('Удача ×1,5');save();toast('Удача на 10 прокруток');draw();return{ok:1}}
 function exchangeTon(t){t=r3(+t);if(!(t>=.001)||t>1000)return{err:'arg'};var cst=Math.ceil(t*RATE*1.1);if(S.yuz<cst){toast('Не хватает звёзд');return{err:'poor'}}
  S.yuz-=cst;S.ton=r3((S.ton||0)+t);led('Обмен ⭐ → TON');save();hap({type:'notification',notification_type:'success'});toast('+'+tonF(t)+' TON');draw();return{ok:1}}
 function wheelRoll(){wheelSync();if(S.wt<=0)return{err:'no'};var tot=WHEEL.reduce(function(a,b){return a+b.w},0),r=Math.random()*tot,k=0;

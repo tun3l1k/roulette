@@ -28,7 +28,7 @@ function craftHtml(){var c=craftTiers(),can=TIERS.map(function(t,i){return c[i]>
  var info='<div class="crinfo"><div class="crt"><span style="color:'+t.color+'">'+t.name+'</span><i>→</i><span style="color:'+nt.color+'">'+nt.name+'</span></div><div class="crp"><b>'+p+'%</b><small>шанс успеха</small></div></div>'+
   '<div class="crnote">Нужно выбрать 3 ника. Не повезло — получишь один новый ник прежней редкости, два других сгорят.</div>';
  var rows='<div class="grp">'+L.map(function(c2){var m=mult(c2.u),on=CF.sel.indexOf(c2.u)>=0;
-  return '<button class="go hrw'+(on?' sel':'')+'" data-cp="'+c2.u+'"><div class="hav '+bdCls(t)+'" style="'+bdVars(t)+'"><span>'+esc(c2.u.charAt(0).toUpperCase())+'</span></div><div class="hm"><b>@'+esc(c2.u)+'</b><small>'+(m.m>1?'×'+fm(m.m):'без множителей')+'</small></div><div class="hr"><b>'+money(worth(c2))+'</b><small>'+(on?'✓ выбран':'')+'</small></div></button>'}).join('')+'</div>';
+  return '<button class="go hrw'+(on?' sel':'')+'" data-cp="'+c2.u+'"><div class="hav '+bdCls(t)+'" style="'+bdVars(t)+'"><span>'+esc(c2.u.charAt(0))+'</span></div><div class="hm"><b class="mono">@'+esc(c2.u)+'</b><small>'+(m.m>1?'×'+fm(m.m):'без множителей')+'</small></div><div class="hr"><b>'+money(worth(c2))+'</b><small>'+(on?'✓ выбран':'')+'</small></div></button>'}).join('')+'</div>';
  var n=CF.sel.length;
  return chips+info+rows+'<div class="crbar"><button class="pbtn" style="width:100%" data-act="craftgo"'+(n==3?'':' disabled')+'>'+(n==3?'Скрафтить · сгорит '+money(sum):'Выбрано '+n+' из 3')+'</button></div>'}
 function craftResult(o){var r=o.r,t=tier(r.tier),ov=document.createElement('div');ov.className='ov';
