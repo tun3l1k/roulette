@@ -1,11 +1,31 @@
 // Ядро генератора: сборка ника и прокрутка
-function build(id){switch(id){
- case 'common':var k=ri(0,2);if(k==0)return rnd(NAMES)+'_'+rnd(SURN)+'_'+ri(10,99);if(k==1)return pron(ri(6,9))+ri(100,9999);return rnd(SHORTN)+'_'+rnd(WORDS)+ri(1,999);
- case 'norm':return Math.random()<.5?pron(ri(8,12)):rnd(NAMES)+rnd(WORDS);
- case 'rare':return Math.random()<.7?rnd(NAMES):pron(ri(6,7));
- case 'epic':return Math.random()<.7?rnd(SHORTN):pron(ri(4,5));
- case 'legend':return Math.random()<.75?rnd(FRAG_L.concat(WORDS)):pron(3);
- case 'mythic':return Math.random()<.45?'abcdefghijklmnopqrstuvwxyz'.charAt(ri(0,25)):rnd(FRAG_M);
+function build(id){var r=Math.random();switch(id){
+ case 'common':
+  if(r<.22)return rnd(NAMES)+'_'+rnd(SURN)+'_'+ri(10,99);
+  if(r<.42)return pron(ri(6,9))+ri(100,9999);
+  if(r<.62)return rnd(SHORTN)+'_'+rnd(WORDS)+ri(1,999);
+  if(r<.82)return rnd(ADJ)+'_'+rnd(NOUN)+'_'+ri(10,9999);
+  return rnd(SURN)+rnd(SHORTN)+ri(1,99)+'_'+pron(ri(2,3));
+ case 'norm':
+  if(r<.3)return pron(ri(8,12));
+  if(r<.55)return rnd(NAMES)+rnd(WORDS);
+  if(r<.8)return rnd(ADJ)+rnd(NOUN);
+  return rnd(SHORTN)+'_'+rnd(SURN);
+ case 'rare':
+  if(r<.7)return rnd(NAMES);
+  if(r<.85)return pron(ri(6,7));
+  return rnd(ADJ)+rnd(SHORTN);
+ case 'epic':
+  if(r<.62)return rnd(SHORTN);
+  if(r<.88)return pron(ri(4,5));
+  return rnd(WORDS.filter(function(w){return w.length>=5}));
+ case 'legend':
+  if(r<.78)return rnd(FRAG_L.concat(WORDS.filter(function(w){return w.length<=4})));
+  return pron(3);
+ case 'mythic':
+  if(r<.3)return 'abcdefghijklmnopqrstuvwxyz'.charAt(ri(0,25));
+  if(r<.5)return pron(2);
+  return rnd(FRAG_M);
  default:return rnd(DIVINE)}}
 function spin(){if(busy)return;
  if(S.pending)return toast('Сначала реши: продать или оставить');

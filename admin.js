@@ -19,4 +19,5 @@ function adminHtml(){if(!ADM)return '<div class="empty">Нет доступа</d
   '<div class="sec">Выдача TON</div><div class="row2">'+gv('+0,1','ton:0.1')+gv('+0,5','ton:0.5')+gv('+5','ton:5')+'</div>'+
   '<div class="sec">Своя сумма</div><input id="admn" class="inp" type="number" inputmode="decimal" placeholder="Сумма"><div class="row2" style="margin-top:10px"><button class="act" data-act="admgs">Выдать ⭐</button><button class="act" data-act="admgt">Выдать TON</button></div>'+
   maintHtml()+'<div class="sec">Диагностика Telegram</div><div class="grp">'+[['Запуск из Telegram',TG?'да':'нет'],['ID пользователя',TG&&TG.id?TG.id:'не передан'],['Имя пользователя',TG&&TG.username?'@'+esc(TG.username):'не передано'],['Фото профиля',TG&&TG.photo_url?'есть':'не передано'],['Облако',cloudStatus()]].map(function(x){return '<div class="go"><span>'+x[0]+'</span><small>'+x[1]+'</small></div>'}).join('')+'</div>'+
+  '<div class="sec">Опасная зона</div><div class="grp"><button class="go" data-act="reset" style="color:#ff3b30">Сбросить мой прогресс</button></div>'+
   '<button class="pbtn gray" style="width:100%;margin-top:18px" data-act="admout">Выйти из админ-меню</button>'}

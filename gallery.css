@@ -1,0 +1,49 @@
+/* Ники как «шильдики»: моноширинный шрифт, @ цвета редкости, поверхность с лёгким оттенком редкости.
+   Цвет редкости приходит в разметку через --tc (TIERS[].color в config.js). */
+:root{--mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.mono{font-family:var(--mono);font-weight:600;letter-spacing:-.3px}
+.nk{display:block;font-family:var(--mono);font-weight:800;letter-spacing:-.04em;line-height:1.15;word-break:break-all;color:var(--text)}
+.nk i{font-style:normal;color:var(--tc);margin-right:.04em}
+.bd{--tc:#9e9e9e;position:relative;background:color-mix(in srgb,var(--tc) 11%,var(--grp));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--tc) 26%,transparent)}
+.bd.hi{background:linear-gradient(160deg,color-mix(in srgb,var(--tc) 22%,var(--grp)),color-mix(in srgb,var(--tc) 8%,var(--grp)) 70%);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--tc) 55%,transparent),0 6px 22px -10px var(--tc)}
+
+/* --- коллекция --- */
+.cgrid{gap:10px}
+.gt{display:flex;flex-direction:column;justify-content:space-between;gap:14px;width:100%;min-width:0;min-height:128px;padding:12px 14px 13px;border:0;border-radius:18px;color:var(--text);text-align:left;font:inherit;transition:transform .12s}
+.gt:active{transform:scale(.97)}
+.gtt{display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:20px}
+.gtr,.bhr{font-size:12px;font-weight:600;color:var(--tc);white-space:nowrap}
+.gtm,.bhm{font-size:12px;font-weight:700;color:var(--sub);font-variant-numeric:tabular-nums}
+.gtf{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* --- «герой» ника --- */
+.bh{display:flex;flex-direction:column;justify-content:space-between;gap:22px;min-height:168px;padding:16px 18px 18px;border-radius:var(--rc,20px);text-align:left}
+.bh.sm{min-height:140px}
+.bht{display:flex;align-items:center;justify-content:space-between}
+.bhr{font-size:14px}.bhm{font-size:14px}
+.bhp{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+.sh .bh{margin-bottom:0}
+
+/* --- история и крафт: строки как в списке чатов --- */
+.sec+.grp{margin-top:0}
+.hrw{gap:12px;min-height:60px;padding:8px 14px}
+.hav{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex:none;font-family:var(--mono);font-weight:800;font-size:18px;color:var(--tc)}
+.hrw .hm{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.hrw .hm b{font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hrw .hm small{display:flex;align-items:center;gap:6px;max-width:none;margin:0;text-align:left;color:var(--sub);font-size:13px}
+.hrw .hr{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex:none}
+.hrw .hr b{font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.hrw .hr small{margin:0;max-width:none;font-size:12px}
+
+/* Крафт */
+.crinfo{display:flex;align-items:center;justify-content:space-between;background:var(--grp);border-radius:18px;padding:14px 16px;margin-top:12px}
+.crt{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px}
+.crt i{font-style:normal;color:var(--sub)}
+.crp{text-align:right}.crp b{display:block;font-size:22px}.crp small{color:var(--sub);font-size:12px}
+.crnote{color:var(--sub);font-size:13px;margin:10px 4px}
+.crbar{position:sticky;bottom:calc(76px + env(safe-area-inset-bottom));padding:12px 0 0}
+.crbar .pbtn[disabled]{opacity:.45}
+.crres{text-align:center;font-size:22px;font-weight:800;margin-bottom:12px}
+.crres.win{color:#34c759}.crres.lose{color:var(--sub)}
+
+.hero .uname,.uname{font-family:var(--mono);font-weight:800;letter-spacing:-.04em;font-size:26px}

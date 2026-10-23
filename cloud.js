@@ -21,9 +21,9 @@ function cloudLoad(force){if(!cloudOn()||CL.loading)return;CL.loading=true;
   if(!r.ok){CL.ok=false;CL.msg=cerr(r.err);cdone();return}
   if(r.eng){MT.eng=true;S=r.state;try{localStorage.setItem('ur3',JSON.stringify(S))}catch(e){}CL.loaded=true;CL.ok=true;CL.msg='';CL.at=Date.now();FRESH=false;theme();applySize();draw();setTimeout(refsLoad,700);cdone();return}
   CL.loaded=true;var st=r.state,fr=FRESH;FRESH=false;setTimeout(refsLoad,700);
-  if(st&&(force||fr||(st.sv||0)>(S.sv||0))){S=st;S.coll=S.coll||[];S.hist=S.hist||[];S.rare=S.rare||[];S.lots=S.lots||[];S.gifts=S.gifts||[];
+  if(st&&(force||fr||(st.sv||0)>(S.sv||0))){S=st;S.coll=S.coll||[];S.hist=S.hist||[];S.rare=S.rare||[];S.lots=S.lots||[];
    try{localStorage.setItem('ur3',JSON.stringify(S))}catch(e){}
-   CL.at=Date.now();CL.ok=true;CL.msg='';theme();applySize();giftMigrate();draw();toast('☁️ Прогресс загружен с сервера')}
+   CL.at=Date.now();CL.ok=true;CL.msg='';theme();applySize();draw();toast('☁️ Прогресс загружен с сервера')}
   else{CL.ok=true;CL.msg='';if(!st||(S.sv||0)>(st.sv||0))cloudPush();else CL.at=Date.now();cdone()}
  }).catch(function(){CL.loading=false;CL.ok=false;CL.msg='нет сети';cdone()})}
 function cloudStatus(){if(!cloudOn())return 'только в Telegram';if(CL.ok===null)return 'подключение…';if(!CL.ok)return 'ошибка: '+CL.msg;return CL.at?'сохранено '+hhmm(CL.at):'готово'}
