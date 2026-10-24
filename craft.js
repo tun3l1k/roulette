@@ -13,7 +13,7 @@ function craftRoll(us){
  S.coll=S.coll.filter(function(x){return u3.indexOf(x.u)<0});
  var u,k=0;do{u=build(nt.id);k++}while(k<30&&(S.coll.some(function(x){return x.u==u})||(S.pending&&S.pending.u==u)));
  var r={u:u,tier:nt.id,base:baseFor(nt.id),k:rollBonus(),odds:oddsOf(nt),ts:Date.now()};
- S.coll.unshift(r);noteBest(r);S.xp+=XPT[nt.id];S.crafts=(S.crafts||0)+1;if(win)S.craftWins=(S.craftWins||0)+1;
+ S.coll.unshift(r);noteBest(r);S.xp+=XPT[nt.id];levelCheck();S.crafts=(S.crafts||0)+1;if(win)S.craftWins=(S.craftWins||0)+1;
  led('Крафт: '+u3.map(function(x){return '@'+x}).join(', ')+' → @'+u);save();
  return{ok:1,win:win,r:r,p:p,from:u3.map(function(x,i){return items[i]})}}
 function craftTiers(){var c={};S.coll.forEach(function(x){c[ti(x.tier)]=(c[ti(x.tier)]||0)+1});return c}

@@ -79,6 +79,7 @@ document.addEventListener('click',function(e){
   case 'haptic':S.haptic=(S.haptic===false);save();hap({type:'impact',impact_style:'medium'});draw();break;
   case 'listgo':if(!LU)break;Promise.resolve(listLot({u:LU,cc:LC,price:LP,fx:LM!='auc',dur:LD})).then(function(){LU=null;S.mt='mine';save();go('market')});break;
   case 'craftgo':craftGo();break;
+  case 'claimlogin':claimLogin(new Date().getTimezoneOffset());break;
   case 'bulk':var bl=bulkList();if(!bl.length)break;var tot=bl.reduce(function(a,c){return a+worth(c)},0);if(S.confirm!==false)ask('Продать '+bl.length+' шт. за '+money(tot)+'?','Продать',sellBulk);else sellBulk();break;
   case 'chest':claimChest();break;
   case 'xch':var xe=document.getElementById('xch');if(xe&&xe.scrollIntoView)xe.scrollIntoView({behavior:'smooth',block:'center'});break;
