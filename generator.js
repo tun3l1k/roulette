@@ -27,14 +27,28 @@ function build(id){var r=Math.random();switch(id){
   if(r<.5)return pron(2);
   return rnd(FRAG_M);
  default:return rnd(DIVINE)}}
+// Бонус прокрутки: после ника крутится «барабан» множителей, цена ника умножается на выпавший
+var REVL=false;
+function countPrice(from,to,ms,cb){var el=$('hprice'),t0=Date.now();if(!el){cb();return}
+ (function f(){var p=Math.min(1,(Date.now()-t0)/ms),e=1-Math.pow(1-p,3);el.textContent='+'+money(from+(to-from)*e);if(p<1)requestAnimationFrame(f);else cb()})()}
+function reveal(r,cb){var hb=$('hbonus');if(!hb||S.anim===false){cb();return}
+ var vals=BONUS.map(function(b){return b.k}),seq=[],n=12,i,k=bonusOf(r);for(i=0;i<n;i++)seq.push(vals[ri(0,vals.length-1)]);seq.push(k);
+ var st=0;hb.className='bonus spin';
+ function show(v){hb.innerHTML='<b style="color:'+bonusColor(v)+'">×'+fm(v)+'</b><small>бонус прокрутки</small>'}
+ function tick(){show(seq[st]);hap({type:'selection_change'});st++;if(st<seq.length)setTimeout(tick,60+Math.round(Math.pow(st/n,2.2)*240));else land()}
+ function land(){hb.className='bonus land'+(k>1?' win':'');if(k<=1){hb.innerHTML='<b style="color:var(--sub)">×1</b><small>без бонуса</small>'}
+  var from=worthNoBonus(r),to=worth(r);if(k>=5)hap({type:'notification',notification_type:'success'});
+  countPrice(from,to,k>1?650:150,function(){setTimeout(cb,k>1?500:250)})}
+ tick()}
 function spin(){if(busy)return;
  if(S.pending)return toast('Сначала реши: продать или оставить');
  var fr=S.free>0;if(!fr&&S.yuz<COST)return toast('Не хватает звёзд: прокрутка стоит '+money(COST));
  busy=true;var P=SRV()?srvRun('spinRoll',[],{raw:true}):null;
  var D=S.anim===false?[70]:[55,60,68,80,96,116,140,170,205,245],n=0;
- function done(o){var rr=o&&o.res;busy=false;var he=$('huname');if(he)he.style.opacity='1';
-  if(!rr||rr.err||!rr.r){paintHome();if(o&&o.err)toast('Нет связи с сервером');return}
-  var r=rr.r;cur=r;paintHome(1);buzzEnd(r);(o.msgs||[]).forEach(function(m){toast(m)});autoHandle(r)}
+ function done(o){var rr=o&&o.res;var he=$('huname');if(he)he.style.opacity='1';
+  if(!rr||rr.err||!rr.r){busy=false;paintHome();if(o&&o.err)toast('Нет связи с сервером');return}
+  var r=rr.r;cur=r;REVL=S.anim!==false;paintHome(1);buzzEnd(r);(o.msgs||[]).forEach(function(m){toast(m)});
+  reveal(r,function(){REVL=false;busy=false;paintHome();autoHandle(r)})}
  function finish(){if(P)P.then(done);else done({res:spinRoll(),msgs:[]})}
  function step(){hap({type:'selection_change'});var he=$('huname');if(he){he.textContent='@'+pron(ri(5,9));he.style.opacity='.45';$('hrar').textContent='…';$('hrar').style.color='var(--sub)'}
   if(++n>=D.length)finish();else setTimeout(step,D[n])}

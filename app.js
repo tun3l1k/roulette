@@ -3,7 +3,7 @@ if(!S.g1){S.g1=1;S.yuz=(S.yuz||0)+10000;save()}
 if(!S.g2){S.g2=1;S.ton=r3((S.ton||0)+0.5);save()}
 if(!S.g3){S.g3=1;S.xp=Math.round((S.spins||0)*4.6);S.pity=0;save()}
 document.addEventListener('click',function(e){
- var el=e.target.closest('[data-go],[data-act],[data-pick],[data-sell],[data-theme],[data-tg],[data-mt],[data-bid],[data-lp],[data-lpp],[data-ld],[data-cur],[data-tu],[data-am],[data-hf],[data-cf],[data-cs],[data-claim],[data-tk],[data-pt],[data-lc],[data-xch],[data-tt],[data-pc],[data-buy],[data-cancel],[data-oacc],[data-orej],[data-lm],[data-bs],[data-bp],[data-fgi],[data-soon],[data-ct],[data-cp],[data-nick],[data-rc],[data-ta],[data-ca],[data-ru-0],[data-ru-1],[data-ru-2],[data-ru-3],[data-ru-4],[data-ru-5],[data-ru-6],[data-adm],[data-mf],[data-ms],[data-ap],[data-ac],[data-at],[data-ar],[data-al]');if(!el)return;
+ var el=e.target.closest('[data-go],[data-act],[data-pick],[data-sell],[data-theme],[data-tg],[data-mt],[data-bid],[data-lp],[data-lpp],[data-ld],[data-cur],[data-tu],[data-am],[data-hf],[data-cf],[data-cs],[data-claim],[data-tk],[data-pt],[data-lc],[data-xch],[data-tt],[data-pc],[data-buy],[data-cancel],[data-oacc],[data-orej],[data-lm],[data-bs],[data-bp],[data-fgi],[data-soon],[data-lot],[data-ct],[data-cp],[data-nick],[data-rc],[data-ta],[data-ca],[data-ru-0],[data-ru-1],[data-ru-2],[data-ru-3],[data-ru-4],[data-ru-5],[data-ru-6],[data-adm],[data-mf],[data-ms],[data-ap],[data-ac],[data-at],[data-ar],[data-al]');if(!el)return;
  var d=el.dataset;
  if(d.go){go(d.go);}
  else if(d.pick){S.main=d.pick;S.pinned=true;save();toast('Основной: @'+d.pick);hap({type:'selection_change'});draw()}
@@ -14,6 +14,7 @@ document.addEventListener('click',function(e){
  else if(d.fgi){FG.id=d.fgi;draw()}
  else if(d.soon){SOONT=d.soon;go('soon')}
  else if(d.nick){nickSheet(d.nick)}
+ else if(d.lot){lotSheet(d.lot)}
  else if(d.ct!==undefined){CF.t=+d.ct;CF.sel=[];draw()}
  else if(d.cp){var ix=CF.sel.indexOf(d.cp);if(ix>=0)CF.sel.splice(ix,1);else if(CF.sel.length<3)CF.sel.push(d.cp);else toast('Уже выбрано 3 ника');hap({type:'selection_change'});draw()}
  else if(d.rc){S.rc=d.rc;save();draw()}
@@ -34,7 +35,7 @@ document.addEventListener('click',function(e){
  else if(d.lm){LM=d.lm;LP=defPrice();draw()}
  else if(d.mt){S.mt=d.mt;save();draw()}
  else if(d.bid){bid(d.bid)}
- else if(d.lp){var cc=S.coll.filter(function(x){return x.u==d.lp})[0];if(cc){LU=cc.u;LT=cc.tier;LB=cc.base;LC='star';LM='auc';LP=defPrice();LD=300;draw()}}
+ else if(d.lp){var cc=S.coll.filter(function(x){return x.u==d.lp})[0];if(cc){LU=cc.u;LT=cc.tier;LB=cc.base;LK=cc.k;LC='star';LM='auc';LP=defPrice();LD=300;draw()}}
  else if(d.lpp){LP=LC=='ton'?r3(Math.max(.001,LP+(+d.lpp)*Math.max(.001,r3(LP*.2)))):Math.max(1,LP+(+d.lpp)*Math.max(1,Math.round(LP*.2)));draw()}
  else if(d.lc){if(d.lc=='ton'&&ti(LT)<3){toast('В TON можно продавать эпические и выше');return}LC=d.lc;LP=defPrice();draw()}
  else if(d.xch){exchangeTon(d.xch)}
