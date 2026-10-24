@@ -10,7 +10,7 @@ function typing(){var a=document.activeElement;return !!(a&&/^(msq|csq|lto|fgto|
 function refreshAfter(r){if(Object.keys(r.patch||{}).length||(r.msgs||[]).length){if(scr=='home')paintHome();if(!typing())draw()}}
 function srvRun(fn,args,opt){opt=opt||{};
  return srvPost('/api/act',{initData:cInit(),fn:fn,args:args||[],prefs:prefsOut()}).then(function(r){
-  if(!r||!r.ok){if(r&&r.err=='maint'){MT.on=true;MT.admin=false;maintShow()}else if(!opt.raw)toast('Нет связи с сервером');return{err:(r&&r.err)||'net'}}
+  if(!r||!r.ok){if(r&&r.err=='maint'){MT.on=true;MT.admin=false;maintShow()}else if(r&&r.err=='banned')toast('Аккаунт заблокирован');else if(!opt.raw)toast('Нет связи с сервером');return{err:(r&&r.err)||'net'}}
   srvApply(r);
   if(!opt.raw){(r.msgs||[]).forEach(function(m){toast(m)});if(POSTH[fn])POSTH[fn]();refreshAfter(r)}
   return{res:r.res,msgs:r.msgs||[]}}).catch(function(){if(!opt.raw)toast('Нет связи с сервером');return{err:'net'}})}

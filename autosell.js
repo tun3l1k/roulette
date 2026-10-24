@@ -1,5 +1,5 @@
 // Авто-продажа: правила для каждой редкости (продать / оставить / спросить), признаки, лимиты
-var TAGS=['короткий','имя','слово','зеркало','красивые цифры','топ-слово'];
+var TAGS=['короткий','имя','слово','зеркало','красивые цифры','ровные цифры','одна буква','повтор буквы','ритм','год','топ-слово'];
 function keepTags(){return S.autoTags||TAGS}
 function autoRules(){if(S.arules)return S.arules;var m=S.autoMax||0;return TIERS.map(function(t,i){return i<=m?'sell':'ask'})}
 function autoAction(r){if(!S.auto)return 'ask';var a=autoRules()[ti(r.tier)]||'ask';if(a!='sell')return a;
@@ -9,7 +9,7 @@ function willAuto(r){return autoAction(r)!='ask'}
 function autoToast(m){if(S.autoNotify)toast(m)}
 function logAuto(r,g,a){S.autoLog=S.autoLog||[];S.autoLog.unshift({u:r.u,tier:r.tier,g:g,a:a,t:Date.now()});if(S.autoLog.length>30)S.autoLog.pop()}
 function autoHandle(r){var a=autoAction(r);if(a=='ask')return;
- setTimeout(function(){var p=S.pending;if(!p||p.u!=r.u||p.ts!=r.ts)return;autoResolve()},1200)}
+ setTimeout(function(){var p=S.pending;if(!p||p.u!=r.u||p.ts!=r.ts||REVL)return;autoResolve()},1800)}
 function applyPreset(i){var P=[{r:['sell','ask','ask','ask','ask','ask','ask'],tag:'ask'},{r:['sell','sell','ask','ask','ask','ask','ask'],tag:'ask'},{r:['sell','sell','keep','keep','keep','keep','keep'],tag:'keep'},{r:['sell','sell','sell','sell','ask','ask','ask'],tag:'sell'}][i];
  S.arules=P.r;S.autoTagAct=P.tag;S.autoCap=0;S.autoTags=undefined;S.auto=true;save()}
 var RACTL={sell:'Продать',keep:'Оставить',ask:'Спросить'};
