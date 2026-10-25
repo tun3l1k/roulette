@@ -1,6 +1,6 @@
 // Связь с сервером: в Telegram все расчёты экономики выполняет сервер, телефон только показывает результат
 var SQ=Promise.resolve();
-var ACTW=['keepPending','sellPending','sellOne','sellBulk','claimTask','claimChest','buyLuck','exchangeTon','buyGift','sellGift','autoResolve','admGrant','tickNow','resetAll','craftRoll','claimLogin'];
+var ACTW=['keepPending','sellPending','sellOne','sellBulk','claimTask','claimChest','buyLuck','exchangeTon','buyGift','sellGift','autoResolve','admGrant','tickNow','resetAll','resetMe','craftRoll','claimLogin'];
 var POSTH={};
 function SRV(){return !!(typeof MT!='undefined'&&MT.eng)&&typeof cloudOn=='function'&&cloudOn()&&CL.loaded}
 function prefsOut(){var o={};PREFK.forEach(function(k){if(S[k]!==undefined)o[k]=S[k]});return o}
