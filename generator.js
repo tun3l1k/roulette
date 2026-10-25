@@ -32,7 +32,7 @@ var REVL=false,SKIP=false,STm=0,RTm=0,SPF=null;
 function skipNow(){if(SKIP)return;SKIP=true;if(STm){clearTimeout(STm);STm=0;if(SPF)SPF()}else if(REVL&&RTm){clearTimeout(RTm);RTm=0;if(typeof RVT=='function')RVT()}}
 var RVT=null;
 function countPrice(from,to,ms,cb){var el=$('hprice'),t0=Date.now();if(!el){cb();return}
- (function f(){var p=SKIP?1:Math.min(1,(Date.now()-t0)/ms),e=1-Math.pow(1-p,3);el.textContent='+'+money(from+(to-from)*e);if(p<1)requestAnimationFrame(f);else cb()})()}
+ (function f(){var p=Math.min(1,(Date.now()-t0)/ms),e=1-Math.pow(1-p,3);el.textContent='+'+money(from+(to-from)*e);if(p<1)requestAnimationFrame(f);else cb()})()}
 function reveal(r,cb){var hb=$('hbonus');if(!hb||S.anim===false){cb();return}
  var vals=BONUS.map(function(b){return b.k}),seq=[],n=12,i,k=bonusOf(r);for(i=0;i<n;i++)seq.push(vals[ri(0,vals.length-1)]);seq.push(k);
  var st=0;hb.className='bonus spin';
@@ -41,7 +41,7 @@ function reveal(r,cb){var hb=$('hbonus');if(!hb||S.anim===false){cb();return}
  RVT=tick;
  function land(){hb.className='bonus land'+(k>1?' win':'');if(k<=1){hb.innerHTML='<b style="color:var(--sub)">×1</b><small>без бонуса</small>'}
   var from=worthNoBonus(r),to=worth(r);if(k>=5)hap({type:'notification',notification_type:'success'});
-  countPrice(from,to,k>1?650:150,function(){RVT=null;if(SKIP)cb();else setTimeout(cb,k>1?500:250)})}
+  countPrice(from,to,SKIP?260:(k>1?650:150),function(){RVT=null;setTimeout(cb,SKIP?(k>1?650:120):(k>1?500:250))})}
  tick()}
 function spin(){if(busy)return;
  if(S.pending)return toast('Сначала реши: продать или оставить');

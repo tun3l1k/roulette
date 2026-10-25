@@ -47,4 +47,5 @@ function sendDone(kind,rec,to){var gi=kind=='gift'?gInfo(rec.g):null;toast(gi?'�
 function inboxReceive(items){items.forEach(function(it){var p=it.p;
  if(it.k=='nick'){S.coll.unshift(p);noteBest(p);toast(p.note||('Подарок от @'+it.from+': ник @'+p.u));delete p.note}
   else if(it.k=='gift'){S.gf=S.gf||[];S.gf.unshift({g:p.g,n:p.n,ts:p.ts||Date.now()});var gi=gInfo(p.g);toast(p.note||('Подарок от @'+it.from+(gi?': '+gi.name:'')))}
+  else if(it.k=='shop'){shopGrant(p.id)}
   else if(it.k=='cash'){var a=Math.round(+p.amount)||0;if(a>0&&a<1e10){if(p.cc=='ton')S.ton=r3((S.ton||0)+a/1000);else S.yuz+=a;led(p.note||'Сделка с игроком');toast(p.note||('+'+(p.cc=='ton'?tonF(a/1000)+' TON':money(a))))}}})}
