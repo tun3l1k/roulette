@@ -37,5 +37,5 @@ function nickSheet(u){var c=S.coll.filter(function(x){return x.u==u})[0];if(!c)r
   if(v=='sell'){if(ti(c.tier)>=3&&S.confirm!==false)ask('Продать @'+u+' за '+money(w)+'?','Продать',function(){sellOne(u)});else sellOne(u)}
   else if(v=='share'){shareNick(c)}
   else if(v=='friend'){FG={k:'nick',id:c.u};go('fgift')}
-  else if(v=='list'){go('list');LU=c.u;LT=c.tier;LB=c.base;LK=c.k;LC='star';LM='auc';LP=defPrice();LD=300;draw()}}});
+  else if(v=='list'){if(p2on())p2Form(c.u);else toast('Маркет работает только в Telegram')}}});
  document.body.appendChild(o)}

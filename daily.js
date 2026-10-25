@@ -20,5 +20,6 @@ function dailyHtml(){var tz=new Date().getTimezoneOffset(),i=loginInfo(tz),cyc=L
 function levelCheck(){var L=level();if(S.lvR===undefined){S.lvR=L;return}
  while(S.lvR<L&&S.lvR<500){S.lvR++;var st=50*S.lvR+50,fr=S.lvR%5==0?5:0;S.yuz+=st;if(fr)S.free=(S.free||0)+fr;led('Уровень '+S.lvR);toast('Уровень '+S.lvR+'! +'+money(st)+(fr?' и '+fr+' прокруток':''))}}
 // Сделки между игроками: деньги уходят в залог на сервере (p2pPay), возвращаются через p2pRefund или входящие «cash»
-function p2pPay(a,slot){a=Math.round(+a);if(!(a>0)||a>1e10)return{err:'arg'};if(slot&&collFull())return{err:'full'};if(S.yuz<a)return{err:'poor'};S.yuz-=a;led('Сделка с игроком');save();return{ok:1}}
-function p2pRefund(a){a=Math.round(+a);if(a>0&&a<1e10){S.yuz+=a;led('Возврат по сделке');save()}return{ok:1}}
+function p2pPay(a,slot,cc){a=Math.round(+a);if(!(a>0)||a>1e10)return{err:'arg'};if(slot=='gift'?gfFull():(slot&&collFull()))return{err:'full'};
+ if(cc=='ton'){if((S.ton||0)<a/1000-1e-9)return{err:'poor'};S.ton=r3((S.ton||0)-a/1000)}else{if(S.yuz<a)return{err:'poor'};S.yuz-=a}led('Сделка с игроком');save();return{ok:1}}
+function p2pRefund(a,cc){a=Math.round(+a);if(a>0&&a<1e10){if(cc=='ton')S.ton=r3((S.ton||0)+a/1000);else S.yuz+=a;led('Возврат по сделке');save()}return{ok:1}}
