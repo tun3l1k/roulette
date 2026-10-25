@@ -40,7 +40,7 @@ document.addEventListener('click',function(e){
  else if(d.tg){if(d.tg=='auto'||d.tg=='autoNotify')S[d.tg]=!S[d.tg];else S[d.tg]=(S[d.tg]===false);save();if(d.tg=='haptic')hap({type:'impact',impact_style:'medium'});draw()}
  else if(d.theme){S.theme=d.theme;save();theme();draw()}
  else switch(d.act){
-  case 'spin':if(AS)break;spin();break;
+  case 'spin':if(busy){skipNow();break}if(AS)break;spin();break;
   case 'auto':toggleAuto();break;
   case 'wheel':spinWheel();break;
   case 'buyprem':buyPrem();break;
@@ -71,6 +71,7 @@ document.addEventListener('click',function(e){
   case 'chest':claimChest();break;
   case 'xch':var xe=document.getElementById('xch');if(xe&&xe.scrollIntoView)xe.scrollIntoView({behavior:'smooth',block:'center'});break;
   case 'luck':buyLuck();break;
+  case 'resetme':ask('Сбросить весь прогресс? Ники, звёзды, уровень и подарки пропадут, начнёшь с нуля. Это нельзя отменить.','Сбросить',function(){Promise.resolve(resetMe()).then(function(r){var e=r&&(r.err||(r.res&&r.res.err));if(e)toast('Не удалось сбросить');else{toast('Прогресс сброшен');go('home')}})});break;
   case 'reset':ask('Сбросить весь прогресс?','Сбросить',function(){Promise.resolve(resetAll()).then(function(r){var e=r&&(r.err||(r.res&&r.res.err));if(e)toast('Сброс доступен только администратору');else go('home')})});break}
 });
 tgPost('web_app_ready');tgPost('web_app_expand');tgPost('web_app_setup_swipe_behavior',{allow_vertical_swipe:false});
