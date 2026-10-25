@@ -1,6 +1,6 @@
 // Связь с сервером: в Telegram все расчёты экономики выполняет сервер, телефон только показывает результат
 var SQ=Promise.resolve();
-var ACTW=['keepPending','sellPending','sellOne','sellBulk','claimTask','claimChest','buyLuck','exchangeTon','bid','buyLot','cancelLot','acceptOffer','rejectOffer','listLot','autoResolve','admGrant','tickNow','resetAll','craftRoll'];
+var ACTW=['keepPending','sellPending','sellOne','sellBulk','claimTask','claimChest','buyLuck','exchangeTon','buyGift','sellGift','autoResolve','admGrant','tickNow','resetAll','craftRoll','claimLogin'];
 var POSTH={};
 function SRV(){return !!(typeof MT!='undefined'&&MT.eng)&&typeof cloudOn=='function'&&cloudOn()&&CL.loaded}
 function prefsOut(){var o={};PREFK.forEach(function(k){if(S[k]!==undefined)o[k]=S[k]});return o}
@@ -10,7 +10,7 @@ function typing(){var a=document.activeElement;return !!(a&&/^(msq|csq|lto|fgto|
 function refreshAfter(r){if(Object.keys(r.patch||{}).length||(r.msgs||[]).length){if(scr=='home')paintHome();if(!typing())draw()}}
 function srvRun(fn,args,opt){opt=opt||{};
  return srvPost('/api/act',{initData:cInit(),fn:fn,args:args||[],prefs:prefsOut()}).then(function(r){
-  if(!r||!r.ok){if(r&&r.err=='maint'){MT.on=true;MT.admin=false;maintShow()}else if(!opt.raw)toast('Нет связи с сервером');return{err:(r&&r.err)||'net'}}
+  if(!r||!r.ok){if(r&&r.err=='maint'){MT.on=true;MT.admin=false;maintShow()}else if(r&&r.err=='banned')toast('Аккаунт заблокирован');else if(!opt.raw)toast('Нет связи с сервером');return{err:(r&&r.err)||'net'}}
   srvApply(r);
   if(!opt.raw){(r.msgs||[]).forEach(function(m){toast(m)});if(POSTH[fn])POSTH[fn]();refreshAfter(r)}
   return{res:r.res,msgs:r.msgs||[]}}).catch(function(){if(!opt.raw)toast('Нет связи с сервером');return{err:'net'}})}

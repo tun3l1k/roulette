@@ -11,6 +11,11 @@ function admTry(v){if(hh(String(v).trim()+'rl')===ADM_H){ADM=true;ADM_FAIL=0;go(
 function admGrant(s){var p=s.split(':'),v=parseFloat(p[1]);if(!ADM||!(v>0)||v>1e12)return;
  if(p[0]=='ton')S.ton=r3((S.ton||0)+v);else S.yuz+=Math.round(v);
  led('Админ: выдача');save();hap({type:'notification',notification_type:'success'});toast('Выдано +'+(p[0]=='ton'?tonF(v)+' TON':money(Math.round(v))));draw()}
+function admTake(s){var p=String(s).split(':'),v=parseFloat(p[1]);if(!ADM||!(v>0)||v>1e12)return{err:'forbidden'};
+ if(p[0]=='ton')S.ton=Math.max(0,r3((S.ton||0)-v));else S.yuz=Math.max(0,S.yuz-Math.round(v));led('Админ: списание');save();return{ok:1}}
+function admFree(n){n=Math.round(+n);if(!ADM||!(n>0)||n>10000)return{err:'forbidden'};S.free=(S.free||0)+n;save();return{ok:1}}
+function admNick(p){p=p||{};if(!ADM)return{err:'forbidden'};var t=tier(p.tier),u=String(p.u||'').toLowerCase();if(!t||!/^[a-z0-9_]{1,32}$/.test(u))return{err:'arg'};if(S.coll.some(function(x){return x.u==u}))return{err:'dup'};
+ var k=+p.k>=1&&+p.k<=100?+p.k:rollBonus(),r={u:u,tier:t.id,base:baseFor(t.id),k:k,odds:oddsOf(t),ts:Date.now()};S.coll.unshift(r);noteBest(r);save();return{ok:1,r:r}}
 function admCustom(c){var i=document.getElementById('admn');admGrant(c+':'+(i?i.value:'0'))}
 function adminHtml(){if(!ADM)return '<div class="empty">Нет доступа</div>';
  var gv=function(l,v){return '<button class="act" data-adm="'+v+'">'+l+'</button>'};
