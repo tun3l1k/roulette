@@ -32,10 +32,10 @@ function collHtml(){if(!S.coll.length)return emp('box','В коллекции п
   '<div id="clist">'+collList()+'</div>'+(bl.length?'<button class="plainbtn" data-act="bulk">Продать дешёвые ('+bl.length+' шт.)</button>':'')}
 function nickSheet(u){var c=S.coll.filter(function(x){return x.u==u})[0];if(!c)return;var w=worth(c),o=document.createElement('div');o.className='ov';
  o.innerHTML='<div class="sh" style="text-align:left">'+nickHero(c,1)+'<div style="margin-top:14px">'+priceRows(c).replace('class="grp"','class="grp" style="margin-top:0"')+'</div>'+
-  '<div class="row2" style="margin-top:14px"><button class="act" data-nx="close">Закрыть</button><button class="pbtn" style="flex:1" data-nx="list">Выставить</button></div><button class="pbtn gray" style="width:100%;margin-top:8px" data-nx="sell">Продать · '+money(w)+'</button><button class="plainbtn" data-nx="friend">Подарить другу</button><button class="plainbtn" style="margin-top:0" data-nx="share">Поделиться картинкой</button></div>';
+  '<div class="row2" style="margin-top:14px"><button class="act" data-nx="close">Закрыть</button><button class="pbtn" style="flex:1" data-nx="list">Выставить</button></div><button class="pbtn gray" style="width:100%;margin-top:8px" data-nx="sell">Продать · '+money(w)+'</button><button class="pbtn gray" style="width:100%;margin-top:8px" data-nx="friend">Отправить другу</button><button class="plainbtn" style="margin-top:0" data-nx="share">Поделиться картинкой</button></div>';
  o.addEventListener('click',function(e){var b2=e.target.closest('[data-nx]');if(b2||e.target===o){var v=b2?b2.getAttribute('data-nx'):'close';o.remove();
   if(v=='sell'){if(ti(c.tier)>=3&&S.confirm!==false)ask('Продать @'+u+' за '+money(w)+'?','Продать',function(){sellOne(u)});else sellOne(u)}
   else if(v=='share'){shareNick(c)}
-  else if(v=='friend'){FG={k:'nick',id:c.u};go('fgift')}
+  else if(v=='friend'){sendSheet('nick',c.u,'@'+c.u)}
   else if(v=='list'){if(p2on())p2Form(c.u);else toast('Маркет работает только в Telegram')}}});
  document.body.appendChild(o)}

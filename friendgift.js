@@ -13,3 +13,19 @@ function giftFriend(){if(!FG.id){toast('Выбери ник или подаро�
  srvPost('/api/send',{initData:cInit(),kind:FG.k,id:FG.id,to:to,prefs:prefsOut()}).then(function(r){
   if(r&&r.ok){srvApply(r);(r.msgs||[]).forEach(function(m){toast(m)});FG.id=null;FG.k='nick';FGTO='';hap({type:'notification',notification_type:'success'});back()}
   else toast(sendErr(r&&r.err))}).catch(function(){toast('Нет связи с сервером')})}
+
+// Быстрая отправка ника другу прямо из карточки ника (без перехода на другой экран)
+function sendSheet(kind,id,label){if(!SRV()){toast('Отправка другу работает внутри Telegram');return}
+ var o=document.createElement('div');o.className='ov';
+ o.innerHTML='<div class="sh" style="text-align:left"><div class="sec" style="margin-top:0">Отправить '+esc(label)+' другу</div><input id="sdto" class="inp" placeholder="@username друга" maxlength="33" autocapitalize="off" autocomplete="off" spellcheck="false" value="'+esc(FGTO)+'"><button class="pbtn" style="width:100%;margin-top:12px" data-sd="go">Отправить</button><div class="foot" style="margin:10px 0 0">Друг должен уже играть. Если его нет в игре, отправь ему приглашение.</div><button class="plainbtn" data-sd="inv" style="margin-top:0">Пригласить друга</button><button class="plainbtn" data-sd="x" style="margin-top:0">Отмена</button></div>';
+ var busyS=false;
+ o.addEventListener('click',function(e){var b=e.target.closest('[data-sd]');if(!b&&e.target!==o)return;var v=b?b.getAttribute('data-sd'):'x';
+  if(v=='x'){o.remove();return}if(v=='inv'){refShare();return}
+  var to=String(document.getElementById('sdto').value||'').replace(/^@/,'').trim().toLowerCase();
+  if(!/^[a-z0-9_]{5,32}$/.test(to)){toast('Введи username друга: от 5 символов, буквы, цифры, _');return}
+  if(TG&&TG.username&&TG.username.toLowerCase()==to){toast('Нельзя отправить самому себе');return}
+  if(busyS)return;busyS=true;
+  srvPost('/api/send',{initData:cInit(),kind:kind,id:id,to:to,prefs:prefsOut()}).then(function(r){busyS=false;
+   if(r&&r.ok){srvApply(r);(r.msgs||[]).forEach(function(m){toast(m)});FGTO='';o.remove();hap({type:'notification',notification_type:'success'});if(scr=='home')paintHome();draw()}
+   else toast(sendErr(r&&r.err))}).catch(function(){busyS=false;toast('Нет связи с сервером')})});
+ document.body.appendChild(o);setTimeout(function(){var i=document.getElementById('sdto');if(i&&!i.value)i.focus()},80)}
