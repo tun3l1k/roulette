@@ -13,7 +13,7 @@ function gfOwnSheet(n){var it=(S.gf||[]).filter(function(x){return x.n==n})[0];i
   '<button class="pbtn" style="width:100%;margin-top:12px" data-gfx="list">Выставить игрокам</button><button class="pbtn gray" style="width:100%;margin-top:8px" data-gfx="send">Подарить другу</button><button class="pbtn gray" style="width:100%;margin-top:8px" data-gfx="sell">Продать магазину</button>');
  o.addEventListener('click',function(e){var b=e.target.closest('[data-gfx]');if(!b)return;var v=b.getAttribute('data-gfx');if(v=='close')return;o.remove();
   if(v=='list'){if(p2on())p2Form(n,'gift');else toast('Маркет работает только в Telegram')}
-  else if(v=='send'){FG.k='gift';FG.id=n;go('fgift')}
+  else if(v=='send'){sendSheet('gift',n,g.name)}
   else if(v=='sell')Promise.resolve(sellGift(n)).then(function(){if(scr=='gifts')draw()})})}
 document.addEventListener('click',function(e){var t=e.target&&e.target.closest?e.target.closest('[data-gfb],[data-gfo]'):null;if(!t)return;
  if(t.hasAttribute('data-gfb'))gfBuySheet(t.getAttribute('data-gfb'));else gfOwnSheet(t.getAttribute('data-gfo'))});
