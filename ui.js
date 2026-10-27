@@ -39,7 +39,7 @@ function rarityHtml(cnt){var tot=0;TIERS.forEach(function(t){tot+=cnt[t.id]||0})
 function hhmm(ts){var d=new Date(ts);return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)}
 function dayLabel(ts){var d=new Date(ts),n=new Date(),y=new Date();y.setDate(n.getDate()-1);return dk(d)==dk(n)?'Сегодня':dk(d)==dk(y)?'Вчера':dt(ts).split(' ')[0]}
 function lvlPct(){var L=level(),lo=25*(L-1)*(L-1),hi=25*L*L;return Math.max(0,Math.min(100,Math.round((S.xp-lo)/(hi-lo)*100)))}
-function lvlHtml(){return '<span class="lvchip">Уровень '+level()+'</span>'+(TG&&TG.id?'<button class="lvchip id" data-act="copyid">ID '+TG.id+'</button>':'')+(S.luck>0?'<span class="lvchip g">'+IC.luck+'×1,5 · '+S.luck+'</span>':'')}
+function lvlHtml(){return '<span class="lvchip">Уровень '+level()+'</span>'+(S.luck>0?'<span class="lvchip g">'+IC.luck+'×1,5 · '+S.luck+'</span>':'')}
 function spinLabel(){if(busy&&!AS)return '<b>Пропустить</b>';return '<b>Прокрутить</b>'+(S.free>0?'<span class="cst">бесплатно ×'+S.free+'</span>':'<span class="cst">'+SI(16)+fmt(COST)+'</span>')}
 function paintHome(anim){var sh=shown();if(!$('huname'))return;var t=sh?tier(sh.tier):null,i=sh?ti(sh.tier):0,a=$('hava'),u=$('huname');
 u.innerHTML=sh?'@'+sh.u:ownHandle();$('hl').innerHTML=ownInitial();
