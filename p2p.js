@@ -24,7 +24,7 @@ function p2Html(){var F={all:'Все',nick:'Ники',gift:'Подарки',auct
  return '<button class="pbtn" style="width:100%;margin-top:12px" data-p2new="1">'+PLUSC+'Выставить ник</button>'+srch+chips+'<div id="mlist">'+body+'</div>'+
   '<div class="foot">Здесь торгуют реальные игроки. Комиссия с продажи '+P2_FEE+'%.<br>Ставка списывается сразу и возвращается, если тебя перебьют. За 30 секунд до конца новая ставка продлевает торги.</div>'}
 function p2Find(id){for(var i=0;i<P2.list.length;i++)if(P2.list[i].id==id)return P2.list[i]}
-function p2Sheet(h){var o=document.createElement('div');o.className='ov';o.innerHTML='<div class="sh" style="text-align:left">'+h+'<button class="plainbtn" data-p2x="close">Закрыть</button></div>';
+function p2Sheet(h){var o=document.createElement('div');o.className=h.indexOf('<input')>=0?'ov top':'ov';o.innerHTML='<div class="sh" style="text-align:left">'+h+'<button class="plainbtn" data-p2x="close">Закрыть</button></div>';
  o.addEventListener('click',function(e){if(e.target===o||(e.target.closest&&e.target.closest('[data-p2x="close"]')))o.remove()});document.body.appendChild(o);return o}
 function p2Done(r,okMsg,o){if(r&&r.ok){srvApply(r);(r.msgs||[]).forEach(toast);if(okMsg)toast(okMsg);if(o)o.remove();if(scr=='home')paintHome();P2.at=0;p2Load(true);draw();return}
  var e=r&&r.err;toast((P2_ERR[e]||'Не получилось')+(e=='low'&&r.min?': от '+money(r.min):''));if(e=='gone'||e=='outbid'||e=='low'){if(o)o.remove();P2.at=0;p2Load(true)}}

@@ -14,3 +14,6 @@
 .gnote{background:var(--grp);border-radius:18px;padding:14px 16px;margin-top:6px;display:flex;flex-direction:column;gap:4px}
 .gnote span{color:var(--sub);font-size:14px}
 .gdev{text-align:center;margin-top:14px}.gdev p{color:var(--sub);margin:6px 0 4px;font-size:15px}
+.ov.top{align-items:flex-start;overflow-y:auto}
+.ov.top .sh{border-radius:24px;margin:max(env(safe-area-inset-top,0px),14px) 12px 0;width:calc(100% - 24px);padding-bottom:18px;animation:fade .2s}
+.ov.top input{-webkit-user-select:text;user-select:text;-webkit-appearance:none;touch-action:manipulation}

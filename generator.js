@@ -48,7 +48,7 @@ function spin(){if(busy)return;
  var D=S.anim===false?[70]:[55,60,68,80,96,116,140,170,205,245],n=0;
  function done(o){var rr=o&&o.res;var he=$('huname');if(he)he.style.opacity='1';
   if(!rr||rr.err||!rr.r){busy=false;paintHome();if(o&&o.err)toast('Нет связи с сервером');return}
-  var r=rr.r;cur=r;REVL=S.anim!==false;paintHome(1);buzzEnd(r);(o.msgs||[]).forEach(function(m){toast(m)});
+  var r=rr.r;SKIP=false;cur=r;REVL=S.anim!==false;paintHome(1);buzzEnd(r);(o.msgs||[]).forEach(function(m){toast(m)});
   reveal(r,function(){REVL=false;busy=false;paintHome();autoHandle(r)})}
  function finish(){STm=0;SPF=null;if(P)P.then(done);else done({res:spinRoll(),msgs:[]})}
  SPF=finish;
