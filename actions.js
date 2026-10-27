@@ -43,7 +43,7 @@ function takeForSend(kind,id){var rec=null;
  if(kind=='gift'){rec=(S.gf||[]).filter(function(x){return x.n==id})[0];if(!rec)return null;S.gf=S.gf.filter(function(x){return x!==rec});return rec}
  if(kind=='nick'){rec=S.coll.filter(function(x){return x.u==id})[0];if(!rec)return null;S.coll=S.coll.filter(function(x){return x!==rec})}
  return rec}
-function sendDone(kind,rec,to){var gi=kind=='gift'?gInfo(rec.g):null;toast(gi?'Подарок '+gi.name+' отправлен @'+to:'Ник @'+rec.u+' отправлен @'+to)}
+function sendDone(kind,rec,to){var gi=kind=='gift'?gInfo(rec.g):null;toast((gi?'Подарок '+gi.name:'Ник @'+rec.u)+' отправлен @'+to+'. Ждём, пока друг примет его в боте')}
 function inboxReceive(items){items.forEach(function(it){var p=it.p;
  if(it.k=='nick'){S.coll.unshift(p);noteBest(p);toast(p.note||('Подарок от @'+it.from+': ник @'+p.u));delete p.note}
   else if(it.k=='gift'){S.gf=S.gf||[];S.gf.unshift({g:p.g,n:p.n,ts:p.ts||Date.now()});var gi=gInfo(p.g);toast(p.note||('Подарок от @'+it.from+(gi?': '+gi.name:'')))}
