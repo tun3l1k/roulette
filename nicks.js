@@ -22,7 +22,9 @@ function uniqW(a){var o={},r=[];a.forEach(function(x){if(!o[x]){o[x]=1;r.push(x)
 var _sn=NAMES.filter(function(x){return x.length<6});NAMES=NAMES.filter(function(x){return x.length>=6});SHORTN=SHORTN.concat(_sn);DIVINE=DIVINE.filter(function(x){return x.length>=4});
 NAMES=uniqW(NAMES);SHORTN=uniqW(SHORTN);SURN=uniqW(SURN);WORDS=uniqW(WORDS);FRAG_L=uniqW(FRAG_L);FRAG_M=uniqW(FRAG_M);DIVINE=uniqW(DIVINE);
 // быстрый поиск для множителей
-var NSET={d:{},w:{},n:{}};
+var STAT=NW('boss king queen lord duke chief prime elite royal master legend hero vip chief tsar emperor prince princess baron count sultan khan sheikh shah pharaoh captain major general admiral marshal sheriff tycoon mogul kingpin godfather mafia don alpha omega sigma titan apex');
+var NSET={d:{},s:{},w:{},n:{}};
+STAT.forEach(function(x){NSET.s[x]=1});
 DIVINE.forEach(function(x){NSET.d[x]=1});WORDS.concat(FRAG_L).forEach(function(x){NSET.w[x]=1});NAMES.concat(SHORTN).forEach(function(x){NSET.n[x]=1});
 
 // ---- Настройки из бота: шансы, цены, шанс крафта, стоимость прокрутки, пополнение словарей ----
@@ -32,7 +34,7 @@ var POOLN=['names','surn','short','words','legend','mythic','divine','adj','noun
 function poolRef(k){return k=='names'?NAMES:k=='surn'?SURN:k=='short'?SHORTN:k=='words'?WORDS:k=='legend'?FRAG_L:k=='mythic'?FRAG_M:k=='divine'?DIVINE:k=='adj'?ADJ:k=='noun'?NOUN:null}
 var GC0=null;
 function gcBase(){if(GC0)return;GC0={w:TIERS.map(function(t){return t.w}),rng:JSON.parse(JSON.stringify(RNG)),cost:COST,craft:CRAFT_P.slice(),pools:{}};POOLN.forEach(function(k){GC0.pools[k]=poolRef(k).slice()})}
-function nsetBuild(){NSET.d={};NSET.w={};NSET.n={};DIVINE.forEach(function(x){NSET.d[x]=1});WORDS.concat(FRAG_L).forEach(function(x){NSET.w[x]=1});NAMES.concat(SHORTN).forEach(function(x){NSET.n[x]=1})}
+function nsetBuild(){NSET.d={};NSET.s={};NSET.w={};NSET.n={};STAT.forEach(function(x){NSET.s[x]=1});DIVINE.forEach(function(x){NSET.d[x]=1});WORDS.concat(FRAG_L).forEach(function(x){NSET.w[x]=1});NAMES.concat(SHORTN).forEach(function(x){NSET.n[x]=1})}
 function gcWord(x){return typeof x=='string'&&/^[a-z0-9_]{1,32}$/.test(x)}
 function applyGameCfg(c){gcBase();
  TIERS.forEach(function(t,i){t.w=GC0.w[i]});Object.keys(GC0.rng).forEach(function(k){RNG[k]=GC0.rng[k].slice()});COST=GC0.cost;CRAFT_P=GC0.craft.slice();

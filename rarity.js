@@ -7,15 +7,32 @@ function noteBest(r){if(!r)return;if(!S.best||worth(r)>worth(S.best))S.best={u:r
 function pickTier(){var w=TIERS.map(function(t,i){return t.w*(i>=2?lf():1)}),sum=w.reduce(function(a,b){return a+b},0),r=Math.random()*sum;for(var i=0;i<w.length;i++){r-=w[i];if(r<=0)return TIERS[i]}return TIERS[0]}
 function oddsOf(t){var w=TIERS.map(function(x,i){return x.w*(i>=2?lf():1)}),sum=w.reduce(function(a,b){return a+b},0);return Math.round(sum/(t.w*(TIERS.indexOf(t)>=2?lf():1)))}
 function baseFor(id){var g=RNG[id];return Math.round(g[0]+Math.pow(Math.random(),1.4)*(g[1]-g[0]))}
-function mult(u){var m=1,tg=[],pr=[],n=u.length;
+// Лесенка: подряд идущие символы по возрастанию или убыванию (abc, cba, 123, 987)
+function ladder(u){var best=1,run=1,pd=0,dig=false,bd=false,n=u.length,i;
+ for(i=1;i<n;i++){var a=u.charCodeAt(i-1),b=u.charCodeAt(i),st=b-a,ad=a>=48&&a<=57,bg=b>=48&&b<=57,al=a>=97&&a<=122,bl=b>=97&&b<=122;
+  if((st==1||st==-1)&&((ad&&bg)||(al&&bl))){run=(st==pd)?run+1:2;pd=st;if(bg&&run>=3)bd=true;if(run>best)best=run}else{run=1;pd=0}}
+ return best>=3&&(bd||best*2>=n)}
+function mult(u){var m=1,tg=[],pr=[],n=u.length,dg=(u.match(/\d/g)||[]).length;
  function add(x,lb){m*=x;tg.push(lb);pr.push([lb,x])}
- if(NSET.d[u])add(5,'топ-слово');else if(NSET.w[u])add(2,'слово');else if(NSET.n[u])add(1.5,'имя');
- if(n<=3)add(3,'короткий');else if(n==4)add(2,'короткий');
- if(n>=3&&u===u.split('').reverse().join(''))add(2,'зеркало');
- if(/(777|888|999|000|007|123|321)/.test(u))add(2,'красивые цифры');
- else if(/(\d)\1{2,}/.test(u))add(1.5,'ровные цифры');
+ // слово: топ-слово > статусное > красивое слово > имя
+ if(NSET.d[u])add(5,'топ-слово');else if(NSET.s[u])add(2.5,'статусное слово');else if(NSET.w[u])add(2,'красивое слово');else if(NSET.n[u])add(1.5,'настоящее имя');
+ // длина
+ if(n<=3)add(3,'3 символа');else if(n==4)add(2,'4 символа');else if(n==5)add(1.2,'5 символов');else if(n==6)add(1.1,'6 символов');else if(n<=8)add(1.05,'7–8 символов');
+ // буквы
+ if(n>=3&&u===u.split('').reverse().join(''))add(2,'зеркальный ник');
  if(n==1)add(5,'одна буква');else if(/^([a-z])\1+$/.test(u))add(3,'повтор буквы');else if(n>=4&&/^(..)\1+$/.test(u))add(1.5,'ритм');
- if(/(19|20)\d\d$/.test(u))add(1.5,'год');
+ else if(/([a-z])\1\1/.test(u))add(2,'три одинаковые буквы');else if(/([a-z])\1/.test(u))add(1.15,'две одинаковые буквы');
+ if(ladder(u))add(2,'лесенка');
+ // цифры
+ var yr=/(19|20)\d\d$/.test(u),pat=true;
+ if(/(\d)\1{3}/.test(u))add(3,'четыре одинаковые цифры');
+ else if(/(777|888|999|000|007)/.test(u))add(2,'красивые цифры');
+ else if(/(\d)\1{2}/.test(u))add(1.5,'три одинаковые цифры');
+ else if(/(\d)\1/.test(u))add(1.2,'две одинаковые цифры');
+ else pat=false;
+ if(yr)add(1.5,'год');
+ else if(!pat&&dg>=4&&!ladder(u))add(.8,'много цифр');
+ if(u.indexOf('_')>=0)add(.9,'подчёркивание');
  return{m:m,tags:tg,parts:pr}}
 // Бонус прокрутки: после того как выпал ник, выпадает множитель, на который умножается его цена
 var BONUS=[{k:1,w:46},{k:1.5,w:22},{k:2,w:15},{k:3,w:9},{k:5,w:4.5},{k:10,w:2.2},{k:25,w:1},{k:100,w:.3}];
