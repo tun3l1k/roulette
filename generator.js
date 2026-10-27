@@ -35,11 +35,10 @@ function countPrice(from,to,ms,cb){var el=$('hprice'),t0=Date.now();if(!el){cb()
  (function f(){var p=SKIP?1:Math.min(1,(Date.now()-t0)/ms),e=1-Math.pow(1-p,3);el.textContent='+'+money(from+(to-from)*e);if(p<1)requestAnimationFrame(f);else cb()})()}
 // Множитель показывается сразу готовым (без «барабана»), затем цена плавно дорастает до итоговой
 function reveal(r,cb){var hb=$('hbonus');if(!hb||S.anim===false){cb();return}
- var k=bonusOf(r),from=worthNoBonus(r),to=worth(r);
- hb.className='bonus land'+(k>1?' win':'');
- hb.innerHTML=k>1?'<b style="color:'+bonusColor(k)+'">×'+fm(k)+'</b><small>бонус прокрутки</small>':'<small>без бонуса</small>';
- if(k>=5)hap({type:'notification',notification_type:'success'});
- countPrice(from,to,SKIP?260:(k>1?650:150),function(){var d=SKIP?(k>1?650:120):(k>1?500:250);
+ var k=bonusOf(r),from=worthNoBonus(r),to=worth(r),big=mxTotal(r);
+ hb.className='mxp';hb.innerHTML=SKIP?mxHtml(r,false):mxHtml(r,true);
+ if(k>=5||big>=10)hap({type:'notification',notification_type:'success'});
+ countPrice(from,to,SKIP?260:(big>1?900:150),function(){var d=SKIP?(big>1?650:120):(big>1?600:250);
   RVT=function(){clearTimeout(RTm);RTm=0;RVT=null;cb()};RTm=setTimeout(function(){RTm=0;RVT=null;cb()},d)})}
 function spin(){if(busy)return;
  if(S.pending)return toast('Сначала реши: продать или оставить');

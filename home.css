@@ -77,3 +77,36 @@
 .shbtn svg{width:19px;height:19px}
 .hero{position:relative}
 .shimg{width:62%;display:block;margin:0 auto;border-radius:18px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+
+/* множители под ником: плашки факторов и общий итог */
+.mxp{min-height:8px;margin:2px 0 6px}
+.mxrow{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:6px}
+.mxc{display:inline-flex;align-items:baseline;gap:6px;background:var(--bg);border:1px solid var(--sep);border-radius:12px;padding:4px 10px;font-size:12px;color:var(--text)}
+.mxc i{font-style:normal;color:var(--sub)}
+.mxc b{font-weight:800;font-variant-numeric:tabular-nums}
+.mxc.bn{background:rgba(168,85,247,.12);border-color:rgba(168,85,247,.35)}
+.mxt{display:flex;align-items:baseline;justify-content:center;gap:8px;margin-top:6px}
+.mxt small{font-size:12px;color:var(--sub)}
+.mxt b{font-family:var(--mono);font-size:30px;font-weight:900;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}
+.mxt.hot b{text-shadow:0 0 14px currentColor}
+.mxe{text-align:center;font-size:12px;color:var(--sub);margin-top:6px}
+.mxc.in,.mxt.in{animation:mxin .38s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes mxin{from{opacity:0;transform:translateY(8px) scale(.8)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.mxc.in,.mxt.in{animation:none}}
+.lvchip.id{border:0;font-family:var(--mono);color:var(--sub)}
+
+/* окно ежедневной награды */
+.dsh{text-align:center}
+.dhead .dico{width:54px;height:54px;border-radius:18px;margin:0 auto 10px;background:linear-gradient(135deg,#ffb020,#ff6a3a);display:flex;align-items:center;justify-content:center;color:#fff}
+.dhead .dico svg{width:28px;height:28px}
+.dhead h3{margin:0;font-size:20px}
+.dhead p{margin:6px 0 14px;color:var(--sub);font-size:14px}
+.dgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.dc{background:var(--bg);border:1px solid var(--sep);border-radius:14px;padding:8px 2px;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:74px}
+.dc small{font-size:11px;color:var(--sub)}
+.dc b{font-size:16px;height:20px;display:flex;align-items:center}
+.dc span{font-size:12px;font-weight:700}
+.dc em{font-style:normal;font-size:10px;color:#34c759}
+.dc.got{opacity:.6}.dc.got b{color:#34c759}
+.dc.now{border-color:var(--blue);box-shadow:0 0 0 2px rgba(42,171,238,.25)}
+.dc.last{grid-column:span 2}

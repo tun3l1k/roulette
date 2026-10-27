@@ -20,3 +20,12 @@
 .rrw b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px}
 .rrw small{color:var(--sub);font-size:13px;font-weight:600}
 .rk{width:22px;text-align:center;color:var(--sub);font-weight:700}
+
+/* карточка «твоё место» */
+.rme{display:flex;align-items:center;gap:12px;flex-wrap:nowrap}
+.rme .rmt{flex:1;min-width:0}
+.rme .rmt small{display:block;width:auto;font-size:12px}
+.rme .rmt b{font-size:30px;line-height:1.1}
+.rme .rmv{text-align:right}
+.rme .rmv b{display:block;font-size:17px}
+.rme .rmv small{display:block;width:auto;font-size:12px}
