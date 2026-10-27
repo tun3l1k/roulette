@@ -2,9 +2,12 @@
 function tier(id){return TIERS.filter(function(t){return t.id==id})[0]}
 function ti(id){return TIERS.indexOf(tier(id))}
 function level(){return Math.floor(Math.sqrt(S.xp/25))+1}
-function lf(){return Math.max(S.luck>0?LUCK_F:1,S.pity||1)}
+function lf(){return S.luck>0?LUCK_F:1}
+// Гарант: каждая 100-я прокрутка даёт эпический или выше, каждая 300-я — легендарный или выше
+function guardMin(n){return n%300==0?4:n%100==0?3:0}
 function noteBest(r){if(!r)return;if(!S.best||worth(r)>worth(S.best))S.best={u:r.u,tier:r.tier,base:r.base,k:r.k,odds:r.odds,ts:r.ts||Date.now()}}
-function pickTier(){var w=TIERS.map(function(t,i){return t.w*(i>=2?lf():1)}),sum=w.reduce(function(a,b){return a+b},0),r=Math.random()*sum;for(var i=0;i<w.length;i++){r-=w[i];if(r<=0)return TIERS[i]}return TIERS[0]}
+// mn: минимальный индекс редкости (гарант); всё, что ниже, не выпадает
+function pickTier(mn){mn=mn||0;var w=TIERS.map(function(t,i){return i<mn?0:t.w*(i>=2?lf():1)}),sum=w.reduce(function(a,b){return a+b},0),r=Math.random()*sum;for(var i=0;i<w.length;i++){r-=w[i];if(r<=0)return TIERS[i]}return TIERS[0]}
 function oddsOf(t){var w=TIERS.map(function(x,i){return x.w*(i>=2?lf():1)}),sum=w.reduce(function(a,b){return a+b},0);return Math.round(sum/(t.w*(TIERS.indexOf(t)>=2?lf():1)))}
 function baseFor(id){var g=RNG[id];return Math.round(g[0]+Math.pow(Math.random(),1.4)*(g[1]-g[0]))}
 // Лесенка: подряд идущие символы по возрастанию или убыванию (abc, cba, 123, 987)
