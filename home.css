@@ -85,10 +85,9 @@
 .mxc i{font-style:normal;color:var(--sub)}
 .mxc b{font-weight:800;font-variant-numeric:tabular-nums}
 .mxc.bn{background:rgba(168,85,247,.12);border-color:rgba(168,85,247,.35)}
-.mxt{display:flex;align-items:baseline;justify-content:center;gap:8px;margin-top:6px}
-.mxt small{font-size:12px;color:var(--sub)}
-.mxt b{font-family:var(--mono);font-size:30px;font-weight:900;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}
-.mxt.hot b{text-shadow:0 0 14px currentColor}
+.mxeq{color:var(--sub);font-size:13px;align-self:center}
+.mxt{display:inline-flex;align-items:center;font-family:var(--mono);font-size:13px;font-weight:800;letter-spacing:-.02em;padding:4px 10px;border-radius:12px;border:1px solid currentColor;background:rgba(127,127,127,.1);font-variant-numeric:tabular-nums}
+@supports (background:color-mix(in srgb,red,blue)){.mxt{border-color:color-mix(in srgb,currentColor 40%,transparent);background:color-mix(in srgb,currentColor 14%,transparent)}}
 .mxe{text-align:center;font-size:12px;color:var(--sub);margin-top:6px}
 .mxc.in,.mxt.in{animation:mxin .38s cubic-bezier(.2,1.5,.4,1) both}
 @keyframes mxin{from{opacity:0;transform:translateY(8px) scale(.8)}to{opacity:1;transform:none}}
