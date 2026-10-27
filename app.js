@@ -3,7 +3,7 @@ if(!S.g1){S.g1=1;S.yuz=(S.yuz||0)+10000;save()}
 if(!S.g2){S.g2=1;S.ton=r3((S.ton||0)+0.5);save()}
 if(!S.g3){S.g3=1;S.xp=Math.round((S.spins||0)*4.6);S.pity=0;save()}
 document.addEventListener('click',function(e){
- var el=e.target.closest('[data-go],[data-act],[data-pick],[data-sell],[data-theme],[data-tg],[data-mt],[data-bid],[data-lp],[data-lpp],[data-ld],[data-cur],[data-tu],[data-am],[data-hf],[data-cf],[data-cs],[data-claim],[data-tk],[data-pt],[data-lc],[data-xch],[data-tt],[data-pc],[data-buy],[data-cancel],[data-oacc],[data-orej],[data-lm],[data-bs],[data-bp],[data-fgi],[data-fgg],[data-soon],[data-lot],[data-ct],[data-cp],[data-nick],[data-rc],[data-ta],[data-ca],[data-ru-0],[data-ru-1],[data-ru-2],[data-ru-3],[data-ru-4],[data-ru-5],[data-ru-6],[data-adm],[data-mf],[data-ms],[data-ap],[data-ac],[data-at],[data-ar],[data-al]');if(!el)return;
+ var el=e.target.closest('[data-go],[data-act],[data-pick],[data-sell],[data-theme],[data-tg],[data-mt],[data-bid],[data-lp],[data-lpp],[data-ld],[data-cur],[data-tu],[data-am],[data-hf],[data-cf],[data-cs],[data-claim],[data-tk],[data-pt],[data-lc],[data-xch],[data-tt],[data-pc],[data-buy],[data-cancel],[data-oacc],[data-orej],[data-lm],[data-bs],[data-bp],[data-fgi],[data-fgg],[data-soon],[data-lot],[data-ct],[data-cp],[data-nick],[data-rc],[data-ta],[data-ca],[data-ru-0],[data-ru-1],[data-ru-2],[data-ru-3],[data-ru-4],[data-ru-5],[data-ru-6],[data-adm],[data-mf],[data-ms],[data-ap],[data-ac],[data-at],[data-ar],[data-al]');if(!el||el===document.documentElement||el===document.body)return;
  var d=el.dataset;
  if(d.go){go(d.go);}
  else if(d.pick){S.main=d.pick;S.pinned=true;save();toast('Основной: @'+d.pick);hap({type:'selection_change'});draw()}
