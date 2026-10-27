@@ -4,7 +4,7 @@ function dayLabel(ts){var d=new Date(ts),n=new Date(),y=new Date();y.setDate(n.g
 function histCards(arr){var out='',last='',open=false;
  arr.forEach(function(c){var t=tier(c.tier),m=mult(c.u),lb=c.ts?dayLabel(c.ts):'Раньше';
   if(lb!==last){if(open)out+='</div>';out+='<div class="sec">'+lb+'</div><div class="grp">';open=true;last=lb}
-  out+='<div class="go hrw"><div class="hav" style="'+bdVars(t)+'"><span>'+esc(c.u.charAt(0))+'</span></div><div class="hm"><b class="mono">@'+esc(c.u)+'</b><small><i class="rdt" style="background:'+t.color+'"></i>'+t.name+(m.parts.length?' · '+m.parts.map(function(p){return p[0]}).join(', '):'')+(bonusOf(c)>1?' · бонус ×'+fm(bonusOf(c)):'')+'</small></div><div class="hr"><b>'+money(worth(c))+'</b><small>'+(c.ts?hhmm(c.ts):'')+'</small></div></div>'});
+  out+='<div class="go hrw"><div class="hav" style="'+bdVars(t)+'"><span>'+esc(c.u.charAt(0))+'</span></div><div class="hm"><b class="mono">@'+esc(c.u)+'</b><small><i class="rdt" style="background:'+t.color+'"></i>'+t.name+(m.parts.length?' · '+m.parts.map(function(p){return p[0]}).join(', '):'')+'</small></div><div class="hr"><b>'+money(worth(c))+'</b><small>'+(c.ts?hhmm(c.ts):'')+'</small></div></div>'});
  return out+(open?'</div>':'')}
 function histHtml(){var hf=S.hf||0,TH=[0,2,3,4],HL=['Все','Редкие','Эпик+','Легенды+'],arr=(hf==0?S.hist:(S.rare||[])).filter(function(c){return ti(c.tier)>=TH[hf]}),H=S.hist||[],
  today=H.filter(function(c){return c.ts&&dk(new Date(c.ts))==dk(new Date())}).length,cnt={};H.forEach(function(c){cnt[c.tier]=(cnt[c.tier]||0)+1});

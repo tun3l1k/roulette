@@ -25,4 +25,11 @@ function bonusColor(k){return k>=100?'#ffd700':k>=25?'#ff3b30':k>=10?'#ff9500':k
 function worthNoBonus(r){return Math.max(1,Math.round((r.base!=null?r.base:tier(r.tier).pts)*mult(r.u).m))}
 function worth(r){return Math.max(1,Math.round((r.base!=null?r.base:tier(r.tier).pts)*mult(r.u).m*bonusOf(r)))}
 function multText(r){var x=mult(r.u),b=r.base!=null?r.base:tier(r.tier).pts,k=bonusOf(r),pp=x.parts.slice();if(k>1)pp.push(['бонус',k]);if(!pp.length)return 'Цена: '+money(b);return 'Цена: '+money(b)+' '+pp.map(function(p){return '× '+fm(p[1])+' '+p[0]}).join(' ')+' = '+money(worth(r))}
+function mxParts(r){var p=mult(r.u).parts.slice(),k=bonusOf(r);if(k>1)p.push(['бонус',k]);return p}
+function mxTotal(r){return mult(r.u).m*bonusOf(r)}
+// Панель множителей под ником: каждый фактор отдельной плашкой, внизу итог (всё перемножается)
+function mxHtml(r,anim){if(!r)return '';var p=mxParts(r),tot=mxTotal(r),col=bonusColor(tot);
+ if(!p.length)return '<div class="mxe">без множителей</div>';
+ return '<div class="mxrow">'+p.map(function(x,i){var b=x[0]=='бонус';return '<span class="mxc'+(b?' bn':'')+(anim?' in':'')+'" style="'+(b?'color:'+bonusColor(x[1])+';':'')+(anim?'animation-delay:'+(i*120)+'ms':'')+'"><i>'+x[0]+'</i><b>×'+fm(x[1])+'</b></span>'}).join('')+'</div>'+
+  '<div class="mxt'+(anim?' in':'')+(tot>=10?' hot':'')+'" style="color:'+col+(anim?';animation-delay:'+(p.length*120)+'ms':'')+'"><small>общий множитель</small><b>×'+fm(tot)+'</b></div>'}
 function mx(u){var m=mult(u).m;return m>1?' · ×'+fm(m):''}

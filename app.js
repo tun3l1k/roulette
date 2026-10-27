@@ -66,7 +66,7 @@ document.addEventListener('click',function(e){
   case 'keep':if(!S.pending){toast('Сначала покрути');break}keepPending();break;
   case 'haptic':S.haptic=(S.haptic===false);save();hap({type:'impact',impact_style:'medium'});draw();break;
   case 'craftgo':craftGo();break;
-  case 'claimlogin':claimLogin(new Date().getTimezoneOffset());break;
+  case 'copyid':if(TG&&TG.id){try{navigator.clipboard.writeText(String(TG.id));toast('ID скопирован')}catch(e){toast('ID '+TG.id)}}break;
   case 'bulk':var bl=bulkList();if(!bl.length)break;var tot=bl.reduce(function(a,c){return a+worth(c)},0);if(S.confirm!==false)ask('Продать '+bl.length+' шт. за '+money(tot)+'?','Продать',sellBulk);else sellBulk();break;
   case 'chest':claimChest();break;
   case 'xch':var xe=document.getElementById('xch');if(xe&&xe.scrollIntoView)xe.scrollIntoView({behavior:'smooth',block:'center'});break;
@@ -78,7 +78,7 @@ tgPost('web_app_ready');tgPost('web_app_expand');tgPost('web_app_setup_swipe_beh
 S.since=S.since||Date.now();S.rare=S.rare||S.hist.filter(function(c){return ti(c.tier)>=2});if(!S.best){var _b=null;(S.coll||[]).concat(S.rare||[],S.hist||[]).forEach(function(c){if(!_b||worth(c)>worth(_b))_b=c});if(_b){noteBest(_b);save()}}
 if(S.autoKeep===false&&!S.autoTags)S.autoTags=[];
 if(!S.bl)S.bl={y:S.yuz,t:S.ton||0};
-wrapActions();theme();applySize();draw();auTick();setInterval(function(){if(SRV())tickTimers();else auTick()},1000);var n8=0;setInterval(function(){if(!SRV())return;n8++;if(scr=='market'||n8%8==0)srvRun('tickNow',[])},8000);cloudLoad();maintCheck();setInterval(maintCheck,60000);
+wrapActions();theme();applySize();draw();auTick();setInterval(function(){if(SRV())tickTimers();else auTick()},1000);var n8=0;setInterval(function(){if(!SRV())return;n8++;if(scr=='market'||n8%8==0)srvRun('tickNow',[])},8000);cloudLoad();if(!cloudOn())dailyAuto();maintCheck();setInterval(maintCheck,60000);
 document.addEventListener('input',function(e){if(e.target&&e.target.id=='fgto')FGTO=e.target.value.replace(/^@/,'').toLowerCase().replace(/[^a-z0-9_]/g,'');if(e.target&&e.target.id=='lto')LTO=e.target.value.replace(/^@/,'').toLowerCase().replace(/[^a-z0-9_]/g,'')});
 document.addEventListener('gesturestart',function(e){e.preventDefault()});
 document.addEventListener('visibilitychange',function(){if(document.hidden)cloudPush(true)});
