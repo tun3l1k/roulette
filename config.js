@@ -1,5 +1,5 @@
 // Настройки игры: редкости, словари, диапазоны, курс, задания
-var APP_VER='2.0.0';
+var APP_VER='2.1.0';
 var NEWS_URL='https://t.me/UsernameRouletteNews',SUPPORT_URL='https://t.me/TUN3L';
 var PAY_LIVE=false; // true, когда подключена настоящая оплата Telegram Stars
 var TIERS=[
