@@ -38,7 +38,7 @@ function mult(u){var m=1,tg=[],pr=[],n=u.length,dg=(u.match(/\d/g)||[]).length;
  if(u.indexOf('_')>=0)add(.9,'подчёркивание');
  return{m:m,tags:tg,parts:pr}}
 // Бонус прокрутки: после того как выпал ник, выпадает множитель, на который умножается его цена
-var BONUS=[{k:1,w:46},{k:1.5,w:22},{k:2,w:15},{k:3,w:9},{k:5,w:4.5},{k:10,w:2.2},{k:25,w:1},{k:100,w:.3}];
+var BONUS=[{k:1,w:46},{k:1.5,w:22},{k:2,w:15},{k:3,w:9},{k:5,w:4.5},{k:10,w:1.8},{k:25,w:.7},{k:100,w:.2}];
 function rollBonus(){var s=0,r,i;BONUS.forEach(function(b){s+=b.w});r=Math.random()*s;for(i=0;i<BONUS.length;i++){r-=BONUS[i].w;if(r<=0)return BONUS[i].k}return 1}
 function bonusOf(r){return r&&r.k>1?r.k:1}
 function bonusColor(k){return k>=100?'#ffd700':k>=25?'#ff3b30':k>=10?'#ff9500':k>=5?'#a855f7':k>=2?'#3b82f6':k>1?'#34c759':'#8e8e93'}

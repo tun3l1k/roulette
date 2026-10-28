@@ -7,7 +7,7 @@ function tq(id,n){tqE();var t=TASKS.filter(function(x){return x.id==id})[0];
  WTASKS.forEach(function(w){if(w.ev==id){var b=S.tw.p[w.id]||0;S.tw.p[w.id]=Math.min(w.goal,b+(n||1));if(b<w.goal&&S.tw.p[w.id]>=w.goal)tdone(w)}});save()}
 function allClaimed(){return TASKS.every(function(t){return S.tq.c[t.id]})}
 function claimable(){tqE();var n=0;TASKS.forEach(function(t){if((S.tq.p[t.id]||0)>=t.goal&&!S.tq.c[t.id])n++});WTASKS.forEach(function(t){if((S.tw.p[t.id]||0)>=t.goal&&!S.tw.c[t.id])n++});if(allClaimed()&&!S.tq.c.chest)n++;return n}
-function chestInfo(){var y=new Date();y.setDate(y.getDate()-1);var n=(S.lastChest==dk(y))?(S.streak||0)+1:1;return{n:n,rew:200+50*(Math.min(n,7)-1)}}
+function chestInfo(){var y=new Date();y.setDate(y.getDate()-1);var n=(S.lastChest==dk(y))?(S.streak||0)+1:1;return{n:n,rew:600+150*(Math.min(n,7)-1)}}
 function streakNow(){var y=new Date();y.setDate(y.getDate()-1);return(S.lastChest==dk(new Date())||S.lastChest==dk(y))?(S.streak||0):0}
 function dayLeft(){var n=new Date(),m=new Date(n);m.setHours(24,0,0,0);var t=Math.floor((m-n)/60000);return Math.floor(t/60)+' ч '+(t%60)+' мин'}
 function weekLeft(){var n=new Date(),dow=(n.getDay()+6)%7,m=new Date(n.getFullYear(),n.getMonth(),n.getDate()+7-dow),mn=Math.max(0,Math.floor((m-n)/60000)),d=Math.floor(mn/1440),h=Math.floor(mn%1440/60);return d+' д '+h+' ч'}

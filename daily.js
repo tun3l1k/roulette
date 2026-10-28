@@ -1,5 +1,5 @@
 // Ежедневный вход (серия 7 дней) и награда за новый уровень
-var LOGIN_R=[{s:200},{s:300,f:1},{s:500},{s:700,f:2},{s:1000},{s:1500,f:3},{s:3000,f:5,l:20}];
+var LOGIN_R=[{s:600},{s:900,f:1},{s:1500},{s:2100,f:2},{s:3000},{s:4500,f:3},{s:9000,f:5,l:20}];
 function dayNum(tz){var o=Math.max(-840,Math.min(840,Math.round(+tz)||0));return Math.floor((Date.now()-o*60000)/86400000)}
 function loginInfo(tz){var lg=S.lg||{d:-9,n:0,at:0},t=dayNum(tz);
  return{done:lg.d==t,n:lg.d==t?lg.n:(lg.d==t-1?lg.n:0),next:(lg.d==t?lg.n:(lg.d==t-1?lg.n:0))+(lg.d==t?0:1),lost:lg.d<t-1&&lg.n>0}}
@@ -24,7 +24,7 @@ function dailyPop(){if(document.querySelector('.ov.dly'))return;var o=document.c
  document.body.appendChild(o)}
 function dailyAuto(){if(DLYS)return;DLYS=true;if(loginInfo(new Date().getTimezoneOffset()).done)return;setTimeout(dailyPop,500)}
 function levelCheck(){var L=level();if(S.lvR===undefined){S.lvR=L;return}
- while(S.lvR<L&&S.lvR<500){S.lvR++;var st=50*S.lvR+50,fr=S.lvR%5==0?5:0;S.yuz+=st;if(fr)S.free=(S.free||0)+fr;led('Уровень '+S.lvR);toast('Уровень '+S.lvR+'! +'+money(st)+(fr?' и '+fr+' прокруток':''))}}
+ while(S.lvR<L&&S.lvR<500){S.lvR++;var st=150*S.lvR+150,fr=S.lvR%5==0?5:0;S.yuz+=st;if(fr)S.free=(S.free||0)+fr;led('Уровень '+S.lvR);toast('Уровень '+S.lvR+'! +'+money(st)+(fr?' и '+fr+' прокруток':''))}}
 // Сделки между игроками: деньги уходят в залог на сервере (p2pPay), возвращаются через p2pRefund или входящие «cash»
 function p2pPay(a,slot,cc){a=Math.round(+a);if(!(a>0)||a>1e10)return{err:'arg'};if(slot=='gift'?gfFull():(slot&&collFull()))return{err:'full'};
  if(cc=='ton'){if((S.ton||0)<a/1000-1e-9)return{err:'poor'};S.ton=r3((S.ton||0)-a/1000)}else{if(S.yuz<a)return{err:'poor'};S.yuz-=a}led('Сделка с игроком');save();return{ok:1}}

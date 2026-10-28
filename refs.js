@@ -1,7 +1,7 @@
 // Рефералы: приглашай друзей по ссылке и получай награды (подсчёт ведёт сервер)
 var TITLES={amb:'Амбассадор',leg:'Легенда Юзерка'};
-var REFM=[{n:1,star:1500,free:5,t:'1 500 ⭐ и 5 бесплатных прокруток'},{n:3,nick:'epic',t:'эпический ник'},{n:5,star:5000,free:10,t:'5 000 ⭐ и 10 прокруток'},{n:10,nick:'legend',t:'легендарный ник'},{n:25,title:'amb',nick:'mythic',star:15000,t:'титул «Амбассадор», мифический ник и 15 000 ⭐'},{n:50,star:40000,free:50,t:'40 000 ⭐ и 50 прокруток'},{n:100,title:'leg',nick:'divine',star:100000,t:'титул «Легенда Юзерка», божественный ник и 100 000 ⭐'}];
-var REF_WELCOME=500,REF_FREE=3,REF_NEED=3,RF=null,RBOT='';
+var REFM=[{n:1,star:4500,free:5,t:'4 500 ⭐ и 5 бесплатных прокруток'},{n:3,nick:'epic',t:'эпический ник'},{n:5,star:15000,free:10,t:'15 000 ⭐ и 10 прокруток'},{n:10,nick:'legend',t:'легендарный ник'},{n:25,title:'amb',nick:'mythic',star:45000,t:'титул «Амбассадор», мифический ник и 45 000 ⭐'},{n:50,star:120000,free:50,t:'120 000 ⭐ и 50 прокруток'},{n:100,title:'leg',nick:'divine',star:300000,t:'титул «Легенда Юзерка», божественный ник и 300 000 ⭐'}];
+var REF_WELCOME=1500,REF_FREE=3,REF_NEED=3,RF=null,RBOT='';
 function titleChip(){var T=S.titles||[];if(!T.length)return '';var k=T.indexOf('leg')>=0?'leg':T[T.length-1];return ' <span class="ttl '+k+'">'+TITLES[k]+'</span>'}
 function refLink(){return RBOT&&TG&&TG.id?'https://t.me/'+RBOT+'?start=ref_'+TG.id:''}
 function refsInfo(){if(RBOT||!cloudOn())return;cpost('/api/info',{}).then(function(r){if(r&&r.ok&&r.bot){RBOT=r.bot;if(scr=='friends')draw()}}).catch(function(){})}
