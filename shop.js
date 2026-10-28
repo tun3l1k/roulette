@@ -1,5 +1,5 @@
 // Магазин и Premium (покупки пока тестовые: настоящая оплата Telegram Stars подключается с сервером)
-var PACKS=[{id:'p1',stars:1000,price:50,tag:''},{id:'p2',stars:5500,price:250,tag:'+10%'},{id:'p3',stars:12000,price:500,tag:'+20%'}];
+var PACKS=[{id:'p1',stars:3000,price:50,tag:''},{id:'p2',stars:16500,price:250,tag:'+10%'},{id:'p3',stars:36000,price:500,tag:'+20%'}];
 var PREM_PRICE=150,PREM_DAYS=30,WR_PRICE=25;
 function isPrem(){return (S.prem||0)>Date.now()}
 function premDays(){return Math.max(0,Math.ceil(((S.prem||0)-Date.now())/864e5))}

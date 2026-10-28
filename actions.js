@@ -1,6 +1,6 @@
 // Действия экономики. Этот код выполняется на сервере (источник правды) и локально, если сервера нет
 var PREFK=['theme','bsize','haptic','anim','confirm','auto','arules','autoMax','autoKeep','autoTags','autoTagAct','autoCap','autoCapAct','autoNotify','asMin','asLimit','mf','mq','cf','cs','cq','hf','rc','tt','pm','mt'];
-function defState(){return {coll:[],hist:[],spins:0,yuz:1500,g1:1,g2:1,g3:1,xp:0,luck:0,theme:'auto'}}
+function defState(){return {coll:[],hist:[],spins:0,yuz:4500,g1:1,g2:1,g3:1,xp:0,luck:0,theme:'auto'}}
 // Подарки убраны из игры: то, что осталось у игроков, один раз переводим в звёзды по цене продажи (70% оценки)
 var LGB={candy:50,vice:75,snoop:200,mood:500,cigar:1000},LGR=[0,.3,.8,2,6];
 function legacyGiftValue(g){var b=LGB[g.type]||50;if(g.up&&g.md&&g.bd&&g.sy){var s=g.ser<=10?2:g.ser<=100?.5:g.ser<=1000?.2:0;b=b*(1+LGR[g.md[1]]+LGR[g.bd[3]]+LGR[g.sy[1]]+s)}return Math.round(b*.7)}
